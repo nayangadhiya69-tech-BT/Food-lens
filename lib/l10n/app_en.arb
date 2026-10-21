@@ -1,0 +1,171 @@
+{
+  "@@locale": "en",
+  "appName": "FoodLens",
+  "appTagline": "Scan any packaged food label and see exactly what's printed on it — in your language.",
+
+  "actionRetry": "Retry",
+  "actionCancel": "Cancel",
+  "actionContinue": "Continue",
+  "actionSkipForNow": "Skip for now",
+  "actionBack": "Back",
+  "actionClose": "Close",
+  "actionSignOut": "Sign out",
+
+  "phonePrefix": "+91",
+  "loginTitle": "Enter your mobile number",
+  "loginSubtitle": "We'll send a one-time code to verify it's you.",
+  "mobileNumberLabel": "Mobile number",
+  "phoneHint": "Please enter your number",
+  "sendOtp": "Send OTP",
+  "termsCaption": "By continuing, you agree to FoodLens' Terms and Privacy Policy.",
+  "demoSignInNotice": "Demo sign-in — no SMS is sent. The code appears on the next screen.",
+  "phoneRequiredError": "Mobile number is required",
+  "phoneInvalidError": "Enter a valid 10-digit mobile number",
+
+  "otpTitle": "Verify your number",
+  "otpSubtitle": "Enter the 6-digit code for {phone}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpDemoNotice": "Demo mode — no SMS was sent. Use code {code}.",
+  "@otpDemoNotice": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "otpVerify": "Verify & continue",
+  "otpVerifying": "Verifying…",
+  "otpResendIn": "Resend code in {time}",
+  "@otpResendIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "otpResendReady": "Resend code",
+  "otpResendLimitReached": "You've reached the resend limit for this demo session.",
+  "otpResent": "New demo code ready — use {code}.",
+  "@otpResent": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "otpIncompleteError": "Enter all 6 digits",
+  "otpMismatchError": "That code didn't match. Try again.",
+  "otpTooManyAttemptsError": "Too many attempts. Restart the demo sign-in.",
+
+  "setupTitle": "A couple of quick things",
+  "preferredLanguageLabel": "Preferred language",
+  "flagQuestionLabel": "Anything we should flag for, if present?",
+  "flagNote": "Only changes which flags we surface first — never what's printed on the label.",
+  "flagDiabetes": "Diabetes",
+  "flagBloodPressure": "Blood pressure",
+  "flagCholesterol": "Cholesterol",
+  "flagPregnancy": "Pregnancy",
+  "flagNoneOfThese": "None of these",
+
+  "languageScreenTitle": "Language",
+  "languageEnglish": "English",
+  "languageHindi": "हिन्दी",
+  "languageGujarati": "ગુજરાતી",
+  "languageSwitcherLabel": "Language",
+
+  "navHome": "Home",
+  "navHistory": "History",
+  "navProfile": "Profile",
+
+  "homeGreeting": "Hi {name} 👋",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLocation": "Surat, Gujarat",
+  "scanCtaTitle": "Scan a product",
+  "scanCtaSubtitle": "Barcode or photo — takes a few seconds",
+  "scanCtaSemantics": "Scan a product, not available in this build",
+  "statScansWeekLabel": "Scans this week",
+  "statFlagsLabel": "Flags caught",
+  "statLanguagesLabel": "Languages used",
+  "recentScansLabel": "Recent scans",
+  "flagsPill": "{count} flags",
+  "@flagsPill": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clearPill": "Clear",
+  "scanUnavailable": "Scanning isn't available in this build yet.",
+  "recentScanUnavailable": "Scan results aren't available in this build yet.",
+  "homeEmptyTitle": "No recent scans yet",
+  "homeEmptySubtitle": "Products you scan will show up here.",
+  "homeError": "Couldn't load the home screen.",
+
+  "historyTitle": "History",
+  "historyEmptyTitle": "No scans yet",
+  "historyEmptySubtitle": "Products you scan will show up here.",
+  "historyError": "Couldn't load your history.",
+  "demoDataBadge": "Demo data",
+
+  "labelToday": "Today, {time}",
+  "@labelToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "labelYesterday": "Yesterday, {time}",
+  "@labelYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "labelDaysAgo": "{count} days ago",
+  "@labelDaysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "profileTitle": "Profile",
+  "profileError": "Couldn't load your profile.",
+  "profileDemoBadge": "Demo profile",
+  "preferencesSection": "Preferences",
+  "languageRowLabel": "Language",
+  "healthFlagsRowLabel": "Health flags",
+  "onThisDevice": "On this device",
+  "noFlagsSet": "None set",
+  "healthFlagsSheetTitle": "Health flags",
+  "aboutSection": "About",
+  "disclaimerText": "Every figure is read from the printed label. FoodLens does not give medical advice.",
+  "appVersionLabel": "App version",
+  "signOutTitle": "Sign out?",
+  "signOutMessage": "You'll return to the sign-in screen. Your language and flags stay on this device.",
+
+  "errorGeneric": "Something went wrong.",
+  "notFoundTitle": "Page not found",
+  "loadingLabel": "Loading…",
+
+  "a11yLanguageSwitcher": "Choose language",
+  "a11yBack": "Go back",
+  "a11yOpenLanguage": "Change language",
+  "a11yEditHealthFlags": "Edit health flags"
+}
