@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../theme/app_colors.dart';
-
 class AppUtils {
   AppUtils._();
 
@@ -39,39 +37,11 @@ class AppUtils {
   }
 
   // UI Helpers
-  static void showSnackBar(
-    BuildContext context, {
-    required String message,
-    SnackBarType type = SnackBarType.info,
-    Duration duration = const Duration(seconds: 3),
-  }) {
-    final color = switch (type) {
-      SnackBarType.success => AppColors.brand,
-      SnackBarType.error => AppColors.danger,
-      SnackBarType.warning => AppColors.warning,
-      SnackBarType.info => AppColors.ink,
-    };
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: color,
-        behavior: SnackBarBehavior.floating,
-        duration: duration,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-  }
-
   static void showLoading(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
+      builder: (context) => const Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -91,9 +61,7 @@ class AppUtils {
       builder: (context) => AlertDialog(
         title: Text(title),
         content: Text(message),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -154,11 +122,4 @@ class AppUtils {
   static void hideKeyboard(BuildContext context) {
     FocusScope.of(context).unfocus();
   }
-}
-
-enum SnackBarType {
-  success,
-  error,
-  warning,
-  info,
 }

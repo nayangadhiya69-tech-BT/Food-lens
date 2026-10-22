@@ -5,7 +5,6 @@ import '../../../core/models/load_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
-import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../common/widgets/widgets.dart';
@@ -35,10 +34,10 @@ class _HomeView extends StatelessWidget {
 
   void _scanUnavailable(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    AppUtils.showSnackBar(
+    CommonToast.show(
       context,
       message: l10n.scanUnavailable,
-      type: SnackBarType.info,
+      type: ToastType.info,
     );
   }
 
@@ -98,10 +97,10 @@ class _HomeView extends StatelessWidget {
                     showDivider: i != overview.recentScans.length - 1,
                     onTap: () {
                       final l10n = AppLocalizations.of(context);
-                      AppUtils.showSnackBar(
+                      CommonToast.show(
                         context,
                         message: l10n.recentScanUnavailable,
-                        type: SnackBarType.info,
+                        type: ToastType.info,
                       );
                     },
                   ),

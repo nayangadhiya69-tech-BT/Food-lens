@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../core/models/load_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
-import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../common/widgets/widgets.dart';
@@ -94,10 +93,10 @@ class _HistoryView extends StatelessWidget {
             itemBuilder: (context, index) => ScanRecordTile(
               record: records[index],
               showDivider: index != records.length - 1,
-              onTap: () => AppUtils.showSnackBar(
+              onTap: () => CommonToast.show(
                 context,
                 message: l10n.recentScanUnavailable,
-                type: SnackBarType.info,
+                type: ToastType.info,
               ),
             ),
           ),

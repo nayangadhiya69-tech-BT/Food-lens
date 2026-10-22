@@ -171,10 +171,10 @@ class _OtpScreenState extends State<OtpScreen> {
     if (!mounted) return;
     if (outcome == OtpRequestOutcome.accepted) {
       final l10n = AppLocalizations.of(context);
-      AppUtils.showSnackBar(
+      CommonToast.show(
         context,
         message: l10n.otpResent(viewModel.demoOtpCode),
-        type: SnackBarType.success,
+        type: ToastType.success,
       );
     }
   }
