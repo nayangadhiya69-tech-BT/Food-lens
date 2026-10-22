@@ -10,17 +10,8 @@ import '../../../core/utils/app_size.dart';
 /// * While loading, [loadingChild] is shown if provided (custom spinner),
 ///   otherwise a default spinner row with an optional [loadingLabel].
 class CommonButton extends StatelessWidget {
-  const CommonButton({
-    super.key,
-    required this.label,
-    this.onPressed,
-    this.loading = false,
-    this.loadingLabel,
-    this.loadingChild,
-    this.style,
-  });
-
   final String label;
+
   final VoidCallback? onPressed;
   final bool loading;
 
@@ -31,6 +22,16 @@ class CommonButton extends StatelessWidget {
   final Widget? loadingChild;
 
   final ButtonStyle? style;
+
+  const CommonButton({
+    super.key,
+    required this.label,
+    this.onPressed,
+    this.loading = false,
+    this.loadingLabel,
+    this.loadingChild,
+    this.style,
+  });
 
   @override
   Widget build(BuildContext context) {

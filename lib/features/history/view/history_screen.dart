@@ -55,7 +55,20 @@ class _HistoryView extends StatelessWidget {
   ) {
     switch (viewModel.state) {
       case LoadState.loading:
-        return CommonWidgets.loading(label: l10n.loadingLabel);
+        // First load: skeleton rows matching ScanRecordTile. On
+        // pull-to-refresh the loaded list stays visible instead.
+        return CommonShimmer(
+          child: ListView(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(bottom: dynamicHeight(12)),
+            children: const [
+              ShimmerListTile(),
+              ShimmerListTile(),
+              ShimmerListTile(),
+              ShimmerListTile(showDivider: false),
+            ],
+          ),
+        );
       case LoadState.error:
         return CommonWidgets.errorWidget(
           message: l10n.historyError,

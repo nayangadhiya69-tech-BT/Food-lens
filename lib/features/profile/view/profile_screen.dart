@@ -145,7 +145,8 @@ class _ProfileView extends StatelessWidget {
   ) {
     switch (viewModel.state) {
       case LoadState.loading:
-        return CommonWidgets.loading(label: l10n.loadingLabel);
+        // First load: skeleton matching the user card + nav card layout.
+        return const _ProfileShimmer();
       case LoadState.error:
         return CommonWidgets.errorWidget(
           message: l10n.profileError,
@@ -357,6 +358,148 @@ class _NavRow extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// First-load skeleton mirroring the real profile layout (user card +
+/// nav-rows card) so data snaps into place.
+class _ProfileShimmer extends StatelessWidget {
+  const _ProfileShimmer();
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonShimmer(
+      child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(vertical: dynamicHeight(16)),
+        children: [
+          // User card — same metrics as _UserCard.
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(16),
+              vertical: dynamicHeight(4),
+            ),
+            padding: EdgeInsets.all(dynamicWidth(16)),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.line),
+            ),
+            child: Row(
+              children: [
+                const ShimmerBox(
+                  width: 56,
+                  height: 56,
+                  circle: true,
+                  color: AppColors.line,
+                ),
+                SizedBox(width: dynamicWidth(14)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FractionallySizedBox(
+                        widthFactor: 0.6,
+                        alignment: Alignment.centerLeft,
+                        child: ShimmerBox(
+                          height: 16,
+                          radius: 4,
+                          color: AppColors.line,
+                        ),
+                      ),
+                      SizedBox(height: dynamicHeight(6)),
+                      FractionallySizedBox(
+                        widthFactor: 0.4,
+                        alignment: Alignment.centerLeft,
+                        child: ShimmerBox(
+                          height: 10,
+                          radius: 4,
+                          color: AppColors.line,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ShimmerBox(
+                  width: 50,
+                  height: 20,
+                  radius: 20,
+                  color: AppColors.line,
+                ),
+              ],
+            ),
+          ),
+          // Nav-rows card — same metrics as CommonCard + _NavRow.
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(16),
+              vertical: dynamicHeight(4),
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(16),
+              vertical: dynamicHeight(4),
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.line),
+            ),
+            child: Column(
+              children: [
+                _navRowShimmer(showSubtitle: false),
+                const Divider(),
+                _navRowShimmer(showSubtitle: true),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _navRowShimmer({required bool showSubtitle}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: dynamicHeight(12)),
+      child: Row(
+        children: [
+          const ShimmerBox(
+            width: 22,
+            height: 22,
+            radius: 6,
+            color: AppColors.line,
+          ),
+          SizedBox(width: dynamicWidth(12)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FractionallySizedBox(
+                  widthFactor: 0.5,
+                  alignment: Alignment.centerLeft,
+                  child: ShimmerBox(
+                    height: 12,
+                    radius: 4,
+                    color: AppColors.line,
+                  ),
+                ),
+                if (showSubtitle) ...[
+                  SizedBox(height: dynamicHeight(4)),
+                  FractionallySizedBox(
+                    widthFactor: 0.35,
+                    alignment: Alignment.centerLeft,
+                    child: ShimmerBox(
+                      height: 10,
+                      radius: 4,
+                      color: AppColors.line,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

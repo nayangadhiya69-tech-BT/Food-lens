@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 import '../utils/app_size.dart';
 import '../utils/app_text_style.dart';
@@ -32,11 +33,7 @@ class CommonWidgets {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.error_outline,
-              size: 56,
-              color: AppColors.danger,
-            ),
+            const Icon(Icons.error_outline, size: 56, color: AppColors.danger),
             SizedBox(height: dynamicHeight(16)),
             Text(
               message,
@@ -105,7 +102,10 @@ class CommonWidgets {
                 ),
               ),
             ],
-            if (action != null) ...[SizedBox(height: dynamicHeight(20)), action],
+            if (action != null) ...[
+              SizedBox(height: dynamicHeight(20)),
+              action,
+            ],
           ],
         ),
       ),
@@ -139,7 +139,8 @@ class CommonWidgets {
 
   static Widget sectionLabel(String text, {EdgeInsetsGeometry? padding}) {
     return Padding(
-      padding: padding ??
+      padding:
+          padding ??
           EdgeInsets.fromLTRB(
             dynamicWidth(16),
             dynamicHeight(18),
@@ -154,17 +155,6 @@ class CommonWidgets {
           color: AppColors.inkSecondary,
           letterSpacing: 0.5,
         ),
-      ),
-    );
-  }
-
-  static Widget shimmerLoading({double height = 200, double? width}) {
-    return Container(
-      width: width == null ? null : dynamicWidth(width),
-      height: dynamicHeight(height),
-      decoration: BoxDecoration(
-        color: AppColors.lineLight,
-        borderRadius: BorderRadius.circular(12),
       ),
     );
   }

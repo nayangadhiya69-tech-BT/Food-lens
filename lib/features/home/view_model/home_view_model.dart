@@ -19,8 +19,13 @@ class HomeViewModel extends ChangeNotifier {
       (_overview == null || _overview!.recentScans.isEmpty);
 
   Future<void> load() async {
-    _state = LoadState.loading;
-    notifyListeners();
+    // First load → loading state (skeleton shimmer). Later calls
+    // (pull-to-refresh) keep the current data on screen and update it in
+    // the background; only a failure replaces the screen with the error view.
+    if (_overview == null) {
+      _state = LoadState.loading;
+      notifyListeners();
+    }
     try {
       _overview = await _repository.fetchOverview();
       _state = LoadState.success;

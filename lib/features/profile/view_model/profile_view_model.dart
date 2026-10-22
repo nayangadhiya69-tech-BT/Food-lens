@@ -8,7 +8,7 @@ import '../repository/profile_repository.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   ProfileViewModel(this._repository)
-      : healthFlags = HealthFlag.fromKeys(AppPrefs.healthFlags);
+    : healthFlags = HealthFlag.fromKeys(AppPrefs.healthFlags);
 
   final ProfileRepository _repository;
 
@@ -22,8 +22,12 @@ class ProfileViewModel extends ChangeNotifier {
   Set<HealthFlag> healthFlags;
 
   Future<void> load() async {
-    _state = LoadState.loading;
-    notifyListeners();
+    // First load → loading state (skeleton shimmer); retry after an error
+    // shimmers again because there is still no data to show.
+    if (_user == null) {
+      _state = LoadState.loading;
+      notifyListeners();
+    }
     try {
       _user = await _repository.fetchProfile();
       _state = LoadState.success;
