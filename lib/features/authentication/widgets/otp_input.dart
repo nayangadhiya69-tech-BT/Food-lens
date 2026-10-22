@@ -6,11 +6,7 @@ import '../../../core/theme/app_colors.dart';
 /// Six-box OTP entry from the HTML design with focus traversal,
 /// backspace handling and one-time-code autofill hints.
 class OtpInput extends StatefulWidget {
-  const OtpInput({
-    super.key,
-    required this.onChanged,
-    this.length = 6,
-  });
+  const OtpInput({super.key, required this.onChanged, this.length = 6});
 
   final ValueChanged<String> onChanged;
   final int length;
@@ -31,12 +27,37 @@ class OtpInputState extends State<OtpInput> {
       (i) => TextEditingController()..addListener(_onAnyValueChanged),
     );
     _focusNodes = List.generate(widget.length, (i) {
-      final node = FocusNode();
+      final node = FocusNode(onKeyEvent: _handleKeyEvent);
       node.addListener(() {
         if (mounted) setState(() {});
       });
       return node;
     });
+  }
+
+  /// Steps the OTP backwards one digit at a time on backspace.
+  ///
+  /// A filled box is left to the [TextField]'s native deletion (its
+  /// `onChanged` then moves focus back via [_handleChanged]). An *empty*
+  /// box is the case that used to do nothing at all — `onChanged` never
+  /// fires when the text doesn't change — so here backspace clears the
+  /// previous digit and moves the cursor back instead.
+  KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (event.logicalKey != LogicalKeyboardKey.backspace) {
+      return KeyEventResult.ignored;
+    }
+    final index = _focusNodes.indexOf(node);
+    if (index < 0) return KeyEventResult.ignored;
+    if (_controllers[index].text.isNotEmpty) {
+      // Non-empty: let the TextField delete the digit natively.
+      return KeyEventResult.ignored;
+    }
+    // Empty box: swallow the event and step back one digit.
+    if (index == 0) return KeyEventResult.handled;
+    _focusNodes[index - 1].requestFocus();
+    _controllers[index - 1].clear();
+    return KeyEventResult.handled;
   }
 
   void _onAnyValueChanged() {
@@ -132,9 +153,7 @@ class _OtpBox extends StatelessWidget {
         textAlign: TextAlign.center,
         maxLength: 1,
         autofillHints: autofill ? const [AutofillHints.oneTimeCode] : null,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-        ],
+        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
         style: const TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w700,

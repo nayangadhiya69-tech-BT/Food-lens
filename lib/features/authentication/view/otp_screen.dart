@@ -112,6 +112,17 @@ class _OtpScreenState extends State<OtpScreen> {
               padding: const EdgeInsets.fromLTRB(22, 8, 22, 22),
               child: ElevatedButton(
                 onPressed: viewModel.verifyLoading ? null : _verify,
+
+                // While verifying the button stays disabled (no double taps)
+                // but keeps the brand colors instead of greying out.
+                style: viewModel.verifyLoading
+                    ? ElevatedButton.styleFrom(
+                        disabledBackgroundColor: AppColors.brand,
+                        disabledForegroundColor: AppColors.surface,
+                        overlayColor: Colors.transparent,
+                        splashFactory: NoSplash.splashFactory,
+                      )
+                    : null,
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 200),
                   switchInCurve: Curves.easeOutCubic,
