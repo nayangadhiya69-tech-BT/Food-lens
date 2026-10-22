@@ -28,18 +28,29 @@ class ProfileSetupScreen extends StatelessWidget {
   }
 }
 
+class _SectionLabel extends StatelessWidget {
+  final String text;
+
+  const _SectionLabel(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w700,
+          color: AppColors.ink,
+        ),
+      ),
+    );
+  }
+}
+
 class _SetupBody extends StatelessWidget {
   const _SetupBody();
-
-  Future<void> _finish(
-    BuildContext context,
-    Future<void> Function(SetupViewModel vm) action,
-  ) async {
-    final viewModel = context.read<SetupViewModel>();
-    await action(viewModel);
-    if (!context.mounted) return;
-    context.go(AppRoutes.home);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,25 +140,14 @@ class _SetupBody extends StatelessWidget {
       ),
     );
   }
-}
 
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w700,
-          color: AppColors.ink,
-        ),
-      ),
-    );
+  Future<void> _finish(
+    BuildContext context,
+    Future<void> Function(SetupViewModel vm) action,
+  ) async {
+    final viewModel = context.read<SetupViewModel>();
+    await action(viewModel);
+    if (!context.mounted) return;
+    context.go(AppRoutes.home);
   }
 }

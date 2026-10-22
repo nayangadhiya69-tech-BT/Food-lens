@@ -12,6 +12,8 @@ class AppPrefs {
   static const String keyOnboardingComplete = 'onboarding_complete';
   static const String keyDemoAuthenticated = 'demo_authenticated';
   static const String keyHealthFlags = 'health_flags';
+  static const String keyTermsAccepted = 'terms_accepted';
+  static const String keyUserName = 'user_name';
 
   static SharedPreferences? _prefs;
 
@@ -36,6 +38,22 @@ class AppPrefs {
 
   static Future<bool> setOnboardingComplete(bool value) async {
     return _prefs?.setBool(keyOnboardingComplete, value) ?? false;
+  }
+
+  // ---- Terms & Conditions ----
+
+  static bool get termsAccepted => _prefs?.getBool(keyTermsAccepted) ?? false;
+
+  static Future<bool> setTermsAccepted(bool value) async {
+    return _prefs?.setBool(keyTermsAccepted, value) ?? false;
+  }
+
+  // ---- User name (chosen once during onboarding) ----
+
+  static String get userName => _prefs?.getString(keyUserName) ?? '';
+
+  static Future<bool> setUserName(String value) async {
+    return _prefs?.setString(keyUserName, value) ?? false;
   }
 
   // ---- Demo session (local, replaceable by a real auth session later) ----

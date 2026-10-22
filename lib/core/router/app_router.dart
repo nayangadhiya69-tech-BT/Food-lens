@@ -6,7 +6,9 @@ import '../../features/authentication/view/otp_screen.dart';
 import '../../features/history/view/history_screen.dart';
 import '../../features/home/view/home_screen.dart';
 import '../../features/language/view/language_screen.dart';
+import '../../features/onboarding/view/name_screen.dart';
 import '../../features/onboarding/view/profile_setup_screen.dart';
+import '../../features/onboarding/view/terms_screen.dart';
 import '../../features/profile/view/profile_screen.dart';
 import '../../features/shell/view/main_shell.dart';
 import '../../features/splash/view/splash_screen.dart';
@@ -22,6 +24,10 @@ class AppRoutes {
   static const String otp = '/otp';
   static const String setup = '/setup';
   static const String language = '/language';
+
+  // Post-OTP onboarding: terms acceptance, then the name, then the app.
+  static const String terms = '/terms';
+  static const String name = '/name';
 
   // Shell (bottom navigation) branches.
   static const String home = '/home';
@@ -41,25 +47,31 @@ class AppRouter {
   /// Chooses the first meaningful screen after the splash, based only on
   /// restored preferences. Selecting a language never counts as
   /// authentication, and authentication never completes onboarding.
+  /// Mid-onboarding it resumes at the last unfinished step: the terms,
+  /// then the name.
   static String resolveStartLocation({
     required bool isAuthenticated,
     required bool onboardingComplete,
+    bool termsAccepted = false,
   }) {
     if (!isAuthenticated) return AppRoutes.login;
-    return onboardingComplete ? AppRoutes.home : AppRoutes.setup;
+    if (onboardingComplete) return AppRoutes.home;
+    return termsAccepted ? AppRoutes.name : AppRoutes.terms;
   }
 
   /// Navigation guard evaluated on every route change. See Stage A plan:
   /// * shell requires a (demo) session;
   /// * login/OTP bounce to the shell only once the session *and* onboarding
-  ///   are complete (so the post-OTP setup step is never skipped wrongly);
-  /// * setup bounces away only after it has been completed.
+  ///   are complete (so the post-OTP onboarding steps are never skipped);
+  /// * onboarding steps (terms, name, setup) bounce away only after
+  ///   onboarding has been completed, and require a session otherwise.
   static String? redirect(
     String location, {
     required bool isAuthenticated,
     required bool onboardingComplete,
   }) {
-    final isShell = location == AppRoutes.home ||
+    final isShell =
+        location == AppRoutes.home ||
         location == AppRoutes.history ||
         location == AppRoutes.profile;
     if (isShell && !isAuthenticated) return AppRoutes.login;
@@ -69,9 +81,12 @@ class AppRouter {
     if (isAuthScreen && isAuthenticated && onboardingComplete) {
       return AppRoutes.home;
     }
-    if (location == AppRoutes.setup &&
-        isAuthenticated &&
-        onboardingComplete) {
+    final isOnboarding =
+        location == AppRoutes.terms ||
+        location == AppRoutes.name ||
+        location == AppRoutes.setup;
+    if (isOnboarding && !isAuthenticated) return AppRoutes.login;
+    if (isOnboarding && isAuthenticated && onboardingComplete) {
       return AppRoutes.home;
     }
     return null;
@@ -93,86 +108,101 @@ class AppRouter {
       debugLogDiagnostics: true,
       redirect: _guard,
       errorBuilder: (context, state) => Scaffold(
-        body: Center(
-          child: Text(AppLocalizations.of(context).notFoundTitle),
-        ),
+        body: Center(child: Text(AppLocalizations.of(context).notFoundTitle)),
       ),
       routes: [
-      GoRoute(
-        path: AppRoutes.splash,
-        name: 'splash',
-        builder: (context, state) => const SplashScreen(),
-      ),
-      GoRoute(
-        path: AppRoutes.login,
-        name: 'login',
-        pageBuilder: (context, state) => AppTransitions.slide(
-          key: state.pageKey,
-          context: context,
-          child: const LoginScreen(),
+        GoRoute(
+          path: AppRoutes.splash,
+          name: 'splash',
+          builder: (context, state) => const SplashScreen(),
         ),
-      ),
-      GoRoute(
-        path: AppRoutes.otp,
-        name: 'otp',
-        pageBuilder: (context, state) => AppTransitions.slide(
-          key: state.pageKey,
-          context: context,
-          child: const OtpScreen(),
-        ),
-      ),
-      GoRoute(
-        path: AppRoutes.setup,
-        name: 'setup',
-        pageBuilder: (context, state) => AppTransitions.slide(
-          key: state.pageKey,
-          context: context,
-          child: const ProfileSetupScreen(),
-        ),
-      ),
-      GoRoute(
-        path: AppRoutes.language,
-        name: 'language',
-        pageBuilder: (context, state) => AppTransitions.slide(
-          key: state.pageKey,
-          context: context,
-          child: const LanguageScreen(),
-        ),
-      ),
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) => MainShell(
-          navigationShell: navigationShell,
-        ),
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutes.home,
-                name: 'home',
-                builder: (context, state) => const HomeScreen(),
-              ),
-            ],
+        GoRoute(
+          path: AppRoutes.login,
+          name: 'login',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const LoginScreen(),
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutes.history,
-                name: 'history',
-                builder: (context, state) => const HistoryScreen(),
-              ),
-            ],
+        ),
+        GoRoute(
+          path: AppRoutes.otp,
+          name: 'otp',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const OtpScreen(),
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutes.profile,
-                name: 'profile',
-                builder: (context, state) => const ProfileScreen(),
-              ),
-            ],
+        ),
+        GoRoute(
+          path: AppRoutes.setup,
+          name: 'setup',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const ProfileSetupScreen(),
           ),
-        ],
-      ),
+        ),
+        GoRoute(
+          path: AppRoutes.terms,
+          name: 'terms',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const TermsScreen(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.name,
+          name: 'name',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const NameScreen(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.language,
+          name: 'language',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const LanguageScreen(),
+          ),
+        ),
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) =>
+              MainShell(navigationShell: navigationShell),
+          branches: [
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.home,
+                  name: 'home',
+                  builder: (context, state) => const HomeScreen(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.history,
+                  name: 'history',
+                  builder: (context, state) => const HistoryScreen(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.profile,
+                  name: 'profile',
+                  builder: (context, state) => const ProfileScreen(),
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }

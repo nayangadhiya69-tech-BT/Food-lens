@@ -252,7 +252,9 @@ class _OtpScreenState extends State<OtpScreen> {
       if (AppPrefs.onboardingComplete) {
         context.go(AppRoutes.home);
       } else {
-        context.push(AppRoutes.setup);
+        // First-time onboarding: terms acceptance → name → dashboard.
+        // A user who already accepted the terms resumes at the name step.
+        context.push(AppPrefs.termsAccepted ? AppRoutes.name : AppRoutes.terms);
       }
     }
   }

@@ -145,6 +145,56 @@ class AppLocalizationsEn extends AppLocalizations {
   String get flagNoneOfThese => 'None of these';
 
   @override
+  String get termsTitle => 'Terms & Conditions';
+
+  @override
+  String get termsIntro =>
+      'Before you continue, please read these terms for FoodLens.';
+
+  @override
+  String get termsAiHeading => 'AI-generated results';
+
+  @override
+  String get termsAiBody =>
+      'All data and product scan results in FoodLens are AI-generated.';
+
+  @override
+  String get termsVerifyHeading => 'Verify important data';
+
+  @override
+  String get termsVerifyBody =>
+      'Please properly verify any important information — such as allergens, nutrition values or health-related details — against the printed product label, or with a qualified professional, before relying on it.';
+
+  @override
+  String get termsHealthHeading => 'Health readings only';
+
+  @override
+  String get termsHealthBody =>
+      'Our motto is only to provide AI-generated health readings for information. FoodLens does not intend to judge any brand as good or bad for health, and nothing here is medical advice.';
+
+  @override
+  String get termsAgreeLabel =>
+      'I have read and understood the above, and I agree.';
+
+  @override
+  String get termsNext => 'Next';
+
+  @override
+  String get nameTitle => 'What\'s your name?';
+
+  @override
+  String get nameSubtitle => 'We\'ll use it to greet you inside the app.';
+
+  @override
+  String get nameLabel => 'Your name';
+
+  @override
+  String get nameHint => 'Enter your name';
+
+  @override
+  String get nameRequiredError => 'Please enter your name';
+
+  @override
   String get languageScreenTitle => 'Language';
 
   @override

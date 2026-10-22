@@ -145,6 +145,57 @@ class AppLocalizationsHi extends AppLocalizations {
   String get flagNoneOfThese => 'इनमें से कोई नहीं';
 
   @override
+  String get termsTitle => 'नियम और शर्तें';
+
+  @override
+  String get termsIntro =>
+      'आगे बढ़ने से पहले कृपया FoodLens की इन शर्तों को पढ़ें।';
+
+  @override
+  String get termsAiHeading => 'AI-जनित परिणाम';
+
+  @override
+  String get termsAiBody =>
+      'FoodLens में सभी डेटा और प्रोडक्ट स्कैन परिणाम AI-जनित हैं।';
+
+  @override
+  String get termsVerifyHeading => 'महत्वपूर्ण डेटा सत्यापित करें';
+
+  @override
+  String get termsVerifyBody =>
+      'भरोसा करने से पहले किसी भी महत्वपूर्ण जानकारी — जैसे एलर्जेन, पोषण मूल्य या स्वास्थ्य संबंधी विवरण — की जाँच प्रोडक्ट के प्रिंटेड लेबल या किसी योग्य पेशेवर से करें।';
+
+  @override
+  String get termsHealthHeading => 'केवल स्वास्थ्य रीडिंग';
+
+  @override
+  String get termsHealthBody =>
+      'हमारा उद्देश्य केवल जानकारी के लिए AI-जनित स्वास्थ्य रीडिंग देना है। FoodLens किसी ब्रांड को स्वास्थ्य के लिए अच्छा या बुरा करार देने का इरादा नहीं रखता, और यहाँ कुछ भी चिकित्सकीय सलाह नहीं है।';
+
+  @override
+  String get termsAgreeLabel =>
+      'मैंने उपरोक्त पढ़ लिया है, समझ लिया है, और मैं सहमत हूँ।';
+
+  @override
+  String get termsNext => 'आगे बढ़ें';
+
+  @override
+  String get nameTitle => 'आपका नाम क्या है?';
+
+  @override
+  String get nameSubtitle =>
+      'हम इसका उपयोग ऐप में आपका अभिवादन करने के लिए करेंगे।';
+
+  @override
+  String get nameLabel => 'आपका नाम';
+
+  @override
+  String get nameHint => 'अपना नाम दर्ज करें';
+
+  @override
+  String get nameRequiredError => 'कृपया अपना नाम दर्ज करें';
+
+  @override
   String get languageScreenTitle => 'भाषा';
 
   @override

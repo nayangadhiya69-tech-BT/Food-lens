@@ -73,6 +73,23 @@
   "flagPregnancy": "Pregnancy",
   "flagNoneOfThese": "None of these",
 
+  "termsTitle": "Terms & Conditions",
+  "termsIntro": "Before you continue, please read these terms for FoodLens.",
+  "termsAiHeading": "AI-generated results",
+  "termsAiBody": "All data and product scan results in FoodLens are AI-generated.",
+  "termsVerifyHeading": "Verify important data",
+  "termsVerifyBody": "Please properly verify any important information — such as allergens, nutrition values or health-related details — against the printed product label, or with a qualified professional, before relying on it.",
+  "termsHealthHeading": "Health readings only",
+  "termsHealthBody": "Our motto is only to provide AI-generated health readings for information. FoodLens does not intend to judge any brand as good or bad for health, and nothing here is medical advice.",
+  "termsAgreeLabel": "I have read and understood the above, and I agree.",
+  "termsNext": "Next",
+
+  "nameTitle": "What's your name?",
+  "nameSubtitle": "We'll use it to greet you inside the app.",
+  "nameLabel": "Your name",
+  "nameHint": "Enter your name",
+  "nameRequiredError": "Please enter your name",
+
   "languageScreenTitle": "Language",
   "languageEnglish": "English",
   "languageHindi": "हिन्दी",

@@ -340,6 +340,96 @@ abstract class AppLocalizations {
   /// **'None of these'**
   String get flagNoneOfThese;
 
+  /// No description provided for @termsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsTitle;
+
+  /// No description provided for @termsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you continue, please read these terms for FoodLens.'**
+  String get termsIntro;
+
+  /// No description provided for @termsAiHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-generated results'**
+  String get termsAiHeading;
+
+  /// No description provided for @termsAiBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All data and product scan results in FoodLens are AI-generated.'**
+  String get termsAiBody;
+
+  /// No description provided for @termsVerifyHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify important data'**
+  String get termsVerifyHeading;
+
+  /// No description provided for @termsVerifyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please properly verify any important information — such as allergens, nutrition values or health-related details — against the printed product label, or with a qualified professional, before relying on it.'**
+  String get termsVerifyBody;
+
+  /// No description provided for @termsHealthHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Health readings only'**
+  String get termsHealthHeading;
+
+  /// No description provided for @termsHealthBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Our motto is only to provide AI-generated health readings for information. FoodLens does not intend to judge any brand as good or bad for health, and nothing here is medical advice.'**
+  String get termsHealthBody;
+
+  /// No description provided for @termsAgreeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and understood the above, and I agree.'**
+  String get termsAgreeLabel;
+
+  /// No description provided for @termsNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get termsNext;
+
+  /// No description provided for @nameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your name?'**
+  String get nameTitle;
+
+  /// No description provided for @nameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll use it to greet you inside the app.'**
+  String get nameSubtitle;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get nameLabel;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get nameHint;
+
+  /// No description provided for @nameRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get nameRequiredError;
+
   /// No description provided for @languageScreenTitle.
   ///
   /// In en, this message translates to:

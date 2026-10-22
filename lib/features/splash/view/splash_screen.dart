@@ -33,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final location = AppRouter.resolveStartLocation(
       isAuthenticated: AppPrefs.demoAuthenticated,
       onboardingComplete: AppPrefs.onboardingComplete,
+      termsAccepted: AppPrefs.termsAccepted,
     );
     if (!mounted) return;
     context.go(location);
