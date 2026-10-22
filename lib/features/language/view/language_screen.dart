@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
-import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../common/widgets/widgets.dart';
 import '../../language/view_model/locale_provider.dart';
 import '../../language/widgets/language_cards.dart';
 
@@ -19,37 +19,33 @@ class LanguageScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final localeProvider = context.watch<LocaleProvider>();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppHeader(
-        title: l10n.languageScreenTitle,
-        onBack: () => Navigator.of(context).maybePop(),
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.fromLTRB(
-            dynamicWidth(16),
-            dynamicHeight(20),
-            dynamicWidth(16),
-            dynamicHeight(24),
-          ),
-          children: [
-            Text(
-              l10n.preferredLanguageLabel.toUpperCase(),
-              style: AppTextStyle.create(
-                fontSize: 12,
-                weight: FontWeights.bold,
-                color: AppColors.inkSecondary,
-                letterSpacing: 0.5,
-              ),
-            ),
-            SizedBox(height: dynamicHeight(10)),
-            LanguageCards(
-              selectedCode: localeProvider.effectiveCode,
-              onSelected: (code) => localeProvider.setLocale(code),
-            ),
-          ],
+    return CommonScaffold(
+      title: l10n.languageScreenTitle,
+      onBack: () => Navigator.of(context).maybePop(),
+      scrollable: false,
+      body: ListView(
+        padding: EdgeInsets.fromLTRB(
+          dynamicWidth(16),
+          dynamicHeight(20),
+          dynamicWidth(16),
+          dynamicHeight(24),
         ),
+        children: [
+          Text(
+            l10n.preferredLanguageLabel.toUpperCase(),
+            style: AppTextStyle.create(
+              fontSize: 12,
+              weight: FontWeights.bold,
+              color: AppColors.inkSecondary,
+              letterSpacing: 0.5,
+            ),
+          ),
+          SizedBox(height: dynamicHeight(10)),
+          LanguageCards(
+            selectedCode: localeProvider.effectiveCode,
+            onSelected: (code) => localeProvider.setLocale(code),
+          ),
+        ],
       ),
     );
   }

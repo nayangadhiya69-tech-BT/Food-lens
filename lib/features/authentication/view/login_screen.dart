@@ -9,6 +9,7 @@ import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../common/widgets/widgets.dart';
 import '../../language/widgets/language_switcher.dart';
 import '../view_model/auth_view_model.dart';
 
@@ -73,7 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final FocusNode _phoneFocus = FocusNode();
   String? _errorText;
-  bool _focused = false;
   bool _submitting = false;
 
   String get _digits => _phoneController.text.replaceAll(RegExp(r'[\s-]'), '');
@@ -163,16 +163,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(height: dynamicHeight(8)),
-                          _PhoneField(
+                          CommonTextField(
                             controller: _phoneController,
                             focusNode: _phoneFocus,
-                            focused: _focused,
                             prefix: l10n.phonePrefix,
                             hint: l10n.phoneHint,
                             errorText: _errorText,
-                            onFocusChange: (focused) {
-                              if (mounted) setState(() => _focused = focused);
-                            },
+                            keyboardType: TextInputType.phone,
+                            textInputAction: TextInputAction.done,
+                            autofillHints: const [
+                              AutofillHints.telephoneNumber,
+                            ],
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9]'),
+                              ),
+                              LengthLimitingTextInputFormatter(10),
+                            ],
+                            letterSpacing: 0.4,
                             onSubmitted: (_) => _submit(),
                           ),
                         ],
@@ -192,25 +200,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       key: const ValueKey('loginFooterTexts'),
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(12),
-                            vertical: dynamicHeight(10),
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.brandBackground,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: _LocaleFade(
-                            child: Text(
-                              l10n.demoSignInNotice,
-                              textAlign: TextAlign.center,
-                              style: AppTextStyle.create(
-                                fontSize: 12,
-                                color: AppColors.brandDark,
-                                height: 1.45,
-                              ),
-                            ),
+                        _LocaleFade(
+                          child: CommonNotice(
+                            key: const ValueKey('loginNotice'),
+                            weight: null,
+                            text: l10n.demoSignInNotice,
                           ),
                         ),
                         SizedBox(height: dynamicHeight(12)),
@@ -226,7 +220,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeOutCubic,
                                 width: constraints.maxWidth,
-                                child: ElevatedButton(
+                                child: CommonButton(
+                                  label: l10n.sendOtp,
+                                  loading: loading,
+                                  loadingChild: SizedBox(
+                                    key: const ValueKey('sendOtpLoader'),
+                                    width: dynamicWidth(20),
+                                    height: dynamicHeight(20),
+                                    child: const CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: AppColors.surface,
+                                    ),
+                                  ),
                                   onPressed: loading ? null : _submit,
                                   style: loading
                                       ? ElevatedButton.styleFrom(
@@ -236,45 +241,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                               AppColors.surface,
                                         )
                                       : null,
-                                  child: ClipRect(
-                                    child: AnimatedSwitcher(
-                                      duration: const Duration(
-                                        milliseconds: 200,
-                                      ),
-                                      switchInCurve: Curves.easeOutCubic,
-                                      switchOutCurve: Curves.easeInCubic,
-                                      transitionBuilder: (child, animation) =>
-                                          FadeTransition(
-                                            opacity: animation,
-                                            child: ScaleTransition(
-                                              scale: Tween<double>(
-                                                begin: 0.8,
-                                                end: 1,
-                                              ).animate(animation),
-                                              child: child,
-                                            ),
-                                          ),
-                                      child: loading
-                                          ? SizedBox(
-                                              key: const ValueKey(
-                                                'sendOtpLoader',
-                                              ),
-                                              width: dynamicWidth(20),
-                                              height: dynamicHeight(20),
-                                              child:
-                                                  const CircularProgressIndicator(
-                                                    strokeWidth: 2,
-                                                    color: AppColors.surface,
-                                                  ),
-                                            )
-                                          : Text(
-                                              l10n.sendOtp,
-                                              key: const ValueKey(
-                                                'sendOtpLabel',
-                                              ),
-                                            ),
-                                    ),
-                                  ),
                                 ),
                               );
                             },
@@ -355,117 +321,5 @@ class _LoginScreenState extends State<LoginScreen> {
     // _submitting stays true until the user returns (didChangeDependencies),
     // so the button never flickers back to its label during the push.
     context.push(AppRoutes.otpLocation(digits));
-  }
-}
-
-class _PhoneField extends StatelessWidget {
-  final TextEditingController controller;
-
-  final FocusNode focusNode;
-  final bool focused;
-  final String prefix;
-  final String hint;
-  final String? errorText;
-  final ValueChanged<bool> onFocusChange;
-  final ValueChanged<String> onSubmitted;
-  const _PhoneField({
-    required this.controller,
-    required this.focusNode,
-    required this.focused,
-    required this.prefix,
-    required this.hint,
-    required this.errorText,
-    required this.onFocusChange,
-    required this.onSubmitted,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final borderColor = errorText != null
-        ? AppColors.danger
-        : (focused ? AppColors.brand : AppColors.line);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: EdgeInsets.symmetric(
-            horizontal: dynamicWidth(14),
-            vertical: dynamicHeight(4),
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: borderColor, width: 1.5),
-          ),
-          child: Row(
-            children: [
-              Text(
-                prefix,
-                style: AppTextStyle.create(
-                  fontSize: 16,
-                  weight: FontWeights.bold,
-                  color: AppColors.inkSecondary,
-                ),
-              ),
-              SizedBox(width: dynamicWidth(10)),
-              Container(
-                width: dynamicWidth(1),
-                height: dynamicHeight(22),
-                color: AppColors.line,
-              ),
-              SizedBox(width: dynamicWidth(10)),
-              Expanded(
-                child: Focus(
-                  onFocusChange: onFocusChange,
-                  child: TextField(
-                    controller: controller,
-                    focusNode: focusNode,
-                    onSubmitted: onSubmitted,
-                    keyboardType: TextInputType.phone,
-                    textInputAction: TextInputAction.done,
-                    autofillHints: const [AutofillHints.telephoneNumber],
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      LengthLimitingTextInputFormatter(10),
-                    ],
-                    style: AppTextStyle.create(
-                      fontSize: 17,
-                      color: AppColors.ink,
-                      letterSpacing: 0.4,
-                    ),
-                    decoration: InputDecoration(
-                      isDense: true,
-                      filled: false,
-                      hintText: hint,
-                      hintStyle: const TextStyle(color: AppColors.inkTertiary),
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: dynamicHeight(14),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        if (errorText != null)
-          Padding(
-            padding: EdgeInsets.only(
-              top: dynamicHeight(8),
-              left: dynamicWidth(4),
-            ),
-            child: Text(
-              errorText!,
-              style: AppTextStyle.create(fontSize: 13, color: AppColors.danger),
-            ),
-          ),
-      ],
-    );
   }
 }

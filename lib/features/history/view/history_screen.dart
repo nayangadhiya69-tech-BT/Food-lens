@@ -5,9 +5,9 @@ import '../../../core/models/load_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_utils.dart';
-import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../common/widgets/widgets.dart';
 import '../repository/history_repository.dart';
 import '../view_model/history_view_model.dart';
 import '../view/widgets/scan_record_tile.dart';
@@ -36,17 +36,15 @@ class _HistoryView extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final viewModel = context.watch<HistoryViewModel>();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppHeader(
-        title: l10n.historyTitle,
-        trailing: CommonWidgets.pill(
-          label: l10n.demoDataBadge,
-          background: AppColors.lineLight,
-          foreground: AppColors.inkSecondary,
-        ),
+    return CommonScaffold(
+      title: l10n.historyTitle,
+      trailing: CommonWidgets.pill(
+        label: l10n.demoDataBadge,
+        background: AppColors.lineLight,
+        foreground: AppColors.inkSecondary,
       ),
-      body: SafeArea(child: _buildBody(context, l10n, viewModel)),
+      scrollable: false,
+      body: _buildBody(context, l10n, viewModel),
     );
   }
 

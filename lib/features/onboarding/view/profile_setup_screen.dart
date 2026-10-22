@@ -6,9 +6,9 @@ import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
-import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/health_flag_chips.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../common/widgets/widgets.dart';
 import '../../language/view_model/locale_provider.dart';
 import '../../language/widgets/language_cards.dart';
 import '../view_model/setup_view_model.dart';
@@ -59,96 +59,66 @@ class _SetupBody extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final viewModel = context.watch<SetupViewModel>();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppHeader(
-        title: l10n.setupTitle,
-        onBack: () {
-          // Back returns to OTP when pushed; falls back to login when this
-          // is the restored cold-start location.
-          if (context.canPop()) {
-            context.pop();
-          } else {
-            context.go(AppRoutes.login);
-          }
-        },
+    return CommonScaffold(
+      title: l10n.setupTitle,
+      onBack: () {
+        // Back returns to OTP when pushed; falls back to login when this
+        // is the restored cold-start location.
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.login);
+        }
+      },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _SectionLabel(l10n.preferredLanguageLabel),
+          LanguageCards(
+            selectedCode: viewModel.selectedCode,
+            onSelected: viewModel.selectLanguage,
+          ),
+          SizedBox(height: dynamicHeight(16)),
+          _SectionLabel(l10n.flagQuestionLabel),
+          HealthFlagChips(
+            selected: viewModel.selectedFlags,
+            onToggle: viewModel.toggleFlag,
+          ),
+          SizedBox(height: dynamicHeight(12)),
+          Text(
+            l10n.flagNote,
+            style: AppTextStyle.create(
+              fontSize: 12,
+              color: AppColors.inkTertiary,
+              height: 1.55,
+            ),
+          ),
+        ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(
-                  dynamicWidth(20),
-                  dynamicHeight(20),
-                  dynamicWidth(20),
-                  dynamicHeight(16),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _SectionLabel(l10n.preferredLanguageLabel),
-                    LanguageCards(
-                      selectedCode: viewModel.selectedCode,
-                      onSelected: viewModel.selectLanguage,
-                    ),
-                    SizedBox(height: dynamicHeight(16)),
-                    _SectionLabel(l10n.flagQuestionLabel),
-                    HealthFlagChips(
-                      selected: viewModel.selectedFlags,
-                      onToggle: viewModel.toggleFlag,
-                    ),
-                    SizedBox(height: dynamicHeight(12)),
-                    Text(
-                      l10n.flagNote,
-                      style: AppTextStyle.create(
-                        fontSize: 12,
-                        color: AppColors.inkTertiary,
-                        height: 1.55,
-                      ),
-                    ),
-                  ],
-                ),
+      footer: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CommonButton(
+            label: l10n.actionContinue,
+            loading: viewModel.saving,
+            onPressed: viewModel.saving
+                ? null
+                : () => _finish(context, (vm) => vm.completeSetup()),
+          ),
+          TextButton(
+            onPressed: viewModel.saving
+                ? null
+                : () => _finish(context, (vm) => vm.skipSetup()),
+            child: Text(
+              l10n.actionSkipForNow,
+              style: AppTextStyle.create(
+                fontSize: 14,
+                weight: FontWeights.semibold,
+                color: AppColors.inkSecondary,
               ),
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(
-                dynamicWidth(20),
-                dynamicHeight(14),
-                dynamicWidth(20),
-                dynamicHeight(18),
-              ),
-              decoration: const BoxDecoration(
-                color: AppColors.surface,
-                border: Border(top: BorderSide(color: AppColors.line)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    onPressed: viewModel.saving
-                        ? null
-                        : () => _finish(context, (vm) => vm.completeSetup()),
-                    child: Text(l10n.actionContinue),
-                  ),
-                  TextButton(
-                    onPressed: viewModel.saving
-                        ? null
-                        : () => _finish(context, (vm) => vm.skipSetup()),
-                    child: Text(
-                      l10n.actionSkipForNow,
-                      style: AppTextStyle.create(
-                        fontSize: 14,
-                        weight: FontWeights.semibold,
-                        color: AppColors.inkSecondary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -9,11 +9,11 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
 import '../../../core/utils/app_utils.dart';
-import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/common_widgets.dart';
 import '../../../core/widgets/health_flag_chips.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../authentication/view_model/auth_view_model.dart';
+import '../../common/widgets/widgets.dart';
 import '../repository/profile_repository.dart';
 import '../view_model/profile_view_model.dart';
 
@@ -131,10 +131,10 @@ class _ProfileView extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final viewModel = context.watch<ProfileViewModel>();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppHeader(title: l10n.profileTitle),
-      body: SafeArea(child: _buildBody(context, l10n, viewModel)),
+    return CommonScaffold(
+      title: l10n.profileTitle,
+      scrollable: false,
+      body: _buildBody(context, l10n, viewModel),
     );
   }
 
@@ -158,7 +158,7 @@ class _ProfileView extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: dynamicHeight(16)),
           children: [
             _UserCard(name: user.name, phone: user.phoneDigits),
-            _sectionCard(
+            CommonCard(
               child: Column(
                 children: [
                   _NavRow(
@@ -217,25 +217,6 @@ class _ProfileView extends StatelessWidget {
           ],
         );
     }
-  }
-
-  Widget _sectionCard({required Widget child}) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: dynamicWidth(16),
-        vertical: dynamicHeight(4),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: dynamicWidth(16),
-        vertical: dynamicHeight(4),
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.line),
-      ),
-      child: child,
-    );
   }
 }
 

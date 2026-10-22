@@ -6,7 +6,7 @@ import '../../../core/storage/app_prefs.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
-import '../../../core/widgets/app_header.dart';
+import '../../common/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Post-OTP onboarding screen — the FoodLens terms the user must accept
@@ -29,6 +29,8 @@ class _TermsScreenState extends State<TermsScreen> {
     setState(() => _submitting = true);
     await AppPrefs.setTermsAccepted(true);
     if (!mounted) return;
+    // Reset so the button isn't stuck if the user navigates back here.
+    setState(() => _submitting = false);
     context.push(AppRoutes.name);
   }
 
@@ -36,122 +38,90 @@ class _TermsScreenState extends State<TermsScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppHeader(
-        title: l10n.termsTitle,
-        onBack: () {
-          if (context.canPop()) {
-            context.pop();
-          } else {
-            context.go(AppRoutes.login);
-          }
-        },
+    return CommonScaffold(
+      title: l10n.termsTitle,
+      onBack: () {
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.login);
+        }
+      },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.termsIntro,
+            style: AppTextStyle.create(
+              fontSize: 15,
+              color: AppColors.inkSecondary,
+              height: 1.55,
+            ),
+          ),
+          SizedBox(height: dynamicHeight(20)),
+          _TermCard(
+            icon: Icons.auto_awesome_outlined,
+            title: l10n.termsAiHeading,
+            body: l10n.termsAiBody,
+          ),
+          SizedBox(height: dynamicHeight(12)),
+          _TermCard(
+            icon: Icons.fact_check_outlined,
+            title: l10n.termsVerifyHeading,
+            body: l10n.termsVerifyBody,
+          ),
+          SizedBox(height: dynamicHeight(12)),
+          _TermCard(
+            icon: Icons.favorite_outline,
+            title: l10n.termsHealthHeading,
+            body: l10n.termsHealthBody,
+          ),
+        ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(
-                  dynamicWidth(20),
-                  dynamicHeight(20),
-                  dynamicWidth(20),
-                  dynamicHeight(16),
+      footerPadding: const EdgeInsets.fromLTRB(20, 12, 20, 18),
+      footer: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Checkbox(
+                value: _agreed,
+                onChanged: _submitting
+                    ? null
+                    : (value) => setState(() => _agreed = value ?? false),
+                activeColor: AppColors.brand,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.termsIntro,
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: _submitting
+                      ? null
+                      : () => setState(() => _agreed = !_agreed),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: dynamicHeight(14)),
+                    child: Text(
+                      l10n.termsAgreeLabel,
                       style: AppTextStyle.create(
-                        fontSize: 15,
-                        color: AppColors.inkSecondary,
-                        height: 1.55,
+                        fontSize: 14,
+                        color: AppColors.ink,
+                        height: 1.45,
                       ),
                     ),
-                    SizedBox(height: dynamicHeight(20)),
-                    _TermCard(
-                      icon: Icons.auto_awesome_outlined,
-                      title: l10n.termsAiHeading,
-                      body: l10n.termsAiBody,
-                    ),
-                    SizedBox(height: dynamicHeight(12)),
-                    _TermCard(
-                      icon: Icons.fact_check_outlined,
-                      title: l10n.termsVerifyHeading,
-                      body: l10n.termsVerifyBody,
-                    ),
-                    SizedBox(height: dynamicHeight(12)),
-                    _TermCard(
-                      icon: Icons.favorite_outline,
-                      title: l10n.termsHealthHeading,
-                      body: l10n.termsHealthBody,
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(
-                dynamicWidth(20),
-                dynamicHeight(12),
-                dynamicWidth(20),
-                dynamicHeight(18),
-              ),
-              decoration: const BoxDecoration(
-                color: AppColors.surface,
-                border: Border(top: BorderSide(color: AppColors.line)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                        value: _agreed,
-                        onChanged: _submitting
-                            ? null
-                            : (value) =>
-                                  setState(() => _agreed = value ?? false),
-                        activeColor: AppColors.brand,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: _submitting
-                              ? null
-                              : () => setState(() => _agreed = !_agreed),
-                          child: Padding(
-                            padding: EdgeInsets.only(top: dynamicHeight(14)),
-                            child: Text(
-                              l10n.termsAgreeLabel,
-                              style: AppTextStyle.create(
-                                fontSize: 14,
-                                color: AppColors.ink,
-                                height: 1.45,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: dynamicHeight(8)),
-                  ElevatedButton(
-                    onPressed: _agreed && !_submitting
-                        ? _acceptAndContinue
-                        : null,
-                    child: Text(l10n.termsNext),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          SizedBox(height: dynamicHeight(8)),
+          CommonButton(
+            label: l10n.termsNext,
+            loading: _submitting,
+            onPressed: _agreed && !_submitting ? _acceptAndContinue : null,
+          ),
+        ],
       ),
     );
   }
