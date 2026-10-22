@@ -5,6 +5,7 @@ import '../../../core/router/app_router.dart';
 import '../../../core/storage/app_prefs.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
@@ -98,9 +99,9 @@ class _NameScreenState extends State<NameScreen> {
                     SizedBox(height: dynamicHeight(22)),
                     Text(
                       l10n.nameTitle,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 24,
-                        fontWeight: FontWeight.w700,
+                        weight: FontWeights.bold,
                         color: AppColors.ink,
                         height: 1.25,
                       ),
@@ -108,7 +109,7 @@ class _NameScreenState extends State<NameScreen> {
                     SizedBox(height: dynamicHeight(8)),
                     Text(
                       l10n.nameSubtitle,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 13,
                         color: AppColors.inkSecondary,
                         height: 1.55,
@@ -117,9 +118,9 @@ class _NameScreenState extends State<NameScreen> {
                     SizedBox(height: dynamicHeight(26)),
                     Text(
                       l10n.nameLabel,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 13,
-                        fontWeight: FontWeight.w700,
+                        weight: FontWeights.bold,
                         color: AppColors.ink,
                       ),
                     ),
@@ -148,7 +149,7 @@ class _NameScreenState extends State<NameScreen> {
                         textCapitalization: TextCapitalization.words,
                         autofillHints: const [AutofillHints.givenName],
                         maxLength: 30,
-                        style: const TextStyle(
+                        style: AppTextStyle.create(
                           fontSize: 17,
                           color: AppColors.ink,
                         ),

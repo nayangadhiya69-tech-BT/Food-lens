@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/models/load_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -129,9 +130,9 @@ class _Greeting extends StatelessWidget {
         children: [
           Text(
             l10n.homeGreeting(overview.userName),
-            style: const TextStyle(
+            style: AppTextStyle.create(
               fontSize: 21,
-              fontWeight: FontWeight.w700,
+              weight: FontWeights.bold,
               color: AppColors.ink,
               height: 1.3,
             ),
@@ -149,7 +150,7 @@ class _Greeting extends StatelessWidget {
                 overview.location.isEmpty
                     ? l10n.homeLocation
                     : overview.location,
-                style: const TextStyle(
+                style: AppTextStyle.create(
                   fontSize: 13,
                   color: AppColors.inkSecondary,
                 ),
@@ -210,16 +211,16 @@ class _ScanCta extends StatelessWidget {
                   children: [
                     Text(
                       l10n.scanCtaTitle,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 17,
-                        fontWeight: FontWeight.w700,
+                        weight: FontWeights.bold,
                         color: Colors.white,
                       ),
                     ),
                     SizedBox(height: dynamicHeight(3)),
                     Text(
                       l10n.scanCtaSubtitle,
-                      style: TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 13,
                         color: Colors.white.withValues(alpha: 0.85),
                         height: 1.4,
@@ -297,9 +298,9 @@ class _StatCard extends StatelessWidget {
         children: [
           Text(
             value,
-            style: const TextStyle(
+            style: AppTextStyle.create(
               fontSize: 22,
-              fontWeight: FontWeight.w700,
+              weight: FontWeights.bold,
               color: AppColors.ink,
             ),
           ),
@@ -309,9 +310,9 @@ class _StatCard extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: AppTextStyle.create(
               fontSize: 10,
-              fontWeight: FontWeight.w700,
+              weight: FontWeights.bold,
               color: AppColors.inkSecondary,
               letterSpacing: 0.4,
               height: 1.3,

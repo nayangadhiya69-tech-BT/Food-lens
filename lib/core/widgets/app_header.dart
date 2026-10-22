@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../utils/app_size.dart';
+import '../utils/app_text_style.dart';
 
 /// White header with a light back button, title and optional subtitle —
 /// matches the `.hdr` component of the HTML design.
@@ -75,9 +76,9 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           title!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: AppTextStyle.create(
                             fontSize: 17,
-                            fontWeight: FontWeight.w700,
+                            weight: FontWeights.bold,
                             color: AppColors.ink,
                           ),
                         ),
@@ -87,7 +88,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           subtitle!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: AppTextStyle.create(
                             fontSize: 13,
                             color: AppColors.inkSecondary,
                           ),

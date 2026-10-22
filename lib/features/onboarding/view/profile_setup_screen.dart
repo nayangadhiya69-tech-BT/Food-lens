@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/health_flag_chips.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -40,9 +41,9 @@ class _SectionLabel extends StatelessWidget {
       padding: EdgeInsets.only(bottom: dynamicHeight(10)),
       child: Text(
         text,
-        style: const TextStyle(
+        style: AppTextStyle.create(
           fontSize: 13,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
           color: AppColors.ink,
         ),
       ),
@@ -100,7 +101,7 @@ class _SetupBody extends StatelessWidget {
                     SizedBox(height: dynamicHeight(12)),
                     Text(
                       l10n.flagNote,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 12,
                         color: AppColors.inkTertiary,
                         height: 1.55,
@@ -136,9 +137,9 @@ class _SetupBody extends StatelessWidget {
                         : () => _finish(context, (vm) => vm.skipSetup()),
                     child: Text(
                       l10n.actionSkipForNow,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                        weight: FontWeights.semibold,
                         color: AppColors.inkSecondary,
                       ),
                     ),

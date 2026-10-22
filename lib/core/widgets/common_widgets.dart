@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../utils/app_size.dart';
+import '../utils/app_text_style.dart';
 
 class CommonWidgets {
   CommonWidgets._();
@@ -40,7 +41,10 @@ class CommonWidgets {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 15, color: AppColors.inkSecondary),
+              style: AppTextStyle.create(
+                fontSize: 15,
+                color: AppColors.inkSecondary,
+              ),
             ),
             if (onRetry != null) ...[
               SizedBox(height: dynamicHeight(20)),
@@ -84,9 +88,9 @@ class CommonWidgets {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: AppTextStyle.create(
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                weight: FontWeights.bold,
                 color: AppColors.ink,
               ),
             ),
@@ -95,7 +99,7 @@ class CommonWidgets {
               Text(
                 subtitle,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: AppTextStyle.create(
                   fontSize: 13,
                   color: AppColors.inkSecondary,
                 ),
@@ -124,9 +128,9 @@ class CommonWidgets {
       ),
       child: Text(
         label,
-        style: TextStyle(
+        style: AppTextStyle.create(
           fontSize: 11,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
           color: foreground,
         ),
       ),
@@ -144,9 +148,9 @@ class CommonWidgets {
           ),
       child: Text(
         text.toUpperCase(),
-        style: const TextStyle(
+        style: AppTextStyle.create(
           fontSize: 12,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
           color: AppColors.inkSecondary,
           letterSpacing: 0.5,
         ),

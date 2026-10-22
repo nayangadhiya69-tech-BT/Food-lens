@@ -6,6 +6,7 @@ import '../../../core/router/app_router.dart';
 import '../../../core/storage/app_prefs.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -53,9 +54,9 @@ class _OtpScreenState extends State<OtpScreen> {
                   children: [
                     Text(
                       l10n.otpTitle,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 24,
-                        fontWeight: FontWeight.w700,
+                        weight: FontWeights.bold,
                         color: AppColors.ink,
                         height: 1.25,
                       ),
@@ -63,7 +64,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     SizedBox(height: dynamicHeight(8)),
                     Text(
                       l10n.otpSubtitle(phoneLabel),
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 15,
                         color: AppColors.inkSecondary,
                         height: 1.55,
@@ -83,9 +84,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Text(
                         l10n.otpDemoNotice(viewModel.demoOtpCode),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: AppTextStyle.create(
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          weight: FontWeights.semibold,
                           color: AppColors.brandDark,
                           height: 1.45,
                         ),
@@ -100,7 +101,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         child: Text(
                           _verifyErrorMessage(l10n, viewModel.verifyError!),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: AppTextStyle.create(
                             fontSize: 13,
                             color: AppColors.danger,
                             height: 1.45,
@@ -183,16 +184,16 @@ class _OtpScreenState extends State<OtpScreen> {
       return Text(
         l10n.otpResendLimitReached,
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 12, color: AppColors.warning),
+        style: AppTextStyle.create(fontSize: 12, color: AppColors.warning),
       );
     }
     if (viewModel.resendSecondsLeft > 0) {
       return Text(
         l10n.otpResendIn(_formatSeconds(viewModel.resendSecondsLeft)),
         textAlign: TextAlign.center,
-        style: const TextStyle(
+        style: AppTextStyle.create(
           fontSize: 13,
-          fontWeight: FontWeight.w600,
+          weight: FontWeights.semibold,
           color: AppColors.inkSecondary,
         ),
       );
@@ -201,9 +202,9 @@ class _OtpScreenState extends State<OtpScreen> {
       onPressed: viewModel.requestLoading ? null : _resend,
       child: Text(
         l10n.otpResendReady,
-        style: const TextStyle(
+        style: AppTextStyle.create(
           fontSize: 14,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
           color: AppColors.brand,
         ),
       ),

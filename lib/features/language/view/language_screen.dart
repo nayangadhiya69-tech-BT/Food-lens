@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../language/view_model/locale_provider.dart';
@@ -35,9 +36,9 @@ class LanguageScreen extends StatelessWidget {
           children: [
             Text(
               l10n.preferredLanguageLabel.toUpperCase(),
-              style: const TextStyle(
+              style: AppTextStyle.create(
                 fontSize: 12,
-                fontWeight: FontWeight.w700,
+                weight: FontWeights.bold,
                 color: AppColors.inkSecondary,
                 letterSpacing: 0.5,
               ),

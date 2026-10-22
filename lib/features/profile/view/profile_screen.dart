@@ -7,6 +7,7 @@ import '../../../core/models/load_state.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/common_widgets.dart';
@@ -78,9 +79,9 @@ class _ProfileView extends StatelessWidget {
                     Expanded(
                       child: Text(
                         l10n.healthFlagsSheetTitle,
-                        style: const TextStyle(
+                        style: AppTextStyle.create(
                           fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                          weight: FontWeights.bold,
                           color: AppColors.ink,
                         ),
                       ),
@@ -97,7 +98,7 @@ class _ProfileView extends StatelessWidget {
                 SizedBox(height: dynamicHeight(4)),
                 Text(
                   l10n.flagNote,
-                  style: const TextStyle(
+                  style: AppTextStyle.create(
                     fontSize: 13,
                     color: AppColors.inkSecondary,
                   ),
@@ -196,7 +197,7 @@ class _ProfileView extends StatelessWidget {
                   Text(
                     l10n.disclaimerText,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: AppTextStyle.create(
                       fontSize: 12,
                       color: AppColors.inkTertiary,
                     ),
@@ -205,7 +206,7 @@ class _ProfileView extends StatelessWidget {
                   Text(
                     '${l10n.appVersionLabel} ${AppConfig.appVersion}',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: AppTextStyle.create(
                       fontSize: 12,
                       color: AppColors.inkTertiary,
                     ),
@@ -271,9 +272,9 @@ class _UserCard extends StatelessWidget {
             ),
             child: Text(
               name.isEmpty ? '?' : name.characters.first.toUpperCase(),
-              style: const TextStyle(
+              style: AppTextStyle.create(
                 fontSize: 22,
-                fontWeight: FontWeight.w700,
+                weight: FontWeights.bold,
                 color: AppColors.brand,
               ),
             ),
@@ -285,9 +286,9 @@ class _UserCard extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: AppTextStyle.create(
                     fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                    weight: FontWeights.bold,
                     color: AppColors.ink,
                   ),
                 ),
@@ -296,7 +297,7 @@ class _UserCard extends StatelessWidget {
                   phone.isEmpty
                       ? l10n.profileDemoBadge
                       : AppUtils.formatMobile(phone),
-                  style: const TextStyle(
+                  style: AppTextStyle.create(
                     fontSize: 13,
                     color: AppColors.inkSecondary,
                   ),
@@ -348,9 +349,9 @@ class _NavRow extends StatelessWidget {
                   children: [
                     Text(
                       label,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 15,
-                        fontWeight: FontWeight.w700,
+                        weight: FontWeights.bold,
                         color: AppColors.ink,
                       ),
                     ),
@@ -358,7 +359,7 @@ class _NavRow extends StatelessWidget {
                       SizedBox(height: dynamicHeight(2)),
                       Text(
                         subtitle!,
-                        style: const TextStyle(
+                        style: AppTextStyle.create(
                           fontSize: 12,
                           color: AppColors.inkSecondary,
                         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_locales.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Radio-style language cards from the HTML design
@@ -102,9 +103,9 @@ class _LanguageCard extends StatelessWidget {
             SizedBox(width: dynamicWidth(12)),
             Text(
               label,
-              style: const TextStyle(
+              style: AppTextStyle.create(
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                weight: FontWeights.bold,
                 color: AppColors.ink,
               ),
             ),

@@ -7,6 +7,7 @@ import '../../../core/storage/app_prefs.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// HTML screen 1 — splash with gradient background, brand mark,
@@ -69,9 +70,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   SizedBox(height: dynamicHeight(22)),
                   Text(
                     l10n.appName,
-                    style: const TextStyle(
+                    style: AppTextStyle.create(
                       fontSize: 30,
-                      fontWeight: FontWeight.w700,
+                      weight: FontWeights.bold,
                       color: AppColors.ink,
                     ),
                   ),
@@ -79,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   Text(
                     l10n.appTagline,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: AppTextStyle.create(
                       fontSize: 15,
                       color: AppColors.inkSecondary,
                       height: 1.6,

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../language/widgets/language_switcher.dart';
@@ -133,9 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 Text(
                                   l10n.loginTitle,
-                                  style: const TextStyle(
+                                  style: AppTextStyle.create(
                                     fontSize: 24,
-                                    fontWeight: FontWeight.w700,
+                                    weight: FontWeights.bold,
                                     color: AppColors.ink,
                                     height: 1.25,
                                   ),
@@ -143,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SizedBox(height: dynamicHeight(8)),
                                 Text(
                                   l10n.loginSubtitle,
-                                  style: const TextStyle(
+                                  style: AppTextStyle.create(
                                     fontSize: 12,
                                     color: AppColors.inkSecondary,
                                     height: 1.55,
@@ -152,9 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SizedBox(height: dynamicHeight(26)),
                                 Text(
                                   l10n.mobileNumberLabel,
-                                  style: const TextStyle(
+                                  style: AppTextStyle.create(
                                     fontSize: 13,
-                                    fontWeight: FontWeight.w700,
+                                    weight: FontWeights.bold,
                                     color: AppColors.ink,
                                   ),
                                 ),
@@ -204,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               l10n.demoSignInNotice,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
+                              style: AppTextStyle.create(
                                 fontSize: 12,
                                 color: AppColors.brandDark,
                                 height: 1.45,
@@ -284,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             l10n.termsCaption,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: AppTextStyle.create(
                               fontSize: 13,
                               color: AppColors.inkTertiary,
                               height: 1.5,
@@ -402,9 +403,9 @@ class _PhoneField extends StatelessWidget {
             children: [
               Text(
                 prefix,
-                style: const TextStyle(
+                style: AppTextStyle.create(
                   fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  weight: FontWeights.bold,
                   color: AppColors.inkSecondary,
                 ),
               ),
@@ -429,7 +430,7 @@ class _PhoneField extends StatelessWidget {
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       LengthLimitingTextInputFormatter(10),
                     ],
-                    style: const TextStyle(
+                    style: AppTextStyle.create(
                       fontSize: 17,
                       color: AppColors.ink,
                       letterSpacing: 0.4,
@@ -461,7 +462,7 @@ class _PhoneField extends StatelessWidget {
             ),
             child: Text(
               errorText!,
-              style: const TextStyle(fontSize: 13, color: AppColors.danger),
+              style: AppTextStyle.create(fontSize: 13, color: AppColors.danger),
             ),
           ),
       ],

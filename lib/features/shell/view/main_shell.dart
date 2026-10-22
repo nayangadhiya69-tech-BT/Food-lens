@@ -3,24 +3,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Body of the [StatefulShellRoute]: keeps the three tab branches alive
 /// and shows the custom bottom nav from the HTML design
 /// (white bar, hairline top border, icon + label, brand color when active).
 class MainShell extends StatelessWidget {
-  const MainShell({super.key, required this.navigationShell});
-
   final StatefulNavigationShell navigationShell;
 
-  void _goBranch(int index) {
-    navigationShell.goBranch(
-      index,
-      // When re-selecting the already-active tab, jump to its root
-      // (matches the usual iOS/Android tab-bar behaviour).
-      initialLocation: index == navigationShell.currentIndex,
-    );
-  }
+  const MainShell({super.key, required this.navigationShell});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +24,22 @@ class MainShell extends StatelessWidget {
       ),
     );
   }
+
+  void _goBranch(int index) {
+    navigationShell.goBranch(
+      index,
+      // When re-selecting the already-active tab, jump to its root
+      // (matches the usual iOS/Android tab-bar behaviour).
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
 }
 
 class _BottomNav extends StatelessWidget {
-  const _BottomNav({required this.currentIndex, required this.onTap});
-
   final int currentIndex;
+
   final ValueChanged<int> onTap;
+  const _BottomNav({required this.currentIndex, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +85,12 @@ class _BottomNav extends StatelessWidget {
 }
 
 class _NavItem extends StatelessWidget {
+  final String label;
+
+  final IconData icon;
+  final IconData activeIcon;
+  final bool selected;
+  final VoidCallback onTap;
   const _NavItem({
     required this.label,
     required this.icon,
@@ -91,12 +98,6 @@ class _NavItem extends StatelessWidget {
     required this.selected,
     required this.onTap,
   });
-
-  final String label;
-  final IconData icon;
-  final IconData activeIcon;
-  final bool selected;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +122,9 @@ class _NavItem extends StatelessWidget {
                 SizedBox(height: dynamicHeight(3)),
                 Text(
                   label,
-                  style: TextStyle(
+                  style: AppTextStyle.create(
                     fontSize: 11,
-                    fontWeight: FontWeight.w600,
+                    weight: FontWeights.semibold,
                     color: color,
                   ),
                 ),

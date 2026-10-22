@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import '../utils/app_size.dart';
+import '../utils/app_text_style.dart';
 
 /// Theme derived from the HTML reference. The HTML mock renders a 270px-wide
 /// phone, so type sizes are mapped ~1.4x to a real ~390px viewport.
@@ -26,80 +27,80 @@ class AppTheme {
     );
 
     return base.copyWith(
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.surface,
         foregroundColor: AppColors.ink,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: TextStyle(
-          color: AppColors.ink,
+        titleTextStyle: AppTextStyle.create(
           fontSize: 17,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
+          color: AppColors.ink,
         ),
         iconTheme: IconThemeData(color: AppColors.ink),
         shape: Border(bottom: BorderSide(color: AppColors.line, width: 1)),
       ),
-      textTheme: const TextTheme(
-        headlineLarge: TextStyle(
-          color: AppColors.ink,
+      textTheme: TextTheme(
+        headlineLarge: AppTextStyle.create(
           fontSize: 30,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
+          color: AppColors.ink,
           height: 1.2,
         ),
-        headlineMedium: TextStyle(
-          color: AppColors.ink,
+        headlineMedium: AppTextStyle.create(
           fontSize: 24,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
+          color: AppColors.ink,
           height: 1.25,
         ),
-        titleLarge: TextStyle(
-          color: AppColors.ink,
+        titleLarge: AppTextStyle.create(
           fontSize: 20,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
+          color: AppColors.ink,
           height: 1.3,
         ),
-        titleMedium: TextStyle(
-          color: AppColors.ink,
+        titleMedium: AppTextStyle.create(
           fontSize: 17,
-          fontWeight: FontWeight.w600,
+          weight: FontWeights.semibold,
+          color: AppColors.ink,
           height: 1.35,
         ),
-        titleSmall: TextStyle(
-          color: AppColors.ink,
+        titleSmall: AppTextStyle.create(
           fontSize: 15,
-          fontWeight: FontWeight.w600,
+          weight: FontWeights.semibold,
+          color: AppColors.ink,
           height: 1.35,
         ),
-        bodyLarge: TextStyle(
-          color: AppColors.ink,
+        bodyLarge: AppTextStyle.create(
           fontSize: 16,
+          color: AppColors.ink,
           height: 1.45,
         ),
-        bodyMedium: TextStyle(
-          color: AppColors.inkSecondary,
+        bodyMedium: AppTextStyle.create(
           fontSize: 14,
+          color: AppColors.inkSecondary,
           height: 1.5,
         ),
-        bodySmall: TextStyle(
-          color: AppColors.inkTertiary,
+        bodySmall: AppTextStyle.create(
           fontSize: 12,
+          color: AppColors.inkTertiary,
           height: 1.45,
         ),
-        labelLarge: TextStyle(
-          color: AppColors.ink,
+        labelLarge: AppTextStyle.create(
           fontSize: 13,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
+          color: AppColors.ink,
         ),
-        labelMedium: TextStyle(
-          color: AppColors.inkSecondary,
+        labelMedium: AppTextStyle.create(
           fontSize: 12,
-          fontWeight: FontWeight.w600,
+          weight: FontWeights.semibold,
+          color: AppColors.inkSecondary,
         ),
-        labelSmall: TextStyle(
-          color: AppColors.inkTertiary,
+        labelSmall: AppTextStyle.create(
           fontSize: 11,
-          fontWeight: FontWeight.w600,
+          weight: FontWeights.semibold,
+          color: AppColors.inkTertiary,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -114,7 +115,10 @@ class AppTheme {
             vertical: dynamicHeight(16),
           ),
           minimumSize: Size.fromHeight(dynamicHeight(52)),
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+          textStyle: AppTextStyle.create(
+            fontSize: 16,
+            weight: FontWeights.bold,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -131,7 +135,10 @@ class AppTheme {
             vertical: dynamicHeight(14),
           ),
           minimumSize: Size.fromHeight(dynamicHeight(48)),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          textStyle: AppTextStyle.create(
+            fontSize: 15,
+            weight: FontWeights.bold,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -140,7 +147,10 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.inkSecondary,
-          textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: AppTextStyle.create(
+            fontSize: 14,
+            weight: FontWeights.semibold,
+          ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -188,10 +198,13 @@ class AppTheme {
         thickness: 1,
         space: 1,
       ),
-      snackBarTheme: const SnackBarThemeData(
+      snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: AppColors.ink,
-        contentTextStyle: TextStyle(color: AppColors.surface, fontSize: 14),
+        contentTextStyle: AppTextStyle.create(
+          fontSize: 14,
+          color: AppColors.surface,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),

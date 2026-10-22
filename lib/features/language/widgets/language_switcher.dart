@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_locales.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../view_model/locale_provider.dart';
 
@@ -90,9 +91,9 @@ class _LanguageChip extends StatelessWidget {
           child: AnimatedDefaultTextStyle(
             duration: _duration,
             curve: _curve,
-            style: TextStyle(
+            style: AppTextStyle.create(
               fontSize: 13,
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+              weight: selected ? FontWeights.bold : FontWeights.reg,
               color: selected ? AppColors.ink : AppColors.inkSecondary,
             ),
             child: Text(label),

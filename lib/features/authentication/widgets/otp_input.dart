@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 
 /// Six-box OTP entry from the HTML design with focus traversal,
 /// backspace handling and one-time-code autofill hints.
@@ -155,9 +156,9 @@ class _OtpBox extends StatelessWidget {
         maxLength: 1,
         autofillHints: autofill ? const [AutofillHints.oneTimeCode] : null,
         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
-        style: const TextStyle(
+        style: AppTextStyle.create(
           fontSize: 22,
-          fontWeight: FontWeight.w700,
+          weight: FontWeights.bold,
           color: AppColors.ink,
         ),
         decoration: const InputDecoration(

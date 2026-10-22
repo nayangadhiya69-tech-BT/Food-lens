@@ -4,6 +4,7 @@ import '../../l10n/generated/app_localizations.dart';
 import '../models/health_flag.dart';
 import '../theme/app_colors.dart';
 import '../utils/app_size.dart';
+import '../utils/app_text_style.dart';
 
 /// Toggle chips for the health-flag preference from the HTML design.
 /// Used by the profile-setup screen and the Profile tab.
@@ -71,9 +72,9 @@ class _FlagChip extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: AppTextStyle.create(
                 fontSize: 13,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+                weight: selected ? FontWeights.bold : FontWeights.semibold,
                 color: selected
                     ? AppColors.brandDark
                     : AppColors.inkSecondary,

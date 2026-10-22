@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_size.dart';
+import '../../../../core/utils/app_text_style.dart';
 import '../../../../core/widgets/common_widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../model/scan_record.dart';
@@ -81,7 +82,7 @@ class ScanRecordTile extends StatelessWidget {
                     ),
                     child: Text(
                       record.emoji,
-                      style: const TextStyle(fontSize: 20),
+                      style: AppTextStyle.create(fontSize: 20),
                     ),
                   ),
                   SizedBox(width: dynamicWidth(12)),
@@ -93,16 +94,16 @@ class ScanRecordTile extends StatelessWidget {
                           record.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: AppTextStyle.create(
                             fontSize: 15,
-                            fontWeight: FontWeight.w700,
+                            weight: FontWeights.bold,
                             color: AppColors.ink,
                           ),
                         ),
                         SizedBox(height: dynamicHeight(2)),
                         Text(
                           timeLabel,
-                          style: const TextStyle(
+                          style: AppTextStyle.create(
                             fontSize: 12,
                             color: AppColors.inkSecondary,
                           ),

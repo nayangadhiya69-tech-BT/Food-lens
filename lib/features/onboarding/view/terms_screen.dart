@@ -5,6 +5,7 @@ import '../../../core/router/app_router.dart';
 import '../../../core/storage/app_prefs.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
+import '../../../core/utils/app_text_style.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
@@ -63,7 +64,7 @@ class _TermsScreenState extends State<TermsScreen> {
                   children: [
                     Text(
                       l10n.termsIntro,
-                      style: const TextStyle(
+                      style: AppTextStyle.create(
                         fontSize: 15,
                         color: AppColors.inkSecondary,
                         height: 1.55,
@@ -128,7 +129,7 @@ class _TermsScreenState extends State<TermsScreen> {
                             padding: EdgeInsets.only(top: dynamicHeight(14)),
                             child: Text(
                               l10n.termsAgreeLabel,
-                              style: const TextStyle(
+                              style: AppTextStyle.create(
                                 fontSize: 14,
                                 color: AppColors.ink,
                                 height: 1.45,
@@ -187,9 +188,9 @@ class _TermCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: AppTextStyle.create(
                     fontSize: 14,
-                    fontWeight: FontWeight.w700,
+                    weight: FontWeights.bold,
                     color: AppColors.ink,
                   ),
                 ),
@@ -199,7 +200,7 @@ class _TermCard extends StatelessWidget {
           SizedBox(height: dynamicHeight(8)),
           Text(
             body,
-            style: const TextStyle(
+            style: AppTextStyle.create(
               fontSize: 13,
               color: AppColors.inkSecondary,
               height: 1.55,
