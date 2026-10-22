@@ -12,34 +12,49 @@ import '../repository/auth_repository.dart';
 /// Lives at application scope so phone, resend countdown and attempt limits
 /// survive navigation between the Login and OTP screens.
 class AuthViewModel extends ChangeNotifier {
-  AuthViewModel(this._repository);
-
   final AuthRepository _repository;
-  Timer? _ticker;
 
+  Timer? _ticker;
   String _phone = '';
+
   bool _requestLoading = false;
   bool _verifyLoading = false;
   OtpVerifyOutcome? _verifyError;
   bool _signInComplete = false;
+  AuthViewModel(this._repository);
+
+  String get demoOtpCode => _repository.demoOtpCode;
+
+  bool get hasRequestedCode => _phone.isNotEmpty;
 
   /// 10-digit phone for the current demo session (never persisted).
   String get phone => _phone;
-
   bool get requestLoading => _requestLoading;
-  bool get verifyLoading => _verifyLoading;
-  OtpVerifyOutcome? get verifyError => _verifyError;
 
-  /// True right after a successful verification (drives one-shot navigation).
-  bool get signInComplete => _signInComplete;
-
-  bool get hasRequestedCode => _phone.isNotEmpty;
-  String get demoOtpCode => _repository.demoOtpCode;
-  int get resendSecondsLeft => _repository.timeUntilResend().inSeconds;
   bool get resendLimitReached => _repository.resendLimitReached;
 
   bool get resendReady =>
       hasRequestedCode && resendSecondsLeft == 0 && !resendLimitReached;
+  int get resendSecondsLeft => _repository.timeUntilResend().inSeconds;
+
+  /// True right after a successful verification (drives one-shot navigation).
+  bool get signInComplete => _signInComplete;
+  OtpVerifyOutcome? get verifyError => _verifyError;
+
+  bool get verifyLoading => _verifyLoading;
+
+  /// Clears any verify error (e.g. when the user edits the code).
+  void clearVerifyError() {
+    if (_verifyError == null) return;
+    _verifyError = null;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _ticker?.cancel();
+    super.dispose();
+  }
 
   /// Requests a demo code. Returns how the request was handled so the UI can
   /// decide to proceed to the OTP screen.
@@ -62,6 +77,20 @@ class AuthViewModel extends ChangeNotifier {
     _startTicker();
     notifyListeners();
     return outcome;
+  }
+
+  /// Ends the demo session: resets counters and clears the auth flag only.
+  Future<void> signOut() async {
+    _ticker?.cancel();
+    _ticker = null;
+    _phone = '';
+    _requestLoading = false;
+    _verifyLoading = false;
+    _verifyError = null;
+    _signInComplete = false;
+    _repository.reset();
+    await AppPrefs.clearDemoSession();
+    notifyListeners();
   }
 
   /// Verifies the entered code locally. Never sends anything anywhere.
@@ -95,27 +124,6 @@ class AuthViewModel extends ChangeNotifier {
     return outcome;
   }
 
-  /// Clears any verify error (e.g. when the user edits the code).
-  void clearVerifyError() {
-    if (_verifyError == null) return;
-    _verifyError = null;
-    notifyListeners();
-  }
-
-  /// Ends the demo session: resets counters and clears the auth flag only.
-  Future<void> signOut() async {
-    _ticker?.cancel();
-    _ticker = null;
-    _phone = '';
-    _requestLoading = false;
-    _verifyLoading = false;
-    _verifyError = null;
-    _signInComplete = false;
-    _repository.reset();
-    await AppPrefs.clearDemoSession();
-    notifyListeners();
-  }
-
   void _startTicker() {
     _ticker?.cancel();
     _ticker = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -124,11 +132,5 @@ class AuthViewModel extends ChangeNotifier {
       }
       notifyListeners();
     });
-  }
-
-  @override
-  void dispose() {
-    _ticker?.cancel();
-    super.dispose();
   }
 }

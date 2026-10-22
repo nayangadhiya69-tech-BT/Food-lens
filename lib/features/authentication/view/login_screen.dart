@@ -20,6 +20,53 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+/// Cross-fades the wrapped subtree when the app locale changes so switching
+/// language feels like a smooth fade instead of a hard full-page blink.
+///
+/// The swap is keyed by the locale code, so regular rebuilds (typing,
+/// focus changes, loading state, …) update the child in place without
+/// triggering any animation — only an actual language change fades.
+class _LocaleFade extends StatelessWidget {
+  final Widget child;
+
+  const _LocaleFade({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final code = Localizations.localeOf(context).languageCode;
+    return SizedBox(
+      width: double.infinity,
+      // Smoothly animates height when the new language wraps to a
+      // different number of lines.
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 280),
+        curve: Curves.easeInOutCubic,
+        alignment: Alignment.topCenter,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 280),
+          reverseDuration: const Duration(milliseconds: 220),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          // The new child decides the size; the old one is pinned top-left
+          // and just fades out, so nothing shifts or jumps.
+          layoutBuilder: (current, previous) => Stack(
+            alignment: Alignment.topLeft,
+            clipBehavior: Clip.none,
+            children: [
+              for (final p in previous)
+                Positioned(top: 0, left: 0, right: 0, child: p),
+              ?current,
+            ],
+          ),
+          transitionBuilder: (child, animation) =>
+              FadeTransition(opacity: animation, child: child),
+          child: KeyedSubtree(key: ValueKey<String>(code), child: child),
+        ),
+      ),
+    );
+  }
+}
+
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final FocusNode _phoneFocus = FocusNode();
@@ -28,19 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _submitting = false;
 
   String get _digits => _phoneController.text.replaceAll(RegExp(r'[\s-]'), '');
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Keep the button collapsed (loading) while the OTP screen covers us, and
-    // restore it to "Send OTP" once the user navigates back here.
-    final route = ModalRoute.of(context);
-    if (_submitting && (route == null || route.isCurrent)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && _submitting) setState(() => _submitting = false);
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,31 +111,44 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 22),
-                          Text(
-                            l10n.loginTitle,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.ink,
-                              height: 1.25,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            l10n.loginSubtitle,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColors.inkSecondary,
-                              height: 1.55,
-                            ),
-                          ),
-                          const SizedBox(height: 26),
-                          Text(
-                            l10n.mobileNumberLabel,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.ink,
+                          // Localized texts cross-fade (instead of snapping in
+                          // one frame) when the language changes, so the switch
+                          // feels smooth. The phone field stays outside the
+                          // fade to keep focus/controller state rock solid.
+                          _LocaleFade(
+                            child: Column(
+                              key: const ValueKey('loginHeaderTexts'),
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  l10n.loginTitle,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.ink,
+                                    height: 1.25,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  l10n.loginSubtitle,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: AppColors.inkSecondary,
+                                    height: 1.55,
+                                  ),
+                                ),
+                                const SizedBox(height: 26),
+                                Text(
+                                  l10n.mobileNumberLabel,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.ink,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -124,102 +171,110 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(22, 8, 22, 22),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.brandBackground,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          l10n.demoSignInNotice,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: AppColors.brandDark,
-                            height: 1.45,
+                  child: _LocaleFade(
+                    child: Column(
+                      key: const ValueKey('loginFooterTexts'),
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.brandBackground,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: _LocaleFade(
+                            child: Text(
+                              l10n.demoSignInNotice,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColors.brandDark,
+                                height: 1.45,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      // The button collapses into a compact pill with a
-                      // loader while the OTP request is in flight, then
-                      // restores itself when the user comes back.
-                      Center(
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            final loading =
-                                _submitting || authViewModel.requestLoading;
-                            return AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeOutCubic,
-                              width: loading ? 148 : constraints.maxWidth,
-                              child: ElevatedButton(
-                                onPressed: loading ? null : _submit,
-                                style: loading
-                                    ? ElevatedButton.styleFrom(
-                                        disabledBackgroundColor:
-                                            AppColors.brand,
-                                        disabledForegroundColor:
-                                            AppColors.surface,
-                                      )
-                                    : null,
-                                child: ClipRect(
-                                  child: AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 200),
-                                    switchInCurve: Curves.easeOutCubic,
-                                    switchOutCurve: Curves.easeInCubic,
-                                    transitionBuilder: (child, animation) =>
-                                        FadeTransition(
-                                      opacity: animation,
-                                      child: ScaleTransition(
-                                        scale: Tween<double>(
-                                          begin: 0.8,
-                                          end: 1,
-                                        ).animate(animation),
-                                        child: child,
+                        const SizedBox(height: 12),
+                        // The button collapses into a compact pill with a
+                        // loader while the OTP request is in flight, then
+                        // restores itself when the user comes back.
+                        Center(
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final loading =
+                                  _submitting || authViewModel.requestLoading;
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeOutCubic,
+                                width: constraints.maxWidth,
+                                child: ElevatedButton(
+                                  onPressed: loading ? null : _submit,
+                                  style: loading
+                                      ? ElevatedButton.styleFrom(
+                                          disabledBackgroundColor:
+                                              AppColors.brand,
+                                          disabledForegroundColor:
+                                              AppColors.surface,
+                                        )
+                                      : null,
+                                  child: ClipRect(
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(
+                                        milliseconds: 200,
                                       ),
-                                    ),
-                                    child: loading
-                                        ? const SizedBox(
-                                            key: ValueKey('sendOtpLoader'),
-                                            width: 20,
-                                            height: 20,
-                                            child:
-                                                CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                              color: AppColors.surface,
-                                            ),
-                                          )
-                                        : Text(
-                                            l10n.sendOtp,
-                                            key: const ValueKey(
-                                              'sendOtpLabel',
+                                      switchInCurve: Curves.easeOutCubic,
+                                      switchOutCurve: Curves.easeInCubic,
+                                      transitionBuilder: (child, animation) =>
+                                          FadeTransition(
+                                            opacity: animation,
+                                            child: ScaleTransition(
+                                              scale: Tween<double>(
+                                                begin: 0.8,
+                                                end: 1,
+                                              ).animate(animation),
+                                              child: child,
                                             ),
                                           ),
+                                      child: loading
+                                          ? const SizedBox(
+                                              key: ValueKey('sendOtpLoader'),
+                                              width: 20,
+                                              height: 20,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                color: AppColors.surface,
+                                              ),
+                                            )
+                                          : Text(
+                                              l10n.sendOtp,
+                                              key: const ValueKey(
+                                                'sendOtpLabel',
+                                              ),
+                                            ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        l10n.termsCaption,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: AppColors.inkTertiary,
-                          height: 1.5,
+                        const SizedBox(height: 12),
+                        _LocaleFade(
+                          child: Text(
+                            l10n.termsCaption,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: AppColors.inkTertiary,
+                              height: 1.5,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -228,6 +283,19 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Keep the button collapsed (loading) while the OTP screen covers us, and
+    // restore it to "Send OTP" once the user navigates back here.
+    final route = ModalRoute.of(context);
+    if (_submitting && (route == null || route.isCurrent)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _submitting) setState(() => _submitting = false);
+      });
+    }
   }
 
   @override
