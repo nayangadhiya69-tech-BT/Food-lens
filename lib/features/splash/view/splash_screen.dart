@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/storage/app_prefs.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// HTML screen 1 — splash with gradient background, brand mark,
@@ -49,23 +50,23 @@ class _SplashScreenState extends State<SplashScreen> {
         child: SafeArea(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: EdgeInsets.symmetric(horizontal: dynamicWidth(40)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 88,
-                    height: 88,
+                    width: dynamicWidth(88),
+                    height: dynamicHeight(88),
                     decoration: BoxDecoration(
                       color: AppColors.brand,
                       borderRadius: BorderRadius.circular(28),
                     ),
                     child: CustomPaint(
                       painter: BrandMarkPainter(color: AppColors.surface),
-                      size: const Size.square(44),
+                      size: Size.square(dynamicWidth(44)),
                     ),
                   ),
-                  const SizedBox(height: 22),
+                  SizedBox(height: dynamicHeight(22)),
                   Text(
                     l10n.appName,
                     style: const TextStyle(
@@ -74,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       color: AppColors.ink,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: dynamicHeight(10)),
                   Text(
                     l10n.appTagline,
                     textAlign: TextAlign.center,

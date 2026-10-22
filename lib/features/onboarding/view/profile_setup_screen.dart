@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/health_flag_chips.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -36,7 +37,7 @@ class _SectionLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: dynamicHeight(10)),
       child: Text(
         text,
         style: const TextStyle(
@@ -76,7 +77,12 @@ class _SetupBody extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+                padding: EdgeInsets.fromLTRB(
+                  dynamicWidth(20),
+                  dynamicHeight(20),
+                  dynamicWidth(20),
+                  dynamicHeight(16),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -85,13 +91,13 @@ class _SetupBody extends StatelessWidget {
                       selectedCode: viewModel.selectedCode,
                       onSelected: viewModel.selectLanguage,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: dynamicHeight(16)),
                     _SectionLabel(l10n.flagQuestionLabel),
                     HealthFlagChips(
                       selected: viewModel.selectedFlags,
                       onToggle: viewModel.toggleFlag,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: dynamicHeight(12)),
                     Text(
                       l10n.flagNote,
                       style: const TextStyle(
@@ -105,7 +111,12 @@ class _SetupBody extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(20, 14, 20, 18),
+              padding: EdgeInsets.fromLTRB(
+                dynamicWidth(20),
+                dynamicHeight(14),
+                dynamicWidth(20),
+                dynamicHeight(18),
+              ),
               decoration: const BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.line)),

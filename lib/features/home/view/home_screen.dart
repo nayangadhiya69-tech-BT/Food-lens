@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/models/load_state.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -71,7 +72,7 @@ class _HomeView extends StatelessWidget {
           color: AppColors.brand,
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.only(bottom: dynamicHeight(20)),
             children: [
               _Greeting(overview: overview),
               _ScanCta(onTap: () => _scanUnavailable(context)),
@@ -79,7 +80,7 @@ class _HomeView extends StatelessWidget {
               CommonWidgets.sectionLabel(l10n.recentScansLabel),
               if (viewModel.isEmpty)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
                   child: CommonWidgets.emptyWidget(
                     icon: Icons.qr_code_scanner,
                     message: l10n.homeEmptyTitle,
@@ -117,7 +118,12 @@ class _Greeting extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 4),
+      padding: EdgeInsets.fromLTRB(
+        dynamicWidth(16),
+        dynamicHeight(18),
+        dynamicWidth(16),
+        dynamicHeight(4),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -130,7 +136,7 @@ class _Greeting extends StatelessWidget {
               height: 1.3,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: dynamicHeight(4)),
           Row(
             children: [
               const Icon(
@@ -138,7 +144,7 @@ class _Greeting extends StatelessWidget {
                 size: 15,
                 color: AppColors.inkSecondary,
               ),
-              const SizedBox(width: 4),
+              SizedBox(width: dynamicWidth(4)),
               Text(
                 overview.location.isEmpty
                     ? l10n.homeLocation
@@ -171,8 +177,13 @@ class _ScanCta extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-          padding: const EdgeInsets.all(18),
+          margin: EdgeInsets.fromLTRB(
+            dynamicWidth(16),
+            dynamicHeight(14),
+            dynamicWidth(16),
+            dynamicHeight(16),
+          ),
+          padding: EdgeInsets.all(dynamicWidth(18)),
           decoration: BoxDecoration(
             color: AppColors.brand,
             borderRadius: BorderRadius.circular(16),
@@ -180,8 +191,8 @@ class _ScanCta extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: 54,
-                height: 54,
+                width: dynamicWidth(54),
+                height: dynamicHeight(54),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(14),
@@ -192,7 +203,7 @@ class _ScanCta extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: dynamicWidth(14)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +216,7 @@ class _ScanCta extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 3),
+                    SizedBox(height: dynamicHeight(3)),
                     Text(
                       l10n.scanCtaSubtitle,
                       style: TextStyle(
@@ -235,7 +246,7 @@ class _StatsRow extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
       child: Row(
         children: [
           Expanded(
@@ -244,14 +255,14 @@ class _StatsRow extends StatelessWidget {
               label: l10n.statScansWeekLabel,
             ),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: dynamicWidth(8)),
           Expanded(
             child: _StatCard(
               value: overview.flagsCaught.toString(),
               label: l10n.statFlagsLabel,
             ),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: dynamicWidth(8)),
           Expanded(
             child: _StatCard(
               value: overview.languagesUsed.toString(),
@@ -273,7 +284,10 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 14),
+      padding: EdgeInsets.symmetric(
+        horizontal: dynamicWidth(6),
+        vertical: dynamicHeight(14),
+      ),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
@@ -289,7 +303,7 @@ class _StatCard extends StatelessWidget {
               color: AppColors.ink,
             ),
           ),
-          const SizedBox(height: 3),
+          SizedBox(height: dynamicHeight(3)),
           Text(
             label.toUpperCase(),
             textAlign: TextAlign.center,

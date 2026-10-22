@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import '../theme/app_colors.dart';
+import '../utils/app_size.dart';
 
 /// White header with a light back button, title and optional subtitle —
 /// matches the `.hdr` component of the HTML design.
@@ -21,7 +22,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(subtitle == null ? 56 : 74);
+      Size.fromHeight(dynamicHeight(subtitle == null ? 56 : 74));
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
         bottom: false,
         child: Container(
           height: preferredSize.height,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
           decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: AppColors.line)),
           ),
@@ -50,8 +51,8 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                       onTap: onBack,
                       borderRadius: BorderRadius.circular(10),
                       child: SizedBox(
-                        width: 36,
-                        height: 36,
+                        width: dynamicWidth(36),
+                        height: dynamicHeight(36),
                         child: Icon(
                           Icons.chevron_left,
                           size: 24,
@@ -61,7 +62,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: dynamicWidth(12)),
               ],
               if (title != null || subtitle != null)
                 Expanded(
@@ -81,7 +82,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                       if (subtitle != null) ...[
-                        const SizedBox(height: 2),
+                        SizedBox(height: dynamicHeight(2)),
                         Text(
                           subtitle!,
                           maxLines: 1,

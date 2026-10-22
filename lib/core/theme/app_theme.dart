@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import '../utils/app_size.dart';
 
 /// Theme derived from the HTML reference. The HTML mock renders a 270px-wide
 /// phone, so type sizes are mapped ~1.4x to a real ~390px viewport.
@@ -108,8 +109,11 @@ class AppTheme {
           disabledBackgroundColor: AppColors.lineLight,
           disabledForegroundColor: AppColors.inkTertiary,
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          minimumSize: const Size.fromHeight(52),
+          padding: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(24),
+            vertical: dynamicHeight(16),
+          ),
+          minimumSize: Size.fromHeight(dynamicHeight(52)),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -122,8 +126,11 @@ class AppTheme {
           backgroundColor: AppColors.surface,
           disabledForegroundColor: AppColors.inkTertiary,
           side: const BorderSide(color: AppColors.line),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          minimumSize: const Size.fromHeight(48),
+          padding: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(24),
+            vertical: dynamicHeight(14),
+          ),
+          minimumSize: Size.fromHeight(dynamicHeight(48)),
           textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -140,9 +147,9 @@ class AppTheme {
         filled: true,
         fillColor: AppColors.surface,
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: dynamicWidth(16),
+          vertical: dynamicHeight(16),
         ),
         labelStyle: const TextStyle(color: AppColors.inkTertiary),
         hintStyle: const TextStyle(color: AppColors.inkTertiary),

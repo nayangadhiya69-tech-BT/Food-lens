@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/app_size.dart';
 import '../../../../core/widgets/common_widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../model/scan_record.dart';
@@ -25,8 +26,11 @@ class ScanRecordTile extends StatelessWidget {
     final localeTag = Localizations.localeOf(context).toLanguageTag();
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final recordDay =
-        DateTime(r.timestamp.year, r.timestamp.month, r.timestamp.day);
+    final recordDay = DateTime(
+      r.timestamp.year,
+      r.timestamp.month,
+      r.timestamp.day,
+    );
     final days = today.difference(recordDay).inDays;
     final time = DateFormat.jm(localeTag).format(r.timestamp);
 
@@ -61,20 +65,26 @@ class ScanRecordTile extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: EdgeInsets.symmetric(
+                horizontal: dynamicWidth(16),
+                vertical: dynamicHeight(12),
+              ),
               child: Row(
                 children: [
                   Container(
-                    width: 44,
-                    height: 44,
+                    width: dynamicWidth(44),
+                    height: dynamicHeight(44),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColors.lineLight,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text(record.emoji, style: const TextStyle(fontSize: 20)),
+                    child: Text(
+                      record.emoji,
+                      style: const TextStyle(fontSize: 20),
+                    ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: dynamicWidth(12)),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +99,7 @@ class ScanRecordTile extends StatelessWidget {
                             color: AppColors.ink,
                           ),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: dynamicHeight(2)),
                         Text(
                           timeLabel,
                           style: const TextStyle(
@@ -100,15 +110,14 @@ class ScanRecordTile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: dynamicWidth(8)),
                   pill,
                 ],
               ),
             ),
           ),
         ),
-        if (showDivider)
-          const Divider(indent: 16, endIndent: 16),
+        if (showDivider) const Divider(indent: 16, endIndent: 16),
       ],
     );
   }

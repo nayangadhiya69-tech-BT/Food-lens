@@ -6,6 +6,7 @@ import 'core/constants/app_locales.dart';
 import 'core/di/app_providers.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
+import 'core/utils/app_size.dart';
 import 'features/language/view_model/locale_provider.dart';
 import 'l10n/generated/app_localizations.dart';
 
@@ -32,6 +33,12 @@ class FoodLensApp extends StatelessWidget {
             supportedLocales: AppLocales.supported,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             routerConfig: router ?? AppRouter.router,
+            // Captures the screen width once per size change so every
+            // dynamicWidth/dynamicHeight call in the tree is in sync.
+            builder: (context, child) {
+              AppSize.init(context);
+              return child ?? const SizedBox.shrink();
+            },
           );
         },
       ),

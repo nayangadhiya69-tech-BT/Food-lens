@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/models/load_state.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/common_widgets.dart';
@@ -77,7 +78,7 @@ class _HistoryView extends StatelessWidget {
           color: AppColors.brand,
           child: ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: 12),
+            padding: EdgeInsets.only(bottom: dynamicHeight(12)),
             itemCount: records.length,
             itemBuilder: (context, index) => ScanRecordTile(
               record: records[index],

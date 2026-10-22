@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/storage/app_prefs.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -41,7 +42,12 @@ class _OtpScreenState extends State<OtpScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+                padding: EdgeInsets.fromLTRB(
+                  dynamicWidth(24),
+                  dynamicHeight(24),
+                  dynamicWidth(24),
+                  dynamicHeight(16),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,7 +60,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         height: 1.25,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: dynamicHeight(8)),
                     Text(
                       l10n.otpSubtitle(phoneLabel),
                       style: const TextStyle(
@@ -63,12 +69,12 @@ class _OtpScreenState extends State<OtpScreen> {
                         height: 1.55,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: dynamicHeight(16)),
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(12),
+                        vertical: dynamicHeight(10),
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.brandBackground,
@@ -85,10 +91,10 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 26),
+                    SizedBox(height: dynamicHeight(26)),
                     OtpInput(onChanged: _onOtpChanged),
                     if (viewModel.verifyError != null) ...[
-                      const SizedBox(height: 16),
+                      SizedBox(height: dynamicHeight(16)),
                       SizedBox(
                         width: double.infinity,
                         child: Text(
@@ -102,14 +108,19 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                       ),
                     ],
-                    const SizedBox(height: 20),
+                    SizedBox(height: dynamicHeight(20)),
                     Center(child: _buildResendArea(l10n, viewModel)),
                   ],
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(22, 8, 22, 22),
+              padding: EdgeInsets.fromLTRB(
+                dynamicWidth(22),
+                dynamicHeight(8),
+                dynamicWidth(22),
+                dynamicHeight(22),
+              ),
               child: ElevatedButton(
                 onPressed: viewModel.verifyLoading ? null : _verify,
 
@@ -142,15 +153,15 @@ class _OtpScreenState extends State<OtpScreen> {
                           key: const ValueKey('otpVerifyingRow'),
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const SizedBox(
-                              width: 18,
-                              height: 18,
-                              child: CircularProgressIndicator(
+                            SizedBox(
+                              width: dynamicWidth(18),
+                              height: dynamicHeight(18),
+                              child: const CircularProgressIndicator(
                                 strokeWidth: 2,
                                 color: AppColors.surface,
                               ),
                             ),
-                            const SizedBox(width: 10),
+                            SizedBox(width: dynamicWidth(10)),
                             Text(l10n.otpVerifying),
                           ],
                         )

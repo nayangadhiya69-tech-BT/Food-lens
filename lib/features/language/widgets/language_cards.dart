@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_locales.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Radio-style language cards from the HTML design
@@ -17,10 +18,10 @@ class LanguageCards extends StatelessWidget {
   final ValueChanged<String> onSelected;
 
   String _labelFor(AppLocalizations l10n, String code) => switch (code) {
-        'hi' => l10n.languageHindi,
-        'gu' => l10n.languageGujarati,
-        _ => l10n.languageEnglish,
-      };
+    'hi' => l10n.languageHindi,
+    'gu' => l10n.languageGujarati,
+    _ => l10n.languageEnglish,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class LanguageCards extends StatelessWidget {
       children: [
         for (final code in AppLocales.supportedCodes)
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.only(bottom: dynamicHeight(8)),
             child: _LanguageCard(
               label: _labelFor(l10n, code),
               selected: selectedCode == code,
@@ -60,7 +61,10 @@ class _LanguageCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 160),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        padding: EdgeInsets.symmetric(
+          horizontal: dynamicWidth(14),
+          vertical: dynamicHeight(14),
+        ),
         decoration: BoxDecoration(
           color: selected ? AppColors.brandBackground : AppColors.surface,
           borderRadius: BorderRadius.circular(12),
@@ -72,8 +76,8 @@ class _LanguageCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 20,
-              height: 20,
+              width: dynamicWidth(20),
+              height: dynamicHeight(20),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -81,7 +85,7 @@ class _LanguageCard extends StatelessWidget {
                   width: 1.5,
                 ),
               ),
-              padding: const EdgeInsets.all(4),
+              padding: EdgeInsets.all(dynamicWidth(4)),
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 150),
                 child: selected
@@ -95,7 +99,7 @@ class _LanguageCard extends StatelessWidget {
                     : const SizedBox.shrink(key: ValueKey('unselected')),
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: dynamicWidth(12)),
             Text(
               label,
               style: const TextStyle(

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_locales.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../view_model/locale_provider.dart';
 
@@ -25,7 +26,7 @@ class LanguageSwitcher extends StatelessWidget {
       container: true,
       label: l10n.a11yLanguageSwitcher,
       child: Container(
-        padding: const EdgeInsets.all(3),
+        padding: EdgeInsets.all(dynamicWidth(3)),
         decoration: BoxDecoration(
           color: AppColors.lineLight,
           borderRadius: BorderRadius.circular(20),
@@ -73,7 +74,10 @@ class _LanguageChip extends StatelessWidget {
         child: AnimatedContainer(
           duration: _duration,
           curve: _curve,
-          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+          padding: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(11),
+            vertical: dynamicHeight(6),
+          ),
           decoration: BoxDecoration(
             color: selected ? AppColors.surface : Colors.transparent,
             borderRadius: BorderRadius.circular(16),

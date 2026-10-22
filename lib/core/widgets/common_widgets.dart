@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../utils/app_size.dart';
 
 class CommonWidgets {
   CommonWidgets._();
@@ -11,7 +12,7 @@ class CommonWidgets {
         children: [
           const CircularProgressIndicator(color: AppColors.brand),
           if (label != null) ...[
-            const SizedBox(height: 12),
+            SizedBox(height: dynamicHeight(12)),
             Text(label, style: const TextStyle(color: AppColors.inkSecondary)),
           ],
         ],
@@ -26,7 +27,7 @@ class CommonWidgets {
   }) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(dynamicWidth(24)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -35,20 +36,20 @@ class CommonWidgets {
               size: 56,
               color: AppColors.danger,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: dynamicHeight(16)),
             Text(
               message,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 15, color: AppColors.inkSecondary),
             ),
             if (onRetry != null) ...[
-              const SizedBox(height: 20),
+              SizedBox(height: dynamicHeight(20)),
               ElevatedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh, size: 20),
                 label: Text(retryLabel ?? 'Retry'),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(160, 48),
+                  minimumSize: Size(dynamicWidth(160), dynamicHeight(48)),
                 ),
               ),
             ],
@@ -66,20 +67,20 @@ class CommonWidgets {
   }) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(dynamicWidth(24)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 88,
-              height: 88,
+              width: dynamicWidth(88),
+              height: dynamicHeight(88),
               decoration: const BoxDecoration(
                 color: AppColors.brandBackground,
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, size: 40, color: AppColors.brand),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: dynamicHeight(16)),
             Text(
               message,
               textAlign: TextAlign.center,
@@ -90,7 +91,7 @@ class CommonWidgets {
               ),
             ),
             if (subtitle != null) ...[
-              const SizedBox(height: 6),
+              SizedBox(height: dynamicHeight(6)),
               Text(
                 subtitle,
                 textAlign: TextAlign.center,
@@ -100,7 +101,7 @@ class CommonWidgets {
                 ),
               ),
             ],
-            if (action != null) ...[const SizedBox(height: 20), action],
+            if (action != null) ...[SizedBox(height: dynamicHeight(20)), action],
           ],
         ),
       ),
@@ -113,7 +114,10 @@ class CommonWidgets {
     required Color foreground,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: EdgeInsets.symmetric(
+        horizontal: dynamicWidth(10),
+        vertical: dynamicHeight(4),
+      ),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(20),
@@ -131,7 +135,13 @@ class CommonWidgets {
 
   static Widget sectionLabel(String text, {EdgeInsetsGeometry? padding}) {
     return Padding(
-      padding: padding ?? const EdgeInsets.fromLTRB(16, 18, 16, 8),
+      padding: padding ??
+          EdgeInsets.fromLTRB(
+            dynamicWidth(16),
+            dynamicHeight(18),
+            dynamicWidth(16),
+            dynamicHeight(8),
+          ),
       child: Text(
         text.toUpperCase(),
         style: const TextStyle(
@@ -146,8 +156,8 @@ class CommonWidgets {
 
   static Widget shimmerLoading({double height = 200, double? width}) {
     return Container(
-      width: width,
-      height: height,
+      width: width == null ? null : dynamicWidth(width),
+      height: dynamicHeight(height),
       decoration: BoxDecoration(
         color: AppColors.lineLight,
         borderRadius: BorderRadius.circular(12),

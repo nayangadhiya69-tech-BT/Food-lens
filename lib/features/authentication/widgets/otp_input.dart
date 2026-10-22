@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 
 /// Six-box OTP entry from the HTML design with focus traversal,
 /// backspace handling and one-time-code autofill hints.
@@ -97,7 +98,7 @@ class OtpInputState extends State<OtpInput> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           for (var i = 0; i < widget.length; i++) ...[
-            if (i > 0) const SizedBox(width: 8),
+            if (i > 0) SizedBox(width: dynamicWidth(8)),
             _OtpBox(
               controller: _controllers[i],
               focusNode: _focusNodes[i],
@@ -136,8 +137,8 @@ class _OtpBox extends StatelessWidget {
     final color = (focused || filled) ? AppColors.brand : AppColors.line;
 
     return Container(
-      width: 48,
-      height: 58,
+      width: dynamicWidth(48),
+      height: dynamicHeight(58),
       decoration: BoxDecoration(
         color: filled ? AppColors.brandBackground : AppColors.surface,
         borderRadius: BorderRadius.circular(12),

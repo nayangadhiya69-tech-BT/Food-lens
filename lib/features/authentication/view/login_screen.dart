@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../language/widgets/language_switcher.dart';
@@ -86,20 +87,29 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            Positioned(top: 12, right: 14, child: LanguageSwitcher()),
+            Positioned(
+              top: dynamicHeight(12),
+              right: dynamicWidth(14),
+              child: LanguageSwitcher(),
+            ),
             Column(
               children: [
                 Expanded(
                   child: Center(
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
+                      padding: EdgeInsets.fromLTRB(
+                        dynamicWidth(24),
+                        dynamicHeight(32),
+                        dynamicWidth(24),
+                        dynamicHeight(16),
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 64,
-                            height: 64,
+                            width: dynamicWidth(64),
+                            height: dynamicHeight(64),
                             decoration: BoxDecoration(
                               color: AppColors.brandBackground,
                               borderRadius: BorderRadius.circular(16),
@@ -110,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: AppColors.brand,
                             ),
                           ),
-                          const SizedBox(height: 22),
+                          SizedBox(height: dynamicHeight(22)),
                           // Localized texts cross-fade (instead of snapping in
                           // one frame) when the language changes, so the switch
                           // feels smooth. The phone field stays outside the
@@ -130,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height: 1.25,
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                SizedBox(height: dynamicHeight(8)),
                                 Text(
                                   l10n.loginSubtitle,
                                   style: const TextStyle(
@@ -139,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height: 1.55,
                                   ),
                                 ),
-                                const SizedBox(height: 26),
+                                SizedBox(height: dynamicHeight(26)),
                                 Text(
                                   l10n.mobileNumberLabel,
                                   style: const TextStyle(
@@ -151,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: dynamicHeight(8)),
                           _PhoneField(
                             controller: _phoneController,
                             focusNode: _phoneFocus,
@@ -170,16 +180,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(22, 8, 22, 22),
+                  padding: EdgeInsets.fromLTRB(
+                    dynamicWidth(22),
+                    dynamicHeight(8),
+                    dynamicWidth(22),
+                    dynamicHeight(22),
+                  ),
                   child: _LocaleFade(
                     child: Column(
                       key: const ValueKey('loginFooterTexts'),
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 10,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: dynamicWidth(12),
+                            vertical: dynamicHeight(10),
                           ),
                           decoration: BoxDecoration(
                             color: AppColors.brandBackground,
@@ -197,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: dynamicHeight(12)),
                         // The button collapses into a compact pill with a
                         // loader while the OTP request is in flight, then
                         // restores itself when the user comes back.
@@ -239,14 +254,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                       child: loading
-                                          ? const SizedBox(
-                                              key: ValueKey('sendOtpLoader'),
-                                              width: 20,
-                                              height: 20,
-                                              child: CircularProgressIndicator(
-                                                strokeWidth: 2,
-                                                color: AppColors.surface,
+                                          ? SizedBox(
+                                              key: const ValueKey(
+                                                'sendOtpLoader',
                                               ),
+                                              width: dynamicWidth(20),
+                                              height: dynamicHeight(20),
+                                              child:
+                                                  const CircularProgressIndicator(
+                                                    strokeWidth: 2,
+                                                    color: AppColors.surface,
+                                                  ),
                                             )
                                           : Text(
                                               l10n.sendOtp,
@@ -261,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: dynamicHeight(12)),
                         _LocaleFade(
                           child: Text(
                             l10n.termsCaption,
@@ -371,7 +389,10 @@ class _PhoneField extends StatelessWidget {
       children: [
         AnimatedContainer(
           duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+          padding: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(14),
+            vertical: dynamicHeight(4),
+          ),
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(12),
@@ -387,9 +408,13 @@ class _PhoneField extends StatelessWidget {
                   color: AppColors.inkSecondary,
                 ),
               ),
-              const SizedBox(width: 10),
-              Container(width: 1, height: 22, color: AppColors.line),
-              const SizedBox(width: 10),
+              SizedBox(width: dynamicWidth(10)),
+              Container(
+                width: dynamicWidth(1),
+                height: dynamicHeight(22),
+                color: AppColors.line,
+              ),
+              SizedBox(width: dynamicWidth(10)),
               Expanded(
                 child: Focus(
                   onFocusChange: onFocusChange,
@@ -418,7 +443,9 @@ class _PhoneField extends StatelessWidget {
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       errorBorder: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: dynamicHeight(14),
+                      ),
                     ),
                   ),
                 ),
@@ -428,7 +455,10 @@ class _PhoneField extends StatelessWidget {
         ),
         if (errorText != null)
           Padding(
-            padding: const EdgeInsets.only(top: 8, left: 4),
+            padding: EdgeInsets.only(
+              top: dynamicHeight(8),
+              left: dynamicWidth(4),
+            ),
             child: Text(
               errorText!,
               style: const TextStyle(fontSize: 13, color: AppColors.danger),

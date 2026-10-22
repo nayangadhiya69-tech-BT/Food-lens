@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Body of the [StatefulShellRoute]: keeps the three tab branches alive
@@ -109,16 +110,15 @@ class _NavItem extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 8),
+            padding: EdgeInsets.only(
+              top: dynamicHeight(10),
+              bottom: dynamicHeight(8),
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  selected ? activeIcon : icon,
-                  size: 24,
-                  color: color,
-                ),
-                const SizedBox(height: 3),
+                Icon(selected ? activeIcon : icon, size: 24, color: color),
+                SizedBox(height: dynamicHeight(3)),
                 Text(
                   label,
                   style: TextStyle(

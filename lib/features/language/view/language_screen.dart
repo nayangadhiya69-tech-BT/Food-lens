@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../language/view_model/locale_provider.dart';
@@ -25,7 +26,12 @@ class LanguageScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
+          padding: EdgeInsets.fromLTRB(
+            dynamicWidth(16),
+            dynamicHeight(20),
+            dynamicWidth(16),
+            dynamicHeight(24),
+          ),
           children: [
             Text(
               l10n.preferredLanguageLabel.toUpperCase(),
@@ -36,7 +42,7 @@ class LanguageScreen extends StatelessWidget {
                 letterSpacing: 0.5,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: dynamicHeight(10)),
             LanguageCards(
               selectedCode: localeProvider.effectiveCode,
               onSelected: (code) => localeProvider.setLocale(code),

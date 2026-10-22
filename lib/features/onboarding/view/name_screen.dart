@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/storage/app_prefs.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
@@ -72,13 +73,18 @@ class _NameScreenState extends State<NameScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24, 28, 24, 16),
+                padding: EdgeInsets.fromLTRB(
+                  dynamicWidth(24),
+                  dynamicHeight(28),
+                  dynamicWidth(24),
+                  dynamicHeight(16),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 64,
-                      height: 64,
+                      width: dynamicWidth(64),
+                      height: dynamicHeight(64),
                       decoration: BoxDecoration(
                         color: AppColors.brandBackground,
                         borderRadius: BorderRadius.circular(16),
@@ -89,7 +95,7 @@ class _NameScreenState extends State<NameScreen> {
                         color: AppColors.brand,
                       ),
                     ),
-                    const SizedBox(height: 22),
+                    SizedBox(height: dynamicHeight(22)),
                     Text(
                       l10n.nameTitle,
                       style: const TextStyle(
@@ -99,7 +105,7 @@ class _NameScreenState extends State<NameScreen> {
                         height: 1.25,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: dynamicHeight(8)),
                     Text(
                       l10n.nameSubtitle,
                       style: const TextStyle(
@@ -108,7 +114,7 @@ class _NameScreenState extends State<NameScreen> {
                         height: 1.55,
                       ),
                     ),
-                    const SizedBox(height: 26),
+                    SizedBox(height: dynamicHeight(26)),
                     Text(
                       l10n.nameLabel,
                       style: const TextStyle(
@@ -117,12 +123,12 @@ class _NameScreenState extends State<NameScreen> {
                         color: AppColors.ink,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: dynamicHeight(8)),
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 150),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 4,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(14),
+                        vertical: dynamicHeight(4),
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.surface,
@@ -157,8 +163,8 @@ class _NameScreenState extends State<NameScreen> {
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           counterText: '',
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 14,
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: dynamicHeight(14),
                           ),
                         ),
                       ),
@@ -168,7 +174,12 @@ class _NameScreenState extends State<NameScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(22, 8, 22, 22),
+              padding: EdgeInsets.fromLTRB(
+                dynamicWidth(22),
+                dynamicHeight(8),
+                dynamicWidth(22),
+                dynamicHeight(22),
+              ),
               child: ElevatedButton(
                 onPressed: _name.isNotEmpty && !_submitting ? _continue : null,
                 child: Text(l10n.actionContinue),

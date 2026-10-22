@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../models/health_flag.dart';
 import '../theme/app_colors.dart';
+import '../utils/app_size.dart';
 
 /// Toggle chips for the health-flag preference from the HTML design.
 /// Used by the profile-setup screen and the Profile tab.
@@ -21,8 +22,8 @@ class HealthFlagChips extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
 
     return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: dynamicWidth(8),
+      runSpacing: dynamicHeight(8),
       children: [
         for (final flag in HealthFlag.values)
           _FlagChip(
@@ -53,7 +54,10 @@ class _FlagChip extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        padding: EdgeInsets.symmetric(
+          horizontal: dynamicWidth(14),
+          vertical: dynamicHeight(10),
+        ),
         decoration: BoxDecoration(
           color: selected ? AppColors.brandBackground : AppColors.surface,
           borderRadius: BorderRadius.circular(20),
@@ -76,7 +80,7 @@ class _FlagChip extends StatelessWidget {
               ),
             ),
             if (selected) ...[
-              const SizedBox(width: 5),
+              SizedBox(width: dynamicWidth(5)),
               const Icon(Icons.check, size: 15, color: AppColors.brand),
             ],
           ],

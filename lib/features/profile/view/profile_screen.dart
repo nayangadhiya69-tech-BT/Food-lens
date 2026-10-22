@@ -6,6 +6,7 @@ import '../../../core/config/app_config.dart';
 import '../../../core/models/load_state.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_utils.dart';
 import '../../../core/widgets/app_header.dart';
 import '../../../core/widgets/common_widgets.dart';
@@ -63,10 +64,10 @@ class _ProfileView extends StatelessWidget {
           value: viewModel,
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-              20,
-              20,
-              20,
-              20 + MediaQuery.viewInsetsOf(sheetContext).bottom,
+              dynamicWidth(20),
+              dynamicHeight(20),
+              dynamicWidth(20),
+              dynamicHeight(20) + MediaQuery.viewInsetsOf(sheetContext).bottom,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -93,7 +94,7 @@ class _ProfileView extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: dynamicHeight(4)),
                 Text(
                   l10n.flagNote,
                   style: const TextStyle(
@@ -101,14 +102,14 @@ class _ProfileView extends StatelessWidget {
                     color: AppColors.inkSecondary,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: dynamicHeight(16)),
                 Consumer<ProfileViewModel>(
                   builder: (context, vm, _) => HealthFlagChips(
                     selected: vm.healthFlags,
                     onToggle: vm.toggleFlag,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: dynamicHeight(20)),
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(
@@ -153,7 +154,7 @@ class _ProfileView extends StatelessWidget {
       case LoadState.success:
         final user = viewModel.user!;
         return ListView(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(vertical: dynamicHeight(16)),
           children: [
             _UserCard(name: user.name, phone: user.phoneDigits),
             _sectionCard(
@@ -177,11 +178,11 @@ class _ProfileView extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(dynamicWidth(16)),
               child: FilledButton.icon(
                 style: FilledButton.styleFrom(
                   backgroundColor: AppColors.danger,
-                  minimumSize: const Size.fromHeight(48),
+                  minimumSize: Size.fromHeight(dynamicHeight(48)),
                 ),
                 onPressed: () => _confirmSignOut(context),
                 icon: const Icon(Icons.logout, size: 20),
@@ -189,7 +190,7 @@ class _ProfileView extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: EdgeInsets.symmetric(vertical: dynamicHeight(8)),
               child: Column(
                 children: [
                   Text(
@@ -200,7 +201,7 @@ class _ProfileView extends StatelessWidget {
                       color: AppColors.inkTertiary,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: dynamicHeight(4)),
                   Text(
                     '${l10n.appVersionLabel} ${AppConfig.appVersion}',
                     textAlign: TextAlign.center,
@@ -219,8 +220,14 @@ class _ProfileView extends StatelessWidget {
 
   Widget _sectionCard({required Widget child}) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      margin: EdgeInsets.symmetric(
+        horizontal: dynamicWidth(16),
+        vertical: dynamicHeight(4),
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: dynamicWidth(16),
+        vertical: dynamicHeight(4),
+      ),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
@@ -242,8 +249,11 @@ class _UserCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(
+        horizontal: dynamicWidth(16),
+        vertical: dynamicHeight(4),
+      ),
+      padding: EdgeInsets.all(dynamicWidth(16)),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
@@ -252,8 +262,8 @@ class _UserCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 56,
-            height: 56,
+            width: dynamicWidth(56),
+            height: dynamicHeight(56),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               color: AppColors.brandBackground,
@@ -268,7 +278,7 @@ class _UserCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 14),
+          SizedBox(width: dynamicWidth(14)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,7 +291,7 @@ class _UserCard extends StatelessWidget {
                     color: AppColors.ink,
                   ),
                 ),
-                const SizedBox(height: 2),
+                SizedBox(height: dynamicHeight(2)),
                 Text(
                   phone.isEmpty
                       ? l10n.profileDemoBadge
@@ -327,11 +337,11 @@ class _NavRow extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(10),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: dynamicHeight(12)),
           child: Row(
             children: [
               Icon(icon, size: 22, color: AppColors.brand),
-              const SizedBox(width: 12),
+              SizedBox(width: dynamicWidth(12)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,7 +355,7 @@ class _NavRow extends StatelessWidget {
                       ),
                     ),
                     if (subtitle != null) ...[
-                      const SizedBox(height: 2),
+                      SizedBox(height: dynamicHeight(2)),
                       Text(
                         subtitle!,
                         style: const TextStyle(
