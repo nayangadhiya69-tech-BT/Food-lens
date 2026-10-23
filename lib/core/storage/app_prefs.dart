@@ -78,4 +78,14 @@ class AppPrefs {
   static Future<bool> setHealthFlags(Iterable<String> flags) async {
     return _prefs?.setStringList(keyHealthFlags, flags.toList()) ?? false;
   }
+
+  // ---- Generic string slot (feature-scoped JSON blobs, e.g. My Day) ----
+
+  /// Reads a raw string value stored under [key], or null when absent.
+  static String? getString(String key) => _prefs?.getString(key);
+
+  /// Writes a raw string value under [key].
+  static Future<bool> setString(String key, String value) async {
+    return _prefs?.setString(key, value) ?? false;
+  }
 }

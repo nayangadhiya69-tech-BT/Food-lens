@@ -10,6 +10,9 @@ import '../../features/home/repository/home_repository.dart';
 import '../../features/home/repository/mock_home_repository.dart';
 import '../../features/language/repository/language_repository.dart';
 import '../../features/language/view_model/locale_provider.dart';
+import '../../features/my_day/repository/my_day_repository.dart';
+import '../../features/my_day/repository/prefs_my_day_repository.dart';
+import '../../features/my_day/view_model/my_day_view_model.dart';
 import '../../features/profile/repository/mock_profile_repository.dart';
 import '../../features/profile/repository/profile_repository.dart';
 
@@ -23,28 +26,27 @@ import '../../features/profile/repository/profile_repository.dart';
 /// No screen or tab view model ever constructs a repository directly, so
 /// this is the only file that changes when the data source switches.
 List<SingleChildWidget> appProviders() => [
-      // --- Data sources (demo implementations) ---
-      Provider<LanguageRepository>(
-        create: (_) => const PrefsLanguageRepository(),
-      ),
-      Provider<AuthRepository>(
-        create: (_) => MockAuthRepository(),
-      ),
-      Provider<HomeRepository>(
-        create: (_) => MockHomeRepository(),
-      ),
-      Provider<HistoryRepository>(
-        create: (_) => MockHistoryRepository(),
-      ),
-      Provider<ProfileRepository>(
-        create: (_) => MockProfileRepository(),
-      ),
+  // --- Data sources (demo implementations) ---
+  Provider<LanguageRepository>(create: (_) => const PrefsLanguageRepository()),
+  Provider<AuthRepository>(create: (_) => MockAuthRepository()),
+  Provider<HomeRepository>(create: (_) => MockHomeRepository()),
+  Provider<HistoryRepository>(create: (_) => MockHistoryRepository()),
+  Provider<ProfileRepository>(create: (_) => MockProfileRepository()),
+  // My Day persists per-date entries locally; swap for an API-backed
+  // implementation when a backend exists (same interface).
+  Provider<MyDayRepository>(create: (_) => const PrefsMyDayRepository()),
 
-      // --- Application-scope state ---
-      ChangeNotifierProvider<LocaleProvider>(
-        create: (context) => LocaleProvider(context.read<LanguageRepository>()),
-      ),
-      ChangeNotifierProvider<AuthViewModel>(
-        create: (context) => AuthViewModel(context.read<AuthRepository>()),
-      ),
-    ];
+  // --- Application-scope state ---
+  ChangeNotifierProvider<LocaleProvider>(
+    create: (context) => LocaleProvider(context.read<LanguageRepository>()),
+  ),
+  ChangeNotifierProvider<AuthViewModel>(
+    create: (context) => AuthViewModel(context.read<AuthRepository>()),
+  ),
+  // My Day is app-scope: the Home dashboard shows the same totals,
+  // so both tabs share one view model and can never disagree.
+  ChangeNotifierProvider<MyDayViewModel>(
+    create: (context) =>
+        MyDayViewModel(context.read<MyDayRepository>())..load(),
+  ),
+];

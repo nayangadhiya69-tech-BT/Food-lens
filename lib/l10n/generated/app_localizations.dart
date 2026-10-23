@@ -502,6 +502,324 @@ abstract class AppLocalizations {
   /// **'Your daily highlights will show up here.'**
   String get myDayEmptySubtitle;
 
+  /// No description provided for @myDayError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load My Day. Please try again.'**
+  String get myDayError;
+
+  /// No description provided for @myDayPickTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to today'**
+  String get myDayPickTitle;
+
+  /// No description provided for @myDayPickSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap everything you ate today'**
+  String get myDayPickSubtitle;
+
+  /// No description provided for @myDayRecentScansLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recent scans'**
+  String get myDayRecentScansLabel;
+
+  /// No description provided for @myDayPickNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Only things you have scanned show up here. Scan a new pack to add it to this list.'**
+  String get myDayPickNote;
+
+  /// No description provided for @myDayParseAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Parse and Add to List'**
+  String get myDayParseAdd;
+
+  /// No description provided for @myDayNothingSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one item to continue.'**
+  String get myDayNothingSelected;
+
+  /// No description provided for @myDayAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How much?'**
+  String get myDayAmountTitle;
+
+  /// No description provided for @myDayAmountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer the way you\'d say it — spoons, glasses, katoris'**
+  String get myDayAmountSubtitle;
+
+  /// No description provided for @myDayAmountNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody weighs snacks. Pick the measure you actually used. FoodLens converts it to grams underneath using each product\'s own density.'**
+  String get myDayAmountNote;
+
+  /// No description provided for @myDayEditQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit quantity'**
+  String get myDayEditQuantity;
+
+  /// No description provided for @myDayGramsCounted.
+  ///
+  /// In en, this message translates to:
+  /// **'{grams} g counted'**
+  String myDayGramsCounted(String grams);
+
+  /// No description provided for @myDayQuantityInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount greater than zero.'**
+  String get myDayQuantityInvalid;
+
+  /// No description provided for @myDayQuantityTooHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount cannot exceed the full pack size.'**
+  String get myDayQuantityTooHigh;
+
+  /// No description provided for @myDayCalculate.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate My Day'**
+  String get myDayCalculate;
+
+  /// No description provided for @myDayCalculating.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating…'**
+  String get myDayCalculating;
+
+  /// No description provided for @myDaySummarySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items · today vs your daily limits'**
+  String myDaySummarySubtitle(int count);
+
+  /// No description provided for @myDayAgainstLimitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Today against the daily limit'**
+  String get myDayAgainstLimitLabel;
+
+  /// No description provided for @myDayDailyLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily limit'**
+  String get myDayDailyLimit;
+
+  /// No description provided for @myDayRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} left'**
+  String myDayRemaining(String amount);
+
+  /// No description provided for @myDayOverBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} over'**
+  String myDayOverBy(String amount);
+
+  /// No description provided for @myDayWhatMadeItUp.
+  ///
+  /// In en, this message translates to:
+  /// **'What made it up'**
+  String get myDayWhatMadeItUp;
+
+  /// No description provided for @myDayHoneyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Honey corrected. Your figures had honey at 0g sugar. WHO counts honey as free sugar (~82g per 100g), so it is included here — that is what pushes sugar over.'**
+  String get myDayHoneyNote;
+
+  /// No description provided for @myDaySourceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Every figure is per-100g × grams eaten ÷ 100. Limits are WHO adult references, not FSSAI limits.'**
+  String get myDaySourceNote;
+
+  /// No description provided for @myDayAddAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Another Item'**
+  String get myDayAddAnother;
+
+  /// No description provided for @myDayGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get myDayGoHome;
+
+  /// No description provided for @myDayRemoveItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}'**
+  String myDayRemoveItem(String name);
+
+  /// No description provided for @myDaySaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save today\'s entries. Please try again.'**
+  String get myDaySaveError;
+
+  /// No description provided for @myDayChipSugar.
+  ///
+  /// In en, this message translates to:
+  /// **'sugar {value}g'**
+  String myDayChipSugar(String value);
+
+  /// No description provided for @myDayChipSalt.
+  ///
+  /// In en, this message translates to:
+  /// **'salt {value}mg'**
+  String myDayChipSalt(String value);
+
+  /// No description provided for @myDayChipFat.
+  ///
+  /// In en, this message translates to:
+  /// **'fat {value}g'**
+  String myDayChipFat(String value);
+
+  /// No description provided for @myDayNothingAddedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing added yet'**
+  String get myDayNothingAddedYet;
+
+  /// No description provided for @myDayEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add what you ate today and FoodLens adds it up against one day\'s amount.'**
+  String get myDayEmptyBody;
+
+  /// No description provided for @myDayWhyBotherLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Why bother?'**
+  String get myDayWhyBotherLabel;
+
+  /// No description provided for @myDayWhyBotherTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One pack looks small'**
+  String get myDayWhyBotherTitle;
+
+  /// No description provided for @myDayWhyBotherBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Four snacks in a day can pass a whole day\'s salt or fat without any single pack looking bad.'**
+  String get myDayWhyBotherBody;
+
+  /// No description provided for @myDayAddFirstItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add my first item'**
+  String get myDayAddFirstItem;
+
+  /// No description provided for @nutrientSugarLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sugar (WHO free-sugar basis)'**
+  String get nutrientSugarLabel;
+
+  /// No description provided for @nutrientSaltLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Salt (sodium)'**
+  String get nutrientSaltLabel;
+
+  /// No description provided for @nutrientHeavyFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Heavy fat'**
+  String get nutrientHeavyFatLabel;
+
+  /// No description provided for @formSpoons.
+  ///
+  /// In en, this message translates to:
+  /// **'measured in spoons'**
+  String get formSpoons;
+
+  /// No description provided for @formGlasses.
+  ///
+  /// In en, this message translates to:
+  /// **'measured in glasses'**
+  String get formGlasses;
+
+  /// No description provided for @formKatoris.
+  ///
+  /// In en, this message translates to:
+  /// **'measured in katoris'**
+  String get formKatoris;
+
+  /// No description provided for @formPacketsDry.
+  ///
+  /// In en, this message translates to:
+  /// **'counted in packets · dry weight'**
+  String get formPacketsDry;
+
+  /// No description provided for @formBiscuits.
+  ///
+  /// In en, this message translates to:
+  /// **'counted in biscuits (~{grams}g each)'**
+  String formBiscuits(String grams);
+
+  /// No description provided for @formSachets.
+  ///
+  /// In en, this message translates to:
+  /// **'counted in sachets ({grams}g each)'**
+  String formSachets(String grams);
+
+  /// No description provided for @formConcentrate.
+  ///
+  /// In en, this message translates to:
+  /// **'syrup only — {dose}ml makes a {makes}ml glass'**
+  String formConcentrate(String dose, String makes);
+
+  /// No description provided for @formServing.
+  ///
+  /// In en, this message translates to:
+  /// **'label serving {grams}g'**
+  String formServing(String grams);
+
+  /// No description provided for @caveatCook.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry weight, as sold. Oil, butter or vegetables you add while cooking are not on the label, so they are not counted here.'**
+  String get caveatCook;
+
+  /// No description provided for @caveatConcentrate.
+  ///
+  /// In en, this message translates to:
+  /// **'Syrup only. We count the syrup you pour, not the water you add.'**
+  String get caveatConcentrate;
+
+  /// No description provided for @caveatPiece.
+  ///
+  /// In en, this message translates to:
+  /// **'~{grams}g per biscuit. Counting pieces is closer to the truth than guessing grams.'**
+  String caveatPiece(String grams);
+
+  /// No description provided for @todayNutritionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s intake'**
+  String get todayNutritionLabel;
+
+  /// No description provided for @actionSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get actionSave;
+
   /// No description provided for @homeGreeting.
   ///
   /// In en, this message translates to:

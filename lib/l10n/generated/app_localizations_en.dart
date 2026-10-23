@@ -231,6 +231,201 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myDayEmptySubtitle => 'Your daily highlights will show up here.';
 
   @override
+  String get myDayError => 'Could not load My Day. Please try again.';
+
+  @override
+  String get myDayPickTitle => 'Add to today';
+
+  @override
+  String get myDayPickSubtitle => 'Tap everything you ate today';
+
+  @override
+  String get myDayRecentScansLabel => 'Your recent scans';
+
+  @override
+  String get myDayPickNote =>
+      'Only things you have scanned show up here. Scan a new pack to add it to this list.';
+
+  @override
+  String get myDayParseAdd => 'Parse and Add to List';
+
+  @override
+  String get myDayNothingSelected => 'Select at least one item to continue.';
+
+  @override
+  String get myDayAmountTitle => 'How much?';
+
+  @override
+  String get myDayAmountSubtitle =>
+      'Answer the way you\'d say it — spoons, glasses, katoris';
+
+  @override
+  String get myDayAmountNote =>
+      'Nobody weighs snacks. Pick the measure you actually used. FoodLens converts it to grams underneath using each product\'s own density.';
+
+  @override
+  String get myDayEditQuantity => 'Edit quantity';
+
+  @override
+  String myDayGramsCounted(String grams) {
+    return '$grams g counted';
+  }
+
+  @override
+  String get myDayQuantityInvalid => 'Enter a valid amount greater than zero.';
+
+  @override
+  String get myDayQuantityTooHigh => 'Amount cannot exceed the full pack size.';
+
+  @override
+  String get myDayCalculate => 'Calculate My Day';
+
+  @override
+  String get myDayCalculating => 'Calculating…';
+
+  @override
+  String myDaySummarySubtitle(int count) {
+    return '$count items · today vs your daily limits';
+  }
+
+  @override
+  String get myDayAgainstLimitLabel => 'Today against the daily limit';
+
+  @override
+  String get myDayDailyLimit => 'Daily limit';
+
+  @override
+  String myDayRemaining(String amount) {
+    return '$amount left';
+  }
+
+  @override
+  String myDayOverBy(String amount) {
+    return '$amount over';
+  }
+
+  @override
+  String get myDayWhatMadeItUp => 'What made it up';
+
+  @override
+  String get myDayHoneyNote =>
+      'Honey corrected. Your figures had honey at 0g sugar. WHO counts honey as free sugar (~82g per 100g), so it is included here — that is what pushes sugar over.';
+
+  @override
+  String get myDaySourceNote =>
+      'Every figure is per-100g × grams eaten ÷ 100. Limits are WHO adult references, not FSSAI limits.';
+
+  @override
+  String get myDayAddAnother => 'Add Another Item';
+
+  @override
+  String get myDayGoHome => 'Go to Home';
+
+  @override
+  String myDayRemoveItem(String name) {
+    return 'Remove $name';
+  }
+
+  @override
+  String get myDaySaveError =>
+      'Could not save today\'s entries. Please try again.';
+
+  @override
+  String myDayChipSugar(String value) {
+    return 'sugar ${value}g';
+  }
+
+  @override
+  String myDayChipSalt(String value) {
+    return 'salt ${value}mg';
+  }
+
+  @override
+  String myDayChipFat(String value) {
+    return 'fat ${value}g';
+  }
+
+  @override
+  String get myDayNothingAddedYet => 'Nothing added yet';
+
+  @override
+  String get myDayEmptyBody =>
+      'Add what you ate today and FoodLens adds it up against one day\'s amount.';
+
+  @override
+  String get myDayWhyBotherLabel => 'Why bother?';
+
+  @override
+  String get myDayWhyBotherTitle => 'One pack looks small';
+
+  @override
+  String get myDayWhyBotherBody =>
+      'Four snacks in a day can pass a whole day\'s salt or fat without any single pack looking bad.';
+
+  @override
+  String get myDayAddFirstItem => 'Add my first item';
+
+  @override
+  String get nutrientSugarLabel => 'Sugar (WHO free-sugar basis)';
+
+  @override
+  String get nutrientSaltLabel => 'Salt (sodium)';
+
+  @override
+  String get nutrientHeavyFatLabel => 'Heavy fat';
+
+  @override
+  String get formSpoons => 'measured in spoons';
+
+  @override
+  String get formGlasses => 'measured in glasses';
+
+  @override
+  String get formKatoris => 'measured in katoris';
+
+  @override
+  String get formPacketsDry => 'counted in packets · dry weight';
+
+  @override
+  String formBiscuits(String grams) {
+    return 'counted in biscuits (~${grams}g each)';
+  }
+
+  @override
+  String formSachets(String grams) {
+    return 'counted in sachets (${grams}g each)';
+  }
+
+  @override
+  String formConcentrate(String dose, String makes) {
+    return 'syrup only — ${dose}ml makes a ${makes}ml glass';
+  }
+
+  @override
+  String formServing(String grams) {
+    return 'label serving ${grams}g';
+  }
+
+  @override
+  String get caveatCook =>
+      'Dry weight, as sold. Oil, butter or vegetables you add while cooking are not on the label, so they are not counted here.';
+
+  @override
+  String get caveatConcentrate =>
+      'Syrup only. We count the syrup you pour, not the water you add.';
+
+  @override
+  String caveatPiece(String grams) {
+    return '~${grams}g per biscuit. Counting pieces is closer to the truth than guessing grams.';
+  }
+
+  @override
+  String get todayNutritionLabel => 'Today\'s intake';
+
+  @override
+  String get actionSave => 'Save';
+
+  @override
   String homeGreeting(String name) {
     return 'Hi $name 👋';
   }

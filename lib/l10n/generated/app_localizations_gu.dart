@@ -231,6 +231,202 @@ class AppLocalizationsGu extends AppLocalizations {
   String get myDayEmptySubtitle => 'તમારી દૈનિક હાઇલાઇટ્સ અહીં દેખાશે.';
 
   @override
+  String get myDayError =>
+      'મારો દિવસ લોડ થઈ શક્યો નહીં. કૃપા કરીને ફરી પ્રયાસ કરો.';
+
+  @override
+  String get myDayPickTitle => 'આજે શું ખાધું';
+
+  @override
+  String get myDayPickSubtitle => 'આજે જે કંઈ ખાધું તે પસંદ કરો';
+
+  @override
+  String get myDayRecentScansLabel => 'તમારા તાજેતરના સ્કેન';
+
+  @override
+  String get myDayPickNote =>
+      'અહીં ફક્ત એ જ વસ્તુઓ દેખાય છે જે તમે સ્કેન કરી છે. આ યાદીમાં ઉમેરવા માટે નવો પેક સ્કેન કરો.';
+
+  @override
+  String get myDayParseAdd => 'પાર્સ કરો અને યાદીમાં ઉમેરો';
+
+  @override
+  String get myDayNothingSelected =>
+      'આગળ વધવા માટે ઓછામાં ઓછી એક વસ્તુ પસંદ કરો.';
+
+  @override
+  String get myDayAmountTitle => 'કેટલું લીધું?';
+
+  @override
+  String get myDayAmountSubtitle => 'જેમ તમે બોલો તેમ કહો — ચમચી, ગ્લાસ, કટોરી';
+
+  @override
+  String get myDayAmountNote =>
+      'કોઈ સ્નેક તોલતું નથી. તમે સાચેથી વાપરેલું માપ પસંદ કરો. ફૂડલેન્સ દરેક પ્રોડક્ટની પોતાની ઘનતાથી તેને ગ્રામમાં બદલી દે છે.';
+
+  @override
+  String get myDayEditQuantity => 'જથ્થો સંપાદિત કરો';
+
+  @override
+  String myDayGramsCounted(String grams) {
+    return '$grams ગ્રામ ગણ્યા';
+  }
+
+  @override
+  String get myDayQuantityInvalid => 'શૂન્યથી વધુ માન્ય જથ્થો દાખલ કરો.';
+
+  @override
+  String get myDayQuantityTooHigh => 'જથ્થો સંપૂર્ણ પેકથી વધી શકતો નથી.';
+
+  @override
+  String get myDayCalculate => 'મારો દિવસ ગણો';
+
+  @override
+  String get myDayCalculating => 'ગણતરી ચાલુ છે…';
+
+  @override
+  String myDaySummarySubtitle(int count) {
+    return '$count વસ્તુઓ · આજે તમારી દૈનિક મર્યાદાઓ સામે';
+  }
+
+  @override
+  String get myDayAgainstLimitLabel => 'આજે દૈનિક મર્યાદા સામે';
+
+  @override
+  String get myDayDailyLimit => 'દૈનિક મર્યાદા';
+
+  @override
+  String myDayRemaining(String amount) {
+    return '$amount બાકી';
+  }
+
+  @override
+  String myDayOverBy(String amount) {
+    return '$amount વધારે';
+  }
+
+  @override
+  String get myDayWhatMadeItUp => 'તેમાં શું સામેલ છે';
+
+  @override
+  String get myDayHoneyNote =>
+      'મધ સુધારેલ છે. તમારા આંકડામાં મધ 0g ખાંડ હતો. WHO મધને ફ્રી ખાંડ (~82g પ્રતિ 100g) ગણે છે, તેથી અહીં સામેલ છે — આથી જ ખાંડ મર્યાદા વટાવે છે.';
+
+  @override
+  String get myDaySourceNote =>
+      'દરેક આંકડો પ્રતિ-100g × ખાયેલા ગ્રામ ÷ 100 છે. મર્યાદાઓ WHO પુખ્ત વય સંદર્ભો છે, FSSAI મર્યાદાઓ નહીં.';
+
+  @override
+  String get myDayAddAnother => 'બીજી વસ્તુ ઉમેરો';
+
+  @override
+  String get myDayGoHome => 'હોમ પર જાઓ';
+
+  @override
+  String myDayRemoveItem(String name) {
+    return '$name દૂર કરો';
+  }
+
+  @override
+  String get myDaySaveError =>
+      'આજની નોંધો સાચવી શકાઈ નહીં. કૃપા કરીને ફરી પ્રયાસ કરો.';
+
+  @override
+  String myDayChipSugar(String value) {
+    return 'ખાંડ ${value}g';
+  }
+
+  @override
+  String myDayChipSalt(String value) {
+    return 'મીઠું ${value}mg';
+  }
+
+  @override
+  String myDayChipFat(String value) {
+    return 'ચરબી ${value}g';
+  }
+
+  @override
+  String get myDayNothingAddedYet => 'હજી કંઈ ઉમેર્યું નથી';
+
+  @override
+  String get myDayEmptyBody =>
+      'આજે તમે જે ખાધું તે ઉમેરો અને ફૂડલેન્સ તેને એક દિવસના જથ્થા સામે ઉમેરશે.';
+
+  @override
+  String get myDayWhyBotherLabel => 'શા માટે જરૂરી છે?';
+
+  @override
+  String get myDayWhyBotherTitle => 'એક પેક નાનો લાગે છે';
+
+  @override
+  String get myDayWhyBotherBody =>
+      'દિવસમાં ચાર સ્નેક આખા દિવસનું મીઠું કે ચરબી પાર કરી શકે છે, વગર કોઈ એક પેક ખરાબ લાગ્યા.';
+
+  @override
+  String get myDayAddFirstItem => 'પહેલી વસ્તુ ઉમેરો';
+
+  @override
+  String get nutrientSugarLabel => 'ખાંડ (WHO ફ્રી-શુગર આધાર)';
+
+  @override
+  String get nutrientSaltLabel => 'મીઠું (સોડિયમ)';
+
+  @override
+  String get nutrientHeavyFatLabel => 'હેવી ફેટ';
+
+  @override
+  String get formSpoons => 'ચમચીમાં માપવામાં આવે છે';
+
+  @override
+  String get formGlasses => 'ગ્લાસમાં માપવામાં આવે છે';
+
+  @override
+  String get formKatoris => 'કટોરીમાં માપવામાં આવે છે';
+
+  @override
+  String get formPacketsDry => 'પેકેટ ગણવામાં આવે છે · સૂકું વજન';
+
+  @override
+  String formBiscuits(String grams) {
+    return 'બિસ્કિટ ગણવામાં આવે છે (~${grams}g દીઠ)';
+  }
+
+  @override
+  String formSachets(String grams) {
+    return 'સેશે ગણવામાં આવે છે (${grams}g દીઠ)';
+  }
+
+  @override
+  String formConcentrate(String dose, String makes) {
+    return 'ફક્ત સિરપ — ${dose}ml થી ${makes}ml નો ગ્લાસ બને છે';
+  }
+
+  @override
+  String formServing(String grams) {
+    return 'લેબલ સર્વિંગ ${grams}g';
+  }
+
+  @override
+  String get caveatCook =>
+      'જેમ વેચાય છે, સૂકું વજન. રાંધતી વખતે ઉમેરેલું તેલ, માખણ કે શાકભાજી લેબલ પર હોતા નથી, તેથી ગણાતા નથી.';
+
+  @override
+  String get caveatConcentrate =>
+      'ફક્ત સિરપ. અમે તમે રેડેલા સિરપને ગણીએ છીએ, પાણીને નહીં.';
+
+  @override
+  String caveatPiece(String grams) {
+    return '~${grams}g દીઠ બિસ્કિટ. ટુકડા ગણવા એ ગ્રામ અનુમાન કરતાં વધુ સાચું છે.';
+  }
+
+  @override
+  String get todayNutritionLabel => 'આજનું સેવન';
+
+  @override
+  String get actionSave => 'સાચવો';
+
+  @override
   String homeGreeting(String name) {
     return 'નમસ્તે $name 👋';
   }

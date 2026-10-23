@@ -15,6 +15,10 @@ class CommonButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool loading;
 
+  /// Optional count rendered as a translucent pill after the label
+  /// (the My Day pick screen's "Parse and Add to List (3)").
+  final int? badgeCount;
+
   /// Text next to the default loading spinner (e.g. "Verifying…").
   final String? loadingLabel;
 
@@ -28,6 +32,7 @@ class CommonButton extends StatelessWidget {
     required this.label,
     this.onPressed,
     this.loading = false,
+    this.badgeCount,
     this.loadingLabel,
     this.loadingChild,
     this.style,
@@ -72,7 +77,38 @@ class CommonButton extends StatelessWidget {
                         ],
                       ],
                     ))
-              : Text(label, key: const ValueKey('commonButtonLabel')),
+              : Row(
+                  key: const ValueKey('commonButtonLabel'),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Flexible: long localized labels (or the count badge)
+                    // must never overflow the button on narrow screens.
+                    Flexible(
+                      child: Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    if (badgeCount != null) ...[
+                      SizedBox(width: dynamicWidth(8)),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: dynamicWidth(10),
+                          vertical: dynamicHeight(2),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.25),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          '$badgeCount',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
         ),
       ),
     );

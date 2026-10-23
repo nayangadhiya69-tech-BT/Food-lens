@@ -9,13 +9,16 @@ import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../common/widgets/widgets.dart';
 import '../../history/view/widgets/scan_record_tile.dart';
+import '../../my_day/view/widgets/limit_progress_card.dart';
+import '../../my_day/view_model/my_day_view_model.dart';
 import '../model/home_overview.dart';
 import '../repository/home_repository.dart';
 import '../view_model/home_view_model.dart';
 
-/// HTML screen 5 — Home: greeting, scan CTA, quick stats and recent scans.
-/// The scan flow itself is not part of this build, so scan entry points
-/// show an honest "not available" notice instead of pretending to work.
+/// HTML screen 5 — Home: greeting, scan CTA, quick stats, today's
+/// intake (from My Day) and recent scans. The scan flow itself is not
+/// part of this build, so scan entry points show an honest "not
+/// available" notice instead of pretending to work.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -57,6 +60,9 @@ class _HomeView extends StatelessWidget {
     AppLocalizations l10n,
     HomeViewModel viewModel,
   ) {
+    // Today's My Day totals come from the shared MyDayViewModel, so the
+    // dashboard updates live whenever the My Day flow changes them.
+    final myDay = context.watch<MyDayViewModel>();
     switch (viewModel.state) {
       case LoadState.loading:
         // First load: skeleton shimmer matching the real layout. On
@@ -77,6 +83,20 @@ class _HomeView extends StatelessWidget {
             _Greeting(overview: overview),
             _ScanCta(onTap: () => _scanUnavailable(context)),
             _StatsRow(overview: overview),
+            // Same figures as the My Day summary, rendered by the same
+            // LimitProgressCard widget. Hidden until something is logged.
+            if (myDay.todayTotals != null) ...[
+              CommonWidgets.sectionLabel(l10n.todayNutritionLabel),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
+                child: Column(
+                  children: [
+                    for (final progress in myDay.todayLimits)
+                      LimitProgressCard(progress: progress),
+                  ],
+                ),
+              ),
+            ],
             CommonWidgets.sectionLabel(l10n.recentScansLabel),
             if (viewModel.isEmpty)
               Padding(

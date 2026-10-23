@@ -104,6 +104,162 @@
   "myDayTitle": "My Day",
   "myDayEmptyTitle": "Nothing here yet",
   "myDayEmptySubtitle": "Your daily highlights will show up here.",
+  "myDayError": "Could not load My Day. Please try again.",
+
+  "myDayPickTitle": "Add to today",
+  "myDayPickSubtitle": "Tap everything you ate today",
+  "myDayRecentScansLabel": "Your recent scans",
+  "myDayPickNote": "Only things you have scanned show up here. Scan a new pack to add it to this list.",
+  "myDayParseAdd": "Parse and Add to List",
+  "myDayNothingSelected": "Select at least one item to continue.",
+
+  "myDayAmountTitle": "How much?",
+  "myDayAmountSubtitle": "Answer the way you'd say it — spoons, glasses, katoris",
+  "myDayAmountNote": "Nobody weighs snacks. Pick the measure you actually used. FoodLens converts it to grams underneath using each product's own density.",
+  "myDayEditQuantity": "Edit quantity",
+  "myDayGramsCounted": "{grams} g counted",
+  "@myDayGramsCounted": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "myDayQuantityInvalid": "Enter a valid amount greater than zero.",
+  "myDayQuantityTooHigh": "Amount cannot exceed the full pack size.",
+  "myDayCalculate": "Calculate My Day",
+  "myDayCalculating": "Calculating…",
+
+  "myDaySummarySubtitle": "{count} items · today vs your daily limits",
+  "@myDaySummarySubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "myDayAgainstLimitLabel": "Today against the daily limit",
+  "myDayDailyLimit": "Daily limit",
+  "myDayRemaining": "{amount} left",
+  "@myDayRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "myDayOverBy": "{amount} over",
+  "@myDayOverBy": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "myDayWhatMadeItUp": "What made it up",
+  "myDayHoneyNote": "Honey corrected. Your figures had honey at 0g sugar. WHO counts honey as free sugar (~82g per 100g), so it is included here — that is what pushes sugar over.",
+  "myDaySourceNote": "Every figure is per-100g × grams eaten ÷ 100. Limits are WHO adult references, not FSSAI limits.",
+  "myDayAddAnother": "Add Another Item",
+  "myDayGoHome": "Go to Home",
+  "myDayRemoveItem": "Remove {name}",
+  "@myDayRemoveItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "myDaySaveError": "Could not save today's entries. Please try again.",
+
+  "myDayChipSugar": "sugar {value}g",
+  "@myDayChipSugar": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "myDayChipSalt": "salt {value}mg",
+  "@myDayChipSalt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "myDayChipFat": "fat {value}g",
+  "@myDayChipFat": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+
+  "myDayNothingAddedYet": "Nothing added yet",
+  "myDayEmptyBody": "Add what you ate today and FoodLens adds it up against one day's amount.",
+  "myDayWhyBotherLabel": "Why bother?",
+  "myDayWhyBotherTitle": "One pack looks small",
+  "myDayWhyBotherBody": "Four snacks in a day can pass a whole day's salt or fat without any single pack looking bad.",
+  "myDayAddFirstItem": "Add my first item",
+
+  "nutrientSugarLabel": "Sugar (WHO free-sugar basis)",
+  "nutrientSaltLabel": "Salt (sodium)",
+  "nutrientHeavyFatLabel": "Heavy fat",
+
+  "formSpoons": "measured in spoons",
+  "formGlasses": "measured in glasses",
+  "formKatoris": "measured in katoris",
+  "formPacketsDry": "counted in packets · dry weight",
+  "formBiscuits": "counted in biscuits (~{grams}g each)",
+  "@formBiscuits": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "formSachets": "counted in sachets ({grams}g each)",
+  "@formSachets": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "formConcentrate": "syrup only — {dose}ml makes a {makes}ml glass",
+  "@formConcentrate": {
+    "placeholders": {
+      "dose": {
+        "type": "String"
+      },
+      "makes": {
+        "type": "String"
+      }
+    }
+  },
+  "formServing": "label serving {grams}g",
+  "@formServing": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+
+  "caveatCook": "Dry weight, as sold. Oil, butter or vegetables you add while cooking are not on the label, so they are not counted here.",
+  "caveatConcentrate": "Syrup only. We count the syrup you pour, not the water you add.",
+  "caveatPiece": "~{grams}g per biscuit. Counting pieces is closer to the truth than guessing grams.",
+  "@caveatPiece": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+
+  "todayNutritionLabel": "Today's intake",
+  "actionSave": "Save",
 
   "homeGreeting": "Hi {name} 👋",
   "@homeGreeting": {
