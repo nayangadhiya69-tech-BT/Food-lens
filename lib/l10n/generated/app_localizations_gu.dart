@@ -213,10 +213,22 @@ class AppLocalizationsGu extends AppLocalizations {
   String get navHome => 'હોમ';
 
   @override
+  String get navMyDay => 'મારો દિવસ';
+
+  @override
   String get navHistory => 'ઇતિહાસ';
 
   @override
   String get navProfile => 'પ્રોફાઇલ';
+
+  @override
+  String get myDayTitle => 'મારો દિવસ';
+
+  @override
+  String get myDayEmptyTitle => 'હજી કંઈ નથી';
+
+  @override
+  String get myDayEmptySubtitle => 'તમારી દૈનિક હાઇલાઇટ્સ અહીં દેખાશે.';
 
   @override
   String homeGreeting(String name) {

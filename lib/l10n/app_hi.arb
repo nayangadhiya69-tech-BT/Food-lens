@@ -69,8 +69,13 @@
   "languageSwitcherLabel": "भाषा चुनें",
 
   "navHome": "होम",
+  "navMyDay": "मेरा दिन",
   "navHistory": "इतिहास",
   "navProfile": "प्रोफ़ाइल",
+
+  "myDayTitle": "मेरा दिन",
+  "myDayEmptyTitle": "अभी कुछ नहीं है",
+  "myDayEmptySubtitle": "आपकी दैनिक हाइलाइट्स यहाँ दिखेंगी।",
 
   "homeGreeting": "नमस्ते {name} 👋",
   "homeLocation": "सूरत, गुजरात",

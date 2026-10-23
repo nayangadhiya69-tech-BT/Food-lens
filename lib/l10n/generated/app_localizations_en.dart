@@ -213,10 +213,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navHome => 'Home';
 
   @override
+  String get navMyDay => 'My Day';
+
+  @override
   String get navHistory => 'History';
 
   @override
   String get navProfile => 'Profile';
+
+  @override
+  String get myDayTitle => 'My Day';
+
+  @override
+  String get myDayEmptyTitle => 'Nothing here yet';
+
+  @override
+  String get myDayEmptySubtitle => 'Your daily highlights will show up here.';
 
   @override
   String homeGreeting(String name) {

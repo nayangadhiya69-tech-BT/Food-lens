@@ -6,7 +6,7 @@ import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
-/// Body of the [StatefulShellRoute]: keeps the three tab branches alive
+/// Body of the [StatefulShellRoute]: keeps the four tab branches alive
 /// and shows the custom bottom nav from the HTML design
 /// (white bar, hairline top border, icon + label, brand color when active).
 class MainShell extends StatelessWidget {
@@ -63,18 +63,25 @@ class _BottomNav extends StatelessWidget {
                 onTap: () => onTap(0),
               ),
               _NavItem(
+                label: l10n.navMyDay,
+                icon: Icons.wb_sunny_outlined,
+                activeIcon: Icons.wb_sunny_rounded,
+                selected: currentIndex == 1,
+                onTap: () => onTap(1),
+              ),
+              _NavItem(
                 label: l10n.navHistory,
                 icon: Icons.access_time_rounded,
                 activeIcon: Icons.access_time_rounded,
-                selected: currentIndex == 1,
-                onTap: () => onTap(1),
+                selected: currentIndex == 2,
+                onTap: () => onTap(2),
               ),
               _NavItem(
                 label: l10n.navProfile,
                 icon: Icons.person_outline_rounded,
                 activeIcon: Icons.person_rounded,
-                selected: currentIndex == 2,
-                onTap: () => onTap(2),
+                selected: currentIndex == 3,
+                onTap: () => onTap(3),
               ),
             ],
           ),

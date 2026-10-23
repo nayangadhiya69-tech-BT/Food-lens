@@ -97,8 +97,13 @@
   "languageSwitcherLabel": "Language",
 
   "navHome": "Home",
+  "navMyDay": "My Day",
   "navHistory": "History",
   "navProfile": "Profile",
+
+  "myDayTitle": "My Day",
+  "myDayEmptyTitle": "Nothing here yet",
+  "myDayEmptySubtitle": "Your daily highlights will show up here.",
 
   "homeGreeting": "Hi {name} 👋",
   "@homeGreeting": {

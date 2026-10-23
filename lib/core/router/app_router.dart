@@ -6,6 +6,7 @@ import '../../features/authentication/view/otp_screen.dart';
 import '../../features/history/view/history_screen.dart';
 import '../../features/home/view/home_screen.dart';
 import '../../features/language/view/language_screen.dart';
+import '../../features/my_day/view/my_day_screen.dart';
 import '../../features/onboarding/view/name_screen.dart';
 import '../../features/onboarding/view/profile_setup_screen.dart';
 import '../../features/onboarding/view/terms_screen.dart';
@@ -31,6 +32,7 @@ class AppRoutes {
 
   // Shell (bottom navigation) branches.
   static const String home = '/home';
+  static const String myDay = '/my-day';
   static const String history = '/history';
   static const String profile = '/profile';
 
@@ -72,6 +74,7 @@ class AppRouter {
   }) {
     final isShell =
         location == AppRoutes.home ||
+        location == AppRoutes.myDay ||
         location == AppRoutes.history ||
         location == AppRoutes.profile;
     if (isShell && !isAuthenticated) return AppRoutes.login;
@@ -180,6 +183,15 @@ class AppRouter {
                   path: AppRoutes.home,
                   name: 'home',
                   builder: (context, state) => const HomeScreen(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: AppRoutes.myDay,
+                  name: 'myDay',
+                  builder: (context, state) => const MyDayScreen(),
                 ),
               ],
             ),

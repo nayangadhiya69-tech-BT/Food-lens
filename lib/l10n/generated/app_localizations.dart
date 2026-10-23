@@ -466,6 +466,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get navHome;
 
+  /// No description provided for @navMyDay.
+  ///
+  /// In en, this message translates to:
+  /// **'My Day'**
+  String get navMyDay;
+
   /// No description provided for @navHistory.
   ///
   /// In en, this message translates to:
@@ -477,6 +483,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get navProfile;
+
+  /// No description provided for @myDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Day'**
+  String get myDayTitle;
+
+  /// No description provided for @myDayEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet'**
+  String get myDayEmptyTitle;
+
+  /// No description provided for @myDayEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily highlights will show up here.'**
+  String get myDayEmptySubtitle;
 
   /// No description provided for @homeGreeting.
   ///

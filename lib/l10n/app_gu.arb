@@ -69,8 +69,13 @@
   "languageSwitcherLabel": "ભાષા પસંદ કરો",
 
   "navHome": "હોમ",
+  "navMyDay": "મારો દિવસ",
   "navHistory": "ઇતિહાસ",
   "navProfile": "પ્રોફાઇલ",
+
+  "myDayTitle": "મારો દિવસ",
+  "myDayEmptyTitle": "હજી કંઈ નથી",
+  "myDayEmptySubtitle": "તમારી દૈનિક હાઇલાઇટ્સ અહીં દેખાશે.",
 
   "homeGreeting": "નમસ્તે {name} 👋",
   "homeLocation": "સુરત, ગુજરાત",
