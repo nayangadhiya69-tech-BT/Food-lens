@@ -535,7 +535,7 @@ abstract class AppLocalizations {
   /// No description provided for @myDayParseAdd.
   ///
   /// In en, this message translates to:
-  /// **'Parse and Add to List'**
+  /// **'Parse & add to list'**
   String get myDayParseAdd;
 
   /// No description provided for @myDayNothingSelected.

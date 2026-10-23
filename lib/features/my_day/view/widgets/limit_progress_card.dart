@@ -17,19 +17,19 @@ import 'my_day_labels.dart';
 /// Shared between the My Day summary and the Home dashboard so both
 /// always render identical figures and styling.
 class LimitProgressCard extends StatelessWidget {
-  const LimitProgressCard({super.key, required this.progress});
-
-  final LimitProgress progress;
-
   static const List<Color> _okGradient = [Color(0xFF4FBE8B), AppColors.brand];
+
   static const List<Color> _warnGradient = [
     Color(0xFFD9A441),
     AppColors.warning,
   ];
+
   static const List<Color> _overGradient = [
     Color(0xFFD4763F),
     AppColors.danger,
   ];
+  final LimitProgress progress;
+  const LimitProgressCard({super.key, required this.progress});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class LimitProgressCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppColors.line),
+          border: Border.all(color: AppColors.hexToColor("E4DED2")),
           boxShadow: const [
             BoxShadow(
               color: Color(0x0A000000),
@@ -112,7 +112,7 @@ class LimitProgressCard extends StatelessWidget {
                           text: '${l10n.myDayDailyLimit} ',
                           style: AppTextStyle.create(
                             fontSize: 12,
-                            color: AppColors.inkTertiary,
+                            color: AppColors.hexToColor("8f887e"),
                           ),
                         ),
                         TextSpan(
@@ -120,14 +120,14 @@ class LimitProgressCard extends StatelessWidget {
                           style: AppTextStyle.create(
                             fontSize: 12,
                             weight: FontWeights.bold,
-                            color: AppColors.inkTertiary,
+                            color: AppColors.hexToColor("8f887e"),
                           ),
                         ),
                         TextSpan(
                           text: ' · ${limit.source}',
                           style: AppTextStyle.create(
                             fontSize: 12,
-                            color: AppColors.inkTertiary,
+                            color: AppColors.hexToColor("8f887e"),
                           ),
                         ),
                       ],

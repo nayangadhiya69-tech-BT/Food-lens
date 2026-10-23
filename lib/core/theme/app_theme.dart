@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
+
 import '../utils/app_size.dart';
 import '../utils/app_text_style.dart';
+import 'app_colors.dart';
 
 /// Theme derived from the HTML reference. The HTML mock renders a 270px-wide
 /// phone, so type sizes are mapped ~1.4x to a real ~390px viewport.
 class AppTheme {
-  AppTheme._();
+  static ThemeData get dark => light.copyWith(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: AppColors.ink,
+    colorScheme: const ColorScheme.dark(
+      primary: AppColors.brand,
+      onPrimary: AppColors.surface,
+      secondary: AppColors.brandBright,
+      onSecondary: AppColors.surface,
+      surface: Color(0xFF1F2937),
+      onSurface: Colors.white,
+      error: AppColors.danger,
+      onError: AppColors.surface,
+      outline: Color(0xFF374151),
+    ),
+  );
 
   static ThemeData get light {
     final base = ThemeData(
       useMaterial3: true,
       scaffoldBackgroundColor: AppColors.background,
       primaryColor: AppColors.brand,
-      colorScheme: const ColorScheme.light(
+      colorScheme: ColorScheme.light(
         primary: AppColors.brand,
         onPrimary: AppColors.surface,
         secondary: AppColors.brandBright,
@@ -129,7 +144,7 @@ class AppTheme {
           foregroundColor: AppColors.ink,
           backgroundColor: AppColors.surface,
           disabledForegroundColor: AppColors.inkTertiary,
-          side: const BorderSide(color: AppColors.line),
+          side: BorderSide(color: AppColors.line),
           padding: EdgeInsets.symmetric(
             horizontal: dynamicWidth(24),
             vertical: dynamicHeight(14),
@@ -165,11 +180,11 @@ class AppTheme {
         hintStyle: const TextStyle(color: AppColors.inkTertiary),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.line, width: 1.5),
+          borderSide: BorderSide(color: AppColors.line, width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.line, width: 1.5),
+          borderSide: BorderSide(color: AppColors.line, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -190,7 +205,7 @@ class AppTheme {
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
-          side: const BorderSide(color: AppColors.line, width: 1),
+          side: BorderSide(color: AppColors.line, width: 1),
         ),
       ),
       dividerTheme: const DividerThemeData(
@@ -212,19 +227,5 @@ class AppTheme {
     );
   }
 
-  static ThemeData get dark => light.copyWith(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.ink,
-        colorScheme: const ColorScheme.dark(
-          primary: AppColors.brand,
-          onPrimary: AppColors.surface,
-          secondary: AppColors.brandBright,
-          onSecondary: AppColors.surface,
-          surface: Color(0xFF1F2937),
-          onSurface: Colors.white,
-          error: AppColors.danger,
-          onError: AppColors.surface,
-          outline: Color(0xFF374151),
-        ),
-      );
+  AppTheme._();
 }

@@ -15,7 +15,7 @@ class AppColors {
   static const Color inkSecondary = Color(0xFF6B7280);
   static const Color inkTertiary = Color(0xFF9CA3AF);
   // Lines / surfaces
-  static const Color line = Color(0xFFE5E7EB);
+  static Color line = hexToColor("E4DED2");
 
   static const Color lineLight = Color(0xFFF3F4F6);
   static const Color background = Color(0xFFFAFAFA);
@@ -28,11 +28,12 @@ class AppColors {
   static const Color dangerLine = Color(0xFFFECACA);
   static const Color dangerText = Color(0xFF9F3A3A);
   static const Color warning = Color(0xFFD97706);
-  static const Color warningBackground = Color(0xFFFFFBEB);
-  static const Color warningLine = Color(0xFFFDE68A);
-  static const Color warningText = Color(0xFF8A6D1F);
+  static Color warningBackground = hexToColor("#FDF3E0");
+  static Color warningLine = hexToColor("#DFBB7C");
+  static Color warningText = hexToColor("7A4A08");
   static const Color success = brand;
   static const Color info = Color(0xFF2196F3);
+  static Color backColor = hexToColor('#FBF8F2');
   static const Color error = danger;
   // Shadows
   static const Color shadow = Color(0x1A000000);
@@ -47,4 +48,13 @@ class AppColors {
   static const List<Color> primaryGradient = [brand, brandBright];
 
   AppColors._();
+
+  /// For convert hex string into color
+  static Color hexToColor(String hex) {
+    final cleanedHex = hex.replaceAll('#', '').trim();
+
+    final normalizedHex = cleanedHex.length == 6 ? 'FF$cleanedHex' : cleanedHex;
+
+    return Color(int.parse(normalizedHex, radix: 16));
+  }
 }

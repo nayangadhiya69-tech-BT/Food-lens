@@ -247,7 +247,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Only things you have scanned show up here. Scan a new pack to add it to this list.';
 
   @override
-  String get myDayParseAdd => 'Parse and Add to List';
+  String get myDayParseAdd => 'Parse & add to list';
 
   @override
   String get myDayNothingSelected => 'Select at least one item to continue.';

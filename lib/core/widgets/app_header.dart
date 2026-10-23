@@ -8,18 +8,20 @@ import '../utils/app_text_style.dart';
 /// White header with a light back button, title and optional subtitle —
 /// matches the `.hdr` component of the HTML design.
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
+  final String? title;
+
+  final String? subtitle;
+  final VoidCallback? onBack;
+  final Widget? trailing;
+  final Color? backColor;
   const AppHeader({
     super.key,
     this.title,
     this.subtitle,
     this.onBack,
+    this.backColor,
     this.trailing,
   });
-
-  final String? title;
-  final String? subtitle;
-  final VoidCallback? onBack;
-  final Widget? trailing;
 
   @override
   Size get preferredSize =>
@@ -30,13 +32,13 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
     final l10n = AppLocalizations.of(context);
 
     return Material(
-      color: AppColors.surface,
+      color: backColor ?? AppColors.surface,
       child: SafeArea(
         bottom: false,
         child: Container(
           height: preferredSize.height,
           padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: AppColors.line)),
           ),
           child: Row(
@@ -86,8 +88,8 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                         SizedBox(height: dynamicHeight(2)),
                         Text(
                           subtitle!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          // maxLines: 1,
+                          overflow: TextOverflow.clip,
                           style: AppTextStyle.create(
                             fontSize: 13,
                             color: AppColors.inkSecondary,
@@ -98,7 +100,8 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ?trailing,
-            ],          ),
+            ],
+          ),
         ),
       ),
     );

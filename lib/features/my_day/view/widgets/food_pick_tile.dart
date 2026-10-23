@@ -10,16 +10,16 @@ import 'my_day_labels.dart';
 /// product name and the pack-size / form-word meta line. Selected rows
 /// get the brand border + tint fill from the reference design.
 class FoodPickTile extends StatelessWidget {
+  final FoodProduct product;
+
+  final bool selected;
+  final VoidCallback onTap;
   const FoodPickTile({
     super.key,
     required this.product,
     required this.selected,
     required this.onTap,
   });
-
-  final FoodProduct product;
-  final bool selected;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,7 @@ class FoodPickTile extends StatelessWidget {
       selected: selected,
       label: product.name,
       child: InkWell(
+        highlightColor: Colors.transparent,
         onTap: onTap,
         borderRadius: BorderRadius.circular(15),
         child: Container(
@@ -40,7 +41,7 @@ class FoodPickTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             border: Border.all(
               color: selected ? AppColors.brand : AppColors.line,
-              width: 1.5,
+              width: 1,
             ),
           ),
           child: Row(
@@ -83,7 +84,7 @@ class FoodPickTile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyle.create(
                         fontSize: 12,
-                        color: AppColors.inkTertiary,
+                        color: AppColors.inkSecondary,
                         height: 1.3,
                       ),
                     ),

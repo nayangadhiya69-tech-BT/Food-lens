@@ -18,6 +18,14 @@ import '../../../core/theme/app_colors.dart';
 /// )
 /// ```
 class CommonDropdown<T> extends StatelessWidget {
+  final List<DropdownItem<T>> items;
+
+  final ValueChanged<T?>? onChanged;
+  final T? value;
+  final String? hint;
+  final String? label;
+  final String? Function(T?)? validator;
+  final bool enabled;
   const CommonDropdown({
     super.key,
     required this.items,
@@ -28,14 +36,6 @@ class CommonDropdown<T> extends StatelessWidget {
     this.validator,
     this.enabled = true,
   });
-
-  final List<DropdownItem<T>> items;
-  final ValueChanged<T?>? onChanged;
-  final T? value;
-  final String? hint;
-  final String? label;
-  final String? Function(T?)? validator;
-  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class CommonDropdown<T> extends StatelessWidget {
                 ),
               ),
           ],
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.surface,
             isDense: true,
@@ -90,8 +90,8 @@ class CommonDropdown<T> extends StatelessWidget {
 
 /// Simple value/label pair for [CommonDropdown] items.
 class DropdownItem<T> {
-  const DropdownItem({required this.value, required this.label});
-
   final T value;
+
   final String label;
+  const DropdownItem({required this.value, required this.label});
 }

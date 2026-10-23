@@ -11,16 +11,16 @@ import 'my_day_labels.dart';
 /// reference's per-item thresholds (sugar > 15 g, salt > 500 mg,
 /// fat > 7 g).
 class NutritionMiniChips extends StatelessWidget {
+  final double sugarG;
+
+  final double sodiumMg;
+  final double saturatedFatG;
   const NutritionMiniChips({
     super.key,
     required this.sugarG,
     required this.sodiumMg,
     required this.saturatedFatG,
   });
-
-  final double sugarG;
-  final double sodiumMg;
-  final double saturatedFatG;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,9 @@ class NutritionMiniChips extends StatelessWidget {
         vertical: dynamicHeight(3),
       ),
       decoration: BoxDecoration(
-        color: hot ? AppColors.dangerBackground : AppColors.lineLight,
+        color: hot
+            ? AppColors.dangerBackground
+            : AppColors.hexToColor("F4F0E7"),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -40,7 +42,7 @@ class NutritionMiniChips extends StatelessWidget {
         style: AppTextStyle.create(
           fontSize: 11,
           weight: FontWeights.bold,
-          color: hot ? AppColors.dangerText : AppColors.inkSecondary,
+          color: hot ? AppColors.dangerText : AppColors.hexToColor("#5C574E"),
         ),
       ),
     );

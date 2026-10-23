@@ -35,103 +35,6 @@ class MyDayScreen extends StatelessWidget {
   }
 }
 
-class _MyDayView extends StatelessWidget {
-  const _MyDayView();
-
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = context.watch<MyDayViewModel>();
-    final l10n = AppLocalizations.of(context);
-
-    switch (viewModel.state) {
-      case LoadState.loading:
-        return CommonScaffold(
-          title: l10n.myDayTitle,
-          scrollable: false,
-          body: const _MyDayShimmer(),
-        );
-      case LoadState.error:
-        return CommonScaffold(
-          title: l10n.myDayTitle,
-          scrollable: false,
-          body: CommonWidgets.errorWidget(
-            message: l10n.myDayError,
-            retryLabel: l10n.actionRetry,
-            onRetry: viewModel.load,
-          ),
-        );
-      case LoadState.success:
-        switch (viewModel.step) {
-          case MyDayStep.pick:
-            return const _PickStep();
-          case MyDayStep.amounts:
-            return const _AmountsStep();
-          case MyDayStep.summary:
-            return viewModel.hasEntries
-                ? const _SummaryStep()
-                : const _EmptyDayStep();
-        }
-    }
-  }
-}
-
-/// Step 1 — "Pick what you ate": the catalog with multi-select rows and
-/// the "Parse and Add to List" action (disabled until something is on).
-class _PickStep extends StatelessWidget {
-  const _PickStep();
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final viewModel = context.watch<MyDayViewModel>();
-    final count = viewModel.pickedCount;
-
-    return CommonScaffold(
-      title: l10n.myDayPickTitle,
-      subtitle: l10n.myDayPickSubtitle,
-      scrollable: false,
-      body: ListView(
-        padding: EdgeInsets.only(
-          top: dynamicHeight(14),
-          bottom: dynamicHeight(16),
-        ),
-        children: [
-          CommonWidgets.sectionLabel(l10n.myDayRecentScansLabel),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
-            child: Column(
-              children: [
-                for (final product in viewModel.catalog)
-                  FoodPickTile(
-                    product: product,
-                    selected: viewModel.isPicked(product.id),
-                    onTap: () => viewModel.togglePick(product.id),
-                  ),
-                MyDayNote(icon: '💡', text: l10n.myDayPickNote),
-              ],
-            ),
-          ),
-        ],
-      ),
-      footer: CommonButton(
-        label: l10n.myDayParseAdd,
-        badgeCount: count,
-        onPressed: count == 0
-            ? null
-            : () {
-                if (!viewModel.confirmSelection()) {
-                  CommonToast.show(
-                    context,
-                    message: l10n.myDayNothingSelected,
-                    type: ToastType.warning,
-                  );
-                }
-              },
-      ),
-    );
-  }
-}
-
 /// Step 2 — "How much did you have?": per-product presets, stepper and
 /// live nutrition; every card edits its own product independently.
 class _AmountsStep extends StatelessWidget {
@@ -146,6 +49,8 @@ class _AmountsStep extends StatelessWidget {
       title: l10n.myDayAmountTitle,
       subtitle: l10n.myDayAmountSubtitle,
       onBack: viewModel.backToPick,
+      backColor: AppColors.backColor,
+      headerBackColor: AppColors.backColor,
       scrollable: false,
       body: ListView(
         padding: EdgeInsets.only(
@@ -196,116 +101,6 @@ class _AmountsStep extends StatelessWidget {
             type: ToastType.error,
           );
         },
-      ),
-    );
-  }
-}
-
-/// Step 3 — "My day": totals against the limits, the correction note
-/// when relevant, and the itemized breakdown with remove buttons.
-class _SummaryStep extends StatelessWidget {
-  const _SummaryStep();
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final viewModel = context.watch<MyDayViewModel>();
-
-    return CommonScaffold(
-      title: l10n.myDayTitle,
-      subtitle: l10n.myDaySummarySubtitle(viewModel.entries.length),
-      onBack: viewModel.backToAmounts,
-      scrollable: false,
-      body: ListView(
-        padding: EdgeInsets.only(
-          top: dynamicHeight(14),
-          bottom: dynamicHeight(16),
-        ),
-        children: [
-          CommonWidgets.sectionLabel(l10n.myDayAgainstLimitLabel),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
-            child: Column(
-              children: [
-                for (final progress in viewModel.limitProgress)
-                  LimitProgressCard(progress: progress),
-              ],
-            ),
-          ),
-          if (viewModel.hasFreeSugarCorrection)
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
-              child: MyDayNote(icon: '🍯', text: l10n.myDayHoneyNote),
-            ),
-          CommonWidgets.sectionLabel(l10n.myDayWhatMadeItUp),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
-            child: Column(
-              children: [
-                for (final entry in viewModel.entries)
-                  Builder(
-                    builder: (context) {
-                      final product = viewModel.productById(entry.productId);
-                      if (product == null) return const SizedBox.shrink();
-                      return DayItemTile(
-                        product: product,
-                        entry: entry,
-                        itemTotals: NutritionCalculator.totalsFor(
-                          product,
-                          entry.amountG,
-                        ),
-                        onRemove: () async {
-                          final saved = await viewModel.removeEntry(
-                            entry.productId,
-                          );
-                          if (!context.mounted || saved) return;
-                          CommonToast.show(
-                            context,
-                            message: l10n.myDaySaveError,
-                            type: ToastType.error,
-                          );
-                        },
-                      );
-                    },
-                  ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: dynamicWidth(20),
-              vertical: dynamicHeight(12),
-            ),
-            child: Text(
-              l10n.myDaySourceNote,
-              textAlign: TextAlign.center,
-              style: AppTextStyle.create(
-                fontSize: 11,
-                color: AppColors.inkTertiary,
-                height: 1.55,
-              ),
-            ),
-          ),
-        ],
-      ),
-      footer: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CommonButton(
-            label: l10n.myDayAddAnother,
-            style: OutlinedButton.styleFrom(
-              backgroundColor: AppColors.surface,
-              foregroundColor: AppColors.ink,
-              side: const BorderSide(color: AppColors.line, width: 1.5),
-            ),
-            onPressed: viewModel.goToPick,
-          ),
-          SizedBox(height: dynamicHeight(10)),
-          CommonButton(
-            label: l10n.myDayGoHome,
-            onPressed: () => context.go(AppRoutes.home),
-          ),
-        ],
       ),
     );
   }
@@ -417,6 +212,214 @@ class _MyDayShimmer extends StatelessWidget {
                   ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MyDayView extends StatelessWidget {
+  const _MyDayView();
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.watch<MyDayViewModel>();
+    final l10n = AppLocalizations.of(context);
+
+    switch (viewModel.state) {
+      case LoadState.loading:
+        return CommonScaffold(
+          title: l10n.myDayTitle,
+          scrollable: false,
+          body: const _MyDayShimmer(),
+        );
+      case LoadState.error:
+        return CommonScaffold(
+          title: l10n.myDayTitle,
+          scrollable: false,
+          body: CommonWidgets.errorWidget(
+            message: l10n.myDayError,
+            retryLabel: l10n.actionRetry,
+            onRetry: viewModel.load,
+          ),
+        );
+      case LoadState.success:
+        switch (viewModel.step) {
+          case MyDayStep.pick:
+            return const _PickStep();
+          case MyDayStep.amounts:
+            return const _AmountsStep();
+          case MyDayStep.summary:
+            return viewModel.hasEntries
+                ? const _SummaryStep()
+                : const _EmptyDayStep();
+        }
+    }
+  }
+}
+
+/// Step 1 — "Pick what you ate": the catalog with multi-select rows and
+/// the "Parse and Add to List" action (disabled until something is on).
+class _PickStep extends StatelessWidget {
+  const _PickStep();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final viewModel = context.watch<MyDayViewModel>();
+    final count = viewModel.pickedCount;
+
+    return CommonScaffold(
+      title: l10n.myDayPickTitle,
+      subtitle: l10n.myDayPickSubtitle,
+      headerBackColor: AppColors.backColor,
+      backColor: AppColors.backColor,
+      scrollable: false,
+      body: ListView(
+        padding: EdgeInsets.only(
+          top: dynamicHeight(0),
+          bottom: dynamicHeight(16),
+        ),
+        children: [
+          CommonWidgets.sectionLabel(l10n.myDayRecentScansLabel),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
+            child: Column(
+              children: [
+                for (final product in viewModel.catalog)
+                  FoodPickTile(
+                    product: product,
+                    selected: viewModel.isPicked(product.id),
+                    onTap: () => viewModel.togglePick(product.id),
+                  ),
+                MyDayNote(icon: '💡', text: l10n.myDayPickNote),
+              ],
+            ),
+          ),
+        ],
+      ),
+      footer: CommonButton(
+        label: l10n.myDayParseAdd,
+        badgeCount: count != 0 ? count : null,
+        onPressed: count == 0
+            ? null
+            : () {
+                if (!viewModel.confirmSelection()) {
+                  CommonToast.show(
+                    context,
+                    message: l10n.myDayNothingSelected,
+                    type: ToastType.warning,
+                  );
+                }
+              },
+      ),
+    );
+  }
+}
+
+/// Step 3 — "My day": totals against the limits, the correction note
+/// when relevant, and the itemized breakdown with remove buttons.
+class _SummaryStep extends StatelessWidget {
+  const _SummaryStep();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final viewModel = context.watch<MyDayViewModel>();
+
+    return CommonScaffold(
+      title: l10n.myDayTitle,
+      subtitle: l10n.myDaySummarySubtitle(viewModel.entries.length),
+      onBack: viewModel.backToAmounts,
+      backColor: AppColors.backColor,
+      headerBackColor: AppColors.backColor,
+      scrollable: false,
+      body: ListView(
+        padding: EdgeInsets.only(bottom: dynamicHeight(16)),
+        children: [
+          CommonWidgets.sectionLabel(l10n.myDayAgainstLimitLabel),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
+            child: Column(
+              children: [
+                for (final progress in viewModel.limitProgress)
+                  LimitProgressCard(progress: progress),
+              ],
+            ),
+          ),
+          if (viewModel.hasFreeSugarCorrection)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
+              child: MyDayNote(icon: '🍯', text: l10n.myDayHoneyNote),
+            ),
+          CommonWidgets.sectionLabel(l10n.myDayWhatMadeItUp),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
+            child: Column(
+              children: [
+                for (final entry in viewModel.entries)
+                  Builder(
+                    builder: (context) {
+                      final product = viewModel.productById(entry.productId);
+                      if (product == null) return const SizedBox.shrink();
+                      return DayItemTile(
+                        product: product,
+                        entry: entry,
+                        itemTotals: NutritionCalculator.totalsFor(
+                          product,
+                          entry.amountG,
+                        ),
+                        onRemove: () async {
+                          final saved = await viewModel.removeEntry(
+                            entry.productId,
+                          );
+                          if (!context.mounted || saved) return;
+                          CommonToast.show(
+                            context,
+                            message: l10n.myDaySaveError,
+                            type: ToastType.error,
+                          );
+                        },
+                      );
+                    },
+                  ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(20),
+              vertical: dynamicHeight(12),
+            ),
+            child: Text(
+              l10n.myDaySourceNote,
+              textAlign: TextAlign.center,
+              style: AppTextStyle.create(
+                fontSize: 11,
+                color: AppColors.hexToColor("8A8377"),
+                height: 1.55,
+              ),
+            ),
+          ),
+        ],
+      ),
+      footer: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CommonButton(
+            label: l10n.myDayAddAnother,
+            style: OutlinedButton.styleFrom(
+              backgroundColor: AppColors.surface,
+              foregroundColor: AppColors.ink,
+              side: BorderSide(color: AppColors.line, width: 1.5),
+            ),
+            onPressed: viewModel.goToPick,
+          ),
+          SizedBox(height: dynamicHeight(10)),
+          CommonButton(
+            label: l10n.myDayGoHome,
+            onPressed: () => context.go(AppRoutes.home),
           ),
         ],
       ),

@@ -10,12 +10,17 @@ import '../../model/food_product.dart';
 import '../../model/nutrient_totals.dart';
 import 'my_day_labels.dart';
 import 'my_day_note.dart';
-import 'nutrition_mini_chips.dart';
 
 /// One "How much did you have?" card: product header, four preset
 /// chips, an optional amber caveat, the −/+ stepper with the human
 /// amount and gram truth, and live nutrition for the current quantity.
 class PortionAmountCard extends StatelessWidget {
+  final FoodProduct product;
+
+  final double grams;
+  final ValueChanged<double> onPreset;
+  final ValueChanged<double> onBump;
+  final NutrientTotals itemTotals;
   const PortionAmountCard({
     super.key,
     required this.product,
@@ -24,12 +29,6 @@ class PortionAmountCard extends StatelessWidget {
     required this.onBump,
     required this.itemTotals,
   });
-
-  final FoodProduct product;
-  final double grams;
-  final ValueChanged<double> onPreset;
-  final ValueChanged<double> onBump;
-  final NutrientTotals itemTotals;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class PortionAmountCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: AppColors.hexToColor("E4DED2")),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +61,7 @@ class PortionAmountCard extends StatelessWidget {
             '${product.packSizeLabel} · ${MyDayLabels.formWord(l10n, product)}',
             style: AppTextStyle.create(
               fontSize: 12,
-              color: AppColors.inkTertiary,
+              color: AppColors.hexToColor("8A8377"),
             ),
           ),
           SizedBox(height: dynamicHeight(11)),
@@ -120,7 +119,7 @@ class PortionAmountCard extends StatelessWidget {
                             style: AppTextStyle.create(
                               fontSize: 12,
                               weight: FontWeights.semibold,
-                              color: AppColors.inkTertiary,
+                              color: AppColors.hexToColor("8A8377"),
                             ),
                           ),
                         ],
@@ -136,12 +135,12 @@ class PortionAmountCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: dynamicHeight(11)),
-          NutritionMiniChips(
-            sugarG: itemTotals.sugarG,
-            sodiumMg: itemTotals.sodiumMg,
-            saturatedFatG: itemTotals.saturatedFatG,
-          ),
+          // SizedBox(height: dynamicHeight(11)),
+          // NutritionMiniChips(
+          //   sugarG: itemTotals.sugarG,
+          //   sodiumMg: itemTotals.sodiumMg,
+          //   saturatedFatG: itemTotals.saturatedFatG,
+          // ),
         ],
       ),
     );
@@ -231,15 +230,15 @@ class PortionAmountCard extends StatelessWidget {
 }
 
 class _PresetChip extends StatelessWidget {
+  final FoodPreset preset;
+
+  final bool selected;
+  final VoidCallback onTap;
   const _PresetChip({
     required this.preset,
     required this.selected,
     required this.onTap,
   });
-
-  final FoodPreset preset;
-  final bool selected;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -256,11 +255,13 @@ class _PresetChip extends StatelessWidget {
             vertical: dynamicHeight(8),
           ),
           decoration: BoxDecoration(
-            color: selected ? AppColors.brand : AppColors.lineLight,
+            color: selected ? AppColors.brand : AppColors.hexToColor("#f4f0e7"),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: selected ? AppColors.brand : AppColors.line,
-              width: 1.5,
+              color: selected
+                  ? AppColors.brand
+                  : AppColors.hexToColor("8A8377").withValues(alpha: 0.2),
+              width: 1,
             ),
           ),
           child: Column(
@@ -273,10 +274,12 @@ class _PresetChip extends StatelessWidget {
                 style: AppTextStyle.create(
                   fontSize: 11.5,
                   weight: FontWeights.bold,
-                  color: selected ? Colors.white : AppColors.inkSecondary,
+                  color: selected
+                      ? Colors.white
+                      : AppColors.hexToColor("5C574E"),
                 ),
               ),
-              SizedBox(height: dynamicHeight(2)),
+
               Text(
                 preset.sub,
                 maxLines: 1,
@@ -287,7 +290,7 @@ class _PresetChip extends StatelessWidget {
                   weight: FontWeights.semibold,
                   color: selected
                       ? Colors.white.withValues(alpha: 0.8)
-                      : AppColors.inkTertiary,
+                      : AppColors.hexToColor("8A8377"),
                 ),
               ),
             ],
@@ -299,15 +302,15 @@ class _PresetChip extends StatelessWidget {
 }
 
 class _StepperButton extends StatelessWidget {
+  final IconData icon;
+
+  final String semanticsLabel;
+  final VoidCallback onTap;
   const _StepperButton({
     required this.icon,
     required this.semanticsLabel,
     required this.onTap,
   });
-
-  final IconData icon;
-  final String semanticsLabel;
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +326,10 @@ class _StepperButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.line, width: 1.5),
+            border: Border.all(
+              color: AppColors.hexToColor("E4DED2"),
+              width: 1.5,
+            ),
           ),
           child: Icon(icon, size: 22, color: AppColors.brandDark),
         ),

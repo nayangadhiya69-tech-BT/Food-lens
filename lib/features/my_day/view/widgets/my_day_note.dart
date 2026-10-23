@@ -8,18 +8,19 @@ import '../../../../core/utils/app_text_style.dart';
 /// `.caveat` blocks (pick-screen hint, amounts note, portion caveats,
 /// honey correction, …).
 class MyDayNote extends StatelessWidget {
+  final String text;
+
+  final String? icon;
+
+  /// Smaller padding for the per-card caveat lines.
+  final bool compact;
+
   const MyDayNote({
     super.key,
     required this.text,
     this.icon,
     this.compact = false,
   });
-
-  final String text;
-  final String? icon;
-
-  /// Smaller padding for the per-card caveat lines.
-  final bool compact;
 
   @override
   Widget build(BuildContext context) {

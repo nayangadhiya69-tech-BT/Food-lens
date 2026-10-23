@@ -31,6 +31,8 @@ class CommonScaffold extends StatelessWidget {
   final Widget? footer;
 
   final EdgeInsetsGeometry footerPadding;
+  final Color? headerBackColor;
+  final Color? backColor;
 
   /// true → footer sits in a surface container with a top hairline;
   /// false → footer is plain (no background/border).
@@ -42,6 +44,8 @@ class CommonScaffold extends StatelessWidget {
     this.subtitle,
     this.trailing,
     this.onBack,
+    this.headerBackColor,
+    this.backColor,
     required this.body,
     this.contentPadding = const EdgeInsets.fromLTRB(20, 20, 20, 16),
     this.scrollable = true,
@@ -53,12 +57,13 @@ class CommonScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: backColor ?? AppColors.background,
       appBar: AppHeader(
         title: title,
         subtitle: subtitle,
         trailing: trailing,
         onBack: onBack,
+        backColor: headerBackColor,
       ),
       body: SafeArea(
         child: Column(
@@ -72,7 +77,7 @@ class CommonScaffold extends StatelessWidget {
               footerElevated
                   ? Container(
                       padding: footerPadding,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: AppColors.surface,
                         border: Border(top: BorderSide(color: AppColors.line)),
                       ),

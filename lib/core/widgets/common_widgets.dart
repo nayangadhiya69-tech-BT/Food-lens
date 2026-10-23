@@ -7,59 +7,6 @@ import '../utils/app_text_style.dart';
 class CommonWidgets {
   CommonWidgets._();
 
-  static Widget loading({String? label}) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CircularProgressIndicator(color: AppColors.brand),
-          if (label != null) ...[
-            SizedBox(height: dynamicHeight(12)),
-            Text(label, style: const TextStyle(color: AppColors.inkSecondary)),
-          ],
-        ],
-      ),
-    );
-  }
-
-  static Widget errorWidget({
-    required String message,
-    VoidCallback? onRetry,
-    String? retryLabel,
-  }) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(dynamicWidth(24)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline, size: 56, color: AppColors.danger),
-            SizedBox(height: dynamicHeight(16)),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: AppTextStyle.create(
-                fontSize: 15,
-                color: AppColors.inkSecondary,
-              ),
-            ),
-            if (onRetry != null) ...[
-              SizedBox(height: dynamicHeight(20)),
-              ElevatedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh, size: 20),
-                label: Text(retryLabel ?? 'Retry'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(dynamicWidth(160), dynamicHeight(48)),
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
   static Widget emptyWidget({
     required String message,
     String? subtitle,
@@ -112,6 +59,59 @@ class CommonWidgets {
     );
   }
 
+  static Widget errorWidget({
+    required String message,
+    VoidCallback? onRetry,
+    String? retryLabel,
+  }) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(dynamicWidth(24)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 56, color: AppColors.danger),
+            SizedBox(height: dynamicHeight(16)),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: AppTextStyle.create(
+                fontSize: 15,
+                color: AppColors.inkSecondary,
+              ),
+            ),
+            if (onRetry != null) ...[
+              SizedBox(height: dynamicHeight(20)),
+              ElevatedButton.icon(
+                onPressed: onRetry,
+                icon: const Icon(Icons.refresh, size: 20),
+                label: Text(retryLabel ?? 'Retry'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(dynamicWidth(160), dynamicHeight(48)),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget loading({String? label}) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const CircularProgressIndicator(color: AppColors.brand),
+          if (label != null) ...[
+            SizedBox(height: dynamicHeight(12)),
+            Text(label, style: const TextStyle(color: AppColors.inkSecondary)),
+          ],
+        ],
+      ),
+    );
+  }
+
   static Widget pill({
     required String label,
     required Color background,
@@ -152,7 +152,7 @@ class CommonWidgets {
         style: AppTextStyle.create(
           fontSize: 12,
           weight: FontWeights.bold,
-          color: AppColors.inkSecondary,
+          color: AppColors.hexToColor("8A8377"),
           letterSpacing: 0.5,
         ),
       ),

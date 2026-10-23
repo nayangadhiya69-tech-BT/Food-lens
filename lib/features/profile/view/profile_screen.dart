@@ -123,7 +123,7 @@ class _ProfileShimmer extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const ShimmerBox(
+                ShimmerBox(
                   width: 56,
                   height: 56,
                   circle: true,
@@ -198,12 +198,7 @@ class _ProfileShimmer extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: dynamicHeight(12)),
       child: Row(
         children: [
-          const ShimmerBox(
-            width: 22,
-            height: 22,
-            radius: 6,
-            color: AppColors.line,
-          ),
+          ShimmerBox(width: 22, height: 22, radius: 6, color: AppColors.line),
           SizedBox(width: dynamicWidth(12)),
           Expanded(
             child: Column(

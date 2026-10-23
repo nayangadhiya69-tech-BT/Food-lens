@@ -50,7 +50,7 @@ class _BottomNav extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             border: Border(top: BorderSide(color: AppColors.line)),
           ),
           child: Row(

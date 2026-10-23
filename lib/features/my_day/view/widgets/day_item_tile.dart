@@ -13,6 +13,11 @@ import 'nutrition_mini_chips.dart';
 /// human amount with gram truth and pack percentage, mini nutrition
 /// chips, and a remove (✕) button.
 class DayItemTile extends StatelessWidget {
+  final FoodProduct product;
+
+  final MyDayEntry entry;
+  final NutrientTotals itemTotals;
+  final VoidCallback onRemove;
   const DayItemTile({
     super.key,
     required this.product,
@@ -20,11 +25,6 @@ class DayItemTile extends StatelessWidget {
     required this.itemTotals,
     required this.onRemove,
   });
-
-  final FoodProduct product;
-  final MyDayEntry entry;
-  final NutrientTotals itemTotals;
-  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +34,11 @@ class DayItemTile extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.only(bottom: dynamicHeight(8)),
-      padding: EdgeInsets.all(dynamicWidth(12)),
+      padding: EdgeInsets.all(dynamicWidth(11)),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: AppColors.hexToColor("E4DED2")),
       ),
       child: Row(
         children: [
@@ -46,7 +46,7 @@ class DayItemTile extends StatelessWidget {
             width: dynamicWidth(40),
             height: dynamicWidth(40),
             decoration: BoxDecoration(
-              color: AppColors.lineLight,
+              color: AppColors.hexToColor("E4DED2"),
               borderRadius: BorderRadius.circular(11),
             ),
             child: Center(
@@ -80,7 +80,7 @@ class DayItemTile extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.create(
                     fontSize: 11.5,
-                    color: AppColors.inkTertiary,
+                    color: AppColors.hexToColor("8f887e"),
                   ),
                 ),
                 SizedBox(height: dynamicHeight(6)),
@@ -102,14 +102,14 @@ class DayItemTile extends StatelessWidget {
               child: Container(
                 width: dynamicWidth(32),
                 height: dynamicWidth(32),
-                decoration: const BoxDecoration(
-                  color: AppColors.lineLight,
+                decoration: BoxDecoration(
+                  color: AppColors.hexToColor("F4F0E7"),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.close,
-                  size: 16,
-                  color: AppColors.danger,
+                  size: 20,
+                  color: AppColors.hexToColor("C2410C"),
                 ),
               ),
             ),
