@@ -8,8 +8,8 @@ import '../../../core/widgets/common_widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../common/widgets/widgets.dart';
 import '../repository/history_repository.dart';
-import '../view_model/history_view_model.dart';
 import '../view/widgets/scan_record_tile.dart';
+import '../view_model/history_view_model.dart';
 
 /// History tab — full list of scans with loading, empty and error states.
 /// The HTML design does not define this screen; it follows the same
@@ -83,21 +83,18 @@ class _HistoryView extends StatelessWidget {
           );
         }
         final records = viewModel.records;
-        return RefreshIndicator(
+        return CommonRefreshIndicator(
           onRefresh: viewModel.load,
-          color: AppColors.brand,
-          child: ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(bottom: dynamicHeight(12)),
-            itemCount: records.length,
-            itemBuilder: (context, index) => ScanRecordTile(
-              record: records[index],
-              showDivider: index != records.length - 1,
-              onTap: () => CommonToast.show(
-                context,
-                message: l10n.recentScanUnavailable,
-                type: ToastType.info,
-              ),
+          padding: EdgeInsets.only(bottom: dynamicHeight(12)),
+
+          itemCount: records.length,
+          itemBuilder: (context, index) => ScanRecordTile(
+            record: records[index],
+            showDivider: index != records.length - 1,
+            onTap: () => CommonToast.show(
+              context,
+              message: l10n.recentScanUnavailable,
+              type: ToastType.info,
             ),
           ),
         );

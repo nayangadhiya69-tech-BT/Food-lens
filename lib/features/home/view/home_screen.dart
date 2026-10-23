@@ -70,42 +70,38 @@ class _HomeView extends StatelessWidget {
         );
       case LoadState.success:
         final overview = viewModel.overview!;
-        return RefreshIndicator(
+        return CommonRefreshIndicator(
           onRefresh: viewModel.load,
-          color: AppColors.brand,
-          child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.only(bottom: dynamicHeight(20)),
-            children: [
-              _Greeting(overview: overview),
-              _ScanCta(onTap: () => _scanUnavailable(context)),
-              _StatsRow(overview: overview),
-              CommonWidgets.sectionLabel(l10n.recentScansLabel),
-              if (viewModel.isEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
-                  child: CommonWidgets.emptyWidget(
-                    icon: Icons.qr_code_scanner,
-                    message: l10n.homeEmptyTitle,
-                    subtitle: l10n.homeEmptySubtitle,
-                  ),
-                )
-              else
-                for (var i = 0; i < overview.recentScans.length; i++)
-                  ScanRecordTile(
-                    record: overview.recentScans[i],
-                    showDivider: i != overview.recentScans.length - 1,
-                    onTap: () {
-                      final l10n = AppLocalizations.of(context);
-                      CommonToast.show(
-                        context,
-                        message: l10n.recentScanUnavailable,
-                        type: ToastType.info,
-                      );
-                    },
-                  ),
-            ],
-          ),
+          padding: EdgeInsets.only(bottom: dynamicHeight(20)),
+          children: [
+            _Greeting(overview: overview),
+            _ScanCta(onTap: () => _scanUnavailable(context)),
+            _StatsRow(overview: overview),
+            CommonWidgets.sectionLabel(l10n.recentScansLabel),
+            if (viewModel.isEmpty)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: dynamicWidth(16)),
+                child: CommonWidgets.emptyWidget(
+                  icon: Icons.qr_code_scanner,
+                  message: l10n.homeEmptyTitle,
+                  subtitle: l10n.homeEmptySubtitle,
+                ),
+              )
+            else
+              for (var i = 0; i < overview.recentScans.length; i++)
+                ScanRecordTile(
+                  record: overview.recentScans[i],
+                  showDivider: i != overview.recentScans.length - 1,
+                  onTap: () {
+                    final l10n = AppLocalizations.of(context);
+                    CommonToast.show(
+                      context,
+                      message: l10n.recentScanUnavailable,
+                      type: ToastType.info,
+                    );
+                  },
+                ),
+          ],
         );
     }
   }
