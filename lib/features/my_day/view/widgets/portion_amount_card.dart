@@ -5,7 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/app_size.dart';
 import '../../../../core/utils/app_text_style.dart';
 import '../../../../l10n/generated/app_localizations.dart';
-import '../../../common/widgets/common_button.dart';
+import '../../../common/widgets/common_alert_dialog.dart';
 import '../../model/food_product.dart';
 import '../../model/nutrient_totals.dart';
 import 'my_day_labels.dart';
@@ -154,8 +154,8 @@ class PortionAmountCard extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => StatefulBuilder(
-        builder: (dialogContext, setState) => AlertDialog(
-          title: Text(product.name),
+        builder: (dialogContext, setState) => CommonAlertDialog(
+          title: product.name,
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,38 +185,31 @@ class PortionAmountCard extends StatelessWidget {
               ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: Text(l10n.actionCancel),
+          primaryText: l10n.actionSave,
+          primaryStyle: ElevatedButton.styleFrom(
+            minimumSize: Size(dynamicWidth(100), dynamicHeight(44)),
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(16),
+              vertical: dynamicHeight(10),
             ),
-            CommonButton(
-              label: l10n.actionSave,
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(dynamicWidth(100), dynamicHeight(44)),
-                padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(16),
-                  vertical: dynamicHeight(10),
-                ),
-              ),
-              onPressed: () {
-                final parsed = double.tryParse(controller.text.trim());
-                if (parsed == null ||
-                    !parsed.isFinite ||
-                    parsed <= 0 ||
-                    parsed > product.maxAmount) {
-                  setState(
-                    () =>
-                        errorText = parsed != null && parsed > product.maxAmount
-                        ? l10n.myDayQuantityTooHigh
-                        : l10n.myDayQuantityInvalid,
-                  );
-                  return;
-                }
-                Navigator.of(dialogContext).pop(true);
-              },
-            ),
-          ],
+          ),
+          onPrimary: () {
+            final parsed = double.tryParse(controller.text.trim());
+            if (parsed == null ||
+                !parsed.isFinite ||
+                parsed <= 0 ||
+                parsed > product.maxAmount) {
+              setState(
+                () => errorText = parsed != null && parsed > product.maxAmount
+                    ? l10n.myDayQuantityTooHigh
+                    : l10n.myDayQuantityInvalid,
+              );
+              return;
+            }
+            Navigator.of(dialogContext).pop(true);
+          },
+          basicText: l10n.actionCancel,
+          onBasic: () => Navigator.of(dialogContext).pop(false),
         ),
       ),
     );

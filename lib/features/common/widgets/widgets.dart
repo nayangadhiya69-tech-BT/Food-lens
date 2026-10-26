@@ -1,6 +1,7 @@
 library;
 
 /// Barrel for the common widget library under `features/common/widgets`.
+export 'common_alert_dialog.dart';
 export 'common_button.dart';
 export 'common_card.dart';
 export 'common_dropdown.dart';

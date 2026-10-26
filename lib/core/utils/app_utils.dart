@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../features/common/widgets/common_alert_dialog.dart';
+
 class AppUtils {
   AppUtils._();
 
@@ -61,32 +63,22 @@ class AppUtils {
     return RegExp(r'^\+?[\d\s-]{10,}$').hasMatch(phone);
   }
 
+  /// Confirm alert backed by [CommonAlertDialog] (the app's one alert box):
+  /// primary → `true`, cancel or barrier tap → `false`.
   static Future<bool> showConfirmDialog(
     BuildContext context, {
     required String title,
     required String message,
     required String confirmText,
     required String cancelText,
-  }) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(cancelText),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(confirmText),
-          ),
-        ],
-      ),
+  }) {
+    return CommonAlertDialog.showConfirm(
+      context,
+      title: title,
+      message: message,
+      confirmText: confirmText,
+      cancelText: cancelText,
     );
-    return result ?? false;
   }
 
   // UI Helpers

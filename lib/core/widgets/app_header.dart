@@ -88,8 +88,8 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                         SizedBox(height: dynamicHeight(2)),
                         Text(
                           subtitle!,
-                          // maxLines: 1,
-                          overflow: TextOverflow.clip,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: AppTextStyle.create(
                             fontSize: 13,
                             color: AppColors.inkSecondary,
