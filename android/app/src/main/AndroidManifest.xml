@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Internet for API calls; ACCESS_NETWORK_STATE (connectivity checks)
+         is merged in by the connectivity_plus plugin. -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Camera for barcode scanning and label photos. The camera plugins
          also declare it; kept here so the app owns the requirement and
          camera-less devices can still install (required=false). -->
