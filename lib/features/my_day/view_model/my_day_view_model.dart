@@ -100,11 +100,11 @@ class MyDayViewModel extends ChangeNotifier {
       _entries = results[1] as List<MyDayEntry>;
       _state = LoadState.success;
       _loaded = true;
-      // A returning user with a saved day lands on the summary so they
-      // see it immediately; "Add Another Item" continues the flow.
-      // A fresh day starts at the pick step, as the flow requires.
+      // Every open lands on "Add to today" (the flow's default step);
+      // today's saved items come pre-checked with their grams so Parse
+      // and Add to List keeps them verbatim.
+      _step = MyDayStep.pick;
       if (_entries.isNotEmpty) {
-        _step = MyDayStep.summary;
         _pickedIds
           ..clear()
           ..addAll(_entries.map((entry) => entry.productId));
@@ -113,8 +113,6 @@ class MyDayViewModel extends ChangeNotifier {
           ..addAll({
             for (final entry in _entries) entry.productId: entry.amountG,
           });
-      } else {
-        _step = MyDayStep.pick;
       }
       notifyListeners();
     } catch (_) {
@@ -133,18 +131,20 @@ class MyDayViewModel extends ChangeNotifier {
   }
 
   /// "Parse and Add to List": validates the selection and moves to the
-  /// amount step. Returns false when nothing is selected.
+  /// amount step. Only items still checked on Add to today take part —
+  /// an unchecked (removed) item never reappears with a stale quantity,
+  /// even when it has a saved amount for today. Returns false when
+  /// nothing is selected.
   bool confirmSelection() {
     if (_pickedIds.isEmpty) return false;
-    final merged = <String, double>{
-      // Saved entries first — their grams are preserved verbatim.
+    final savedGrams = {
       for (final entry in _entries) entry.productId: entry.amountG,
     };
+    final merged = <String, double>{};
     for (final id in _pickedIds) {
-      if (merged.containsKey(id)) continue;
       final product = productById(id);
       if (product == null) continue;
-      merged[id] = product.defaultAmount;
+      merged[id] = savedGrams[id] ?? product.defaultAmount;
     }
     _amounts
       ..clear()
