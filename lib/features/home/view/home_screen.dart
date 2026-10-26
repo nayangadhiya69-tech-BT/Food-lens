@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/models/load_state.dart';
+import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
@@ -16,9 +18,10 @@ import '../repository/home_repository.dart';
 import '../view_model/home_view_model.dart';
 
 /// HTML screen 5 — Home: greeting, scan CTA, quick stats, today's
-/// intake (from My Day) and recent scans. The scan flow itself is not
-/// part of this build, so scan entry points show an honest "not
-/// available" notice instead of pretending to work.
+/// intake (from My Day) and recent scans. The scan CTA opens the scan
+/// flow (HTML screen 6: mode picker → capture → flags → processing →
+/// result); taps on old recent scans still show an honest "not
+/// available" notice.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -271,7 +274,7 @@ class _HomeView extends StatelessWidget {
           padding: EdgeInsets.only(bottom: dynamicHeight(20)),
           children: [
             _Greeting(overview: overview),
-            _ScanCta(onTap: () => _scanUnavailable(context)),
+            _ScanCta(onTap: () => context.push(AppRoutes.scan)),
             _StatsRow(overview: overview),
             // Same figures as the My Day summary, rendered by the same
             // LimitProgressCard widget. Hidden until something is logged.
@@ -314,15 +317,6 @@ class _HomeView extends StatelessWidget {
           ],
         );
     }
-  }
-
-  void _scanUnavailable(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    CommonToast.show(
-      context,
-      message: l10n.scanUnavailable,
-      type: ToastType.info,
-    );
   }
 }
 

@@ -142,6 +142,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get flagPregnancy => 'Pregnancy';
 
   @override
+  String get flagJain => 'Jain';
+
+  @override
+  String get flagSwaminarayan => 'Swaminarayan';
+
+  @override
   String get flagNoneOfThese => 'None of these';
 
   @override
@@ -440,7 +446,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scanCtaSubtitle => 'Barcode or photo — takes a few seconds';
 
   @override
-  String get scanCtaSemantics => 'Scan a product, not available in this build';
+  String get scanCtaSemantics => 'Scan a product';
 
   @override
   String get statScansWeekLabel => 'Scans this week';
@@ -477,6 +483,116 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeError => 'Couldn\'t load the home screen.';
+
+  @override
+  String get scanModeTitle => 'How do you want to scan?';
+
+  @override
+  String get scanModeBarcodeTitle => 'Scan barcode';
+
+  @override
+  String get scanModeBarcodeBody =>
+      'Fastest option — works for any packaged product already in our database.';
+
+  @override
+  String get scanModePhotoTitle => 'Take a photo';
+
+  @override
+  String get scanModePhotoBody =>
+      'For products without a barcode, or not yet in our database. Two photos: nutrition panel and ingredients.';
+
+  @override
+  String get scanModeSemantics => 'Choose how to scan a product';
+
+  @override
+  String get scanBarcodeHint => 'Align the barcode within the frame';
+
+  @override
+  String get scanNoBarcode => 'No barcode?';
+
+  @override
+  String get scanSwitchToPhoto => 'Switch to photo mode';
+
+  @override
+  String get scanPhotoHint1 => 'Photo 1 of 2 — nutrition panel';
+
+  @override
+  String get scanPhotoHint2 => 'Photo 2 of 2 — ingredients';
+
+  @override
+  String get scanFlashLabel => 'Toggle flash';
+
+  @override
+  String get scanGalleryUnavailable =>
+      'Picking a photo from the gallery isn\'t available in this build yet.';
+
+  @override
+  String get scanCameraUnavailableTitle => 'Camera unavailable';
+
+  @override
+  String get scanCameraUnavailableBody =>
+      'Enable camera access in Settings to scan for real — or keep going with a demo scan for now.';
+
+  @override
+  String get scanCaptureFallback =>
+      'Couldn\'t save the photo — continuing with a demo scan.';
+
+  @override
+  String get scanProcessingTitle => 'Reading the label…';
+
+  @override
+  String get scanStepBarcodeMatched => 'Barcode matched to FSSAI database';
+
+  @override
+  String get scanStepPhotosReceived => 'Label photos received';
+
+  @override
+  String get scanStepNutrition => 'Nutrition panel extracted';
+
+  @override
+  String get scanStepAdditives => 'Checking additives and allergens';
+
+  @override
+  String get scanStepScoring => 'Scoring against WHO / ICMR-NIN limits';
+
+  @override
+  String get scanError => 'Couldn\'t read this label. Please try again.';
+
+  @override
+  String get scanStatSodiumLabel => 'Sodium per 80 g pack';
+
+  @override
+  String get scanStatConditionLabel => 'Condition flagged';
+
+  @override
+  String get scanStatAdditivesLabel => 'Additives';
+
+  @override
+  String get scanStatAllergensLabel => 'Allergens';
+
+  @override
+  String get scanStatScoreLabel => 'Label read score';
+
+  @override
+  String scanBannerTitle(int count) {
+    return '$count things flagged on this label';
+  }
+
+  @override
+  String get scanDepthLabel => 'Decoded in depth';
+
+  @override
+  String get scanLabelFlagsLabel => 'Flags on this label';
+
+  @override
+  String get scanFullDecode => 'See full label decode';
+
+  @override
+  String get fullDecodeUnavailable =>
+      'The full label decode isn\'t available in this build yet.';
+
+  @override
+  String get shareUnavailable => 'Sharing isn\'t available in this build yet.';
 
   @override
   String get historyTitle => 'History';

@@ -71,6 +71,8 @@
   "flagBloodPressure": "Blood pressure",
   "flagCholesterol": "Cholesterol",
   "flagPregnancy": "Pregnancy",
+  "flagJain": "Jain",
+  "flagSwaminarayan": "Swaminarayan",
   "flagNoneOfThese": "None of these",
 
   "termsTitle": "Terms & Conditions",
@@ -272,7 +274,7 @@
   "homeLocation": "Surat, Gujarat",
   "scanCtaTitle": "Scan a product",
   "scanCtaSubtitle": "Barcode or photo — takes a few seconds",
-  "scanCtaSemantics": "Scan a product, not available in this build",
+  "scanCtaSemantics": "Scan a product",
   "statScansWeekLabel": "Scans this week",
   "statFlagsLabel": "Flags caught",
   "statLanguagesLabel": "Languages used",
@@ -291,6 +293,51 @@
   "homeEmptyTitle": "No recent scans yet",
   "homeEmptySubtitle": "Products you scan will show up here.",
   "homeError": "Couldn't load the home screen.",
+
+  "scanModeTitle": "How do you want to scan?",
+  "scanModeBarcodeTitle": "Scan barcode",
+  "scanModeBarcodeBody": "Fastest option — works for any packaged product already in our database.",
+  "scanModePhotoTitle": "Take a photo",
+  "scanModePhotoBody": "For products without a barcode, or not yet in our database. Two photos: nutrition panel and ingredients.",
+  "scanModeSemantics": "Choose how to scan a product",
+
+  "scanBarcodeHint": "Align the barcode within the frame",
+  "scanNoBarcode": "No barcode?",
+  "scanSwitchToPhoto": "Switch to photo mode",
+  "scanPhotoHint1": "Photo 1 of 2 — nutrition panel",
+  "scanPhotoHint2": "Photo 2 of 2 — ingredients",
+  "scanFlashLabel": "Toggle flash",
+  "scanGalleryUnavailable": "Picking a photo from the gallery isn't available in this build yet.",
+  "scanCameraUnavailableTitle": "Camera unavailable",
+  "scanCameraUnavailableBody": "Enable camera access in Settings to scan for real — or keep going with a demo scan for now.",
+  "scanCaptureFallback": "Couldn't save the photo — continuing with a demo scan.",
+
+  "scanProcessingTitle": "Reading the label…",
+  "scanStepBarcodeMatched": "Barcode matched to FSSAI database",
+  "scanStepPhotosReceived": "Label photos received",
+  "scanStepNutrition": "Nutrition panel extracted",
+  "scanStepAdditives": "Checking additives and allergens",
+  "scanStepScoring": "Scoring against WHO / ICMR-NIN limits",
+  "scanError": "Couldn't read this label. Please try again.",
+
+  "scanStatSodiumLabel": "Sodium per 80 g pack",
+  "scanStatConditionLabel": "Condition flagged",
+  "scanStatAdditivesLabel": "Additives",
+  "scanStatAllergensLabel": "Allergens",
+  "scanStatScoreLabel": "Label read score",
+  "scanBannerTitle": "{count} things flagged on this label",
+  "@scanBannerTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "scanDepthLabel": "Decoded in depth",
+  "scanLabelFlagsLabel": "Flags on this label",
+  "scanFullDecode": "See full label decode",
+  "fullDecodeUnavailable": "The full label decode isn't available in this build yet.",
+  "shareUnavailable": "Sharing isn't available in this build yet.",
 
   "historyTitle": "History",
   "historyEmptyTitle": "No scans yet",

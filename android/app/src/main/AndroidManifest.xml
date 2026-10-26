@@ -1,4 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Camera for barcode scanning and label photos. The camera plugins
+         also declare it; kept here so the app owns the requirement and
+         camera-less devices can still install (required=false). -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
     <application
         android:label="foodlens"
         android:name="${applicationName}"

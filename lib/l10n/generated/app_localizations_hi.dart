@@ -142,6 +142,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get flagPregnancy => 'गर्भावस्था';
 
   @override
+  String get flagJain => 'जैन';
+
+  @override
+  String get flagSwaminarayan => 'स्वामीनारायण';
+
+  @override
   String get flagNoneOfThese => 'इनमें से कोई नहीं';
 
   @override
@@ -441,8 +447,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get scanCtaSubtitle => 'बारकोड या फ़ोटो — कुछ सेकंड लगते हैं';
 
   @override
-  String get scanCtaSemantics =>
-      'प्रोडक्ट स्कैन करें, इस बिल्ड में उपलब्ध नहीं';
+  String get scanCtaSemantics => 'प्रोडक्ट स्कैन करें';
 
   @override
   String get statScansWeekLabel => 'इस हफ़्ते स्कैन';
@@ -479,6 +484,116 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get homeError => 'होम स्क्रीन लोड नहीं हो सकी।';
+
+  @override
+  String get scanModeTitle => 'आप स्कैन कैसे करना चाहेंगे?';
+
+  @override
+  String get scanModeBarcodeTitle => 'बारकोड स्कैन करें';
+
+  @override
+  String get scanModeBarcodeBody =>
+      'सबसे तेज़ विकल्प — हमारे डेटाबेस में पहले से मौजूद किसी भी पैकेज्ड प्रोडक्ट के लिए काम करता है।';
+
+  @override
+  String get scanModePhotoTitle => 'फ़ोटो लें';
+
+  @override
+  String get scanModePhotoBody =>
+      'बारकोड न होने या अभी डेटाबेस में न मौजूद प्रोडक्ट के लिए। दो फ़ोटो: पोषण पैनल और सामग्री।';
+
+  @override
+  String get scanModeSemantics => 'स्कैन करने का तरीका चुनें';
+
+  @override
+  String get scanBarcodeHint => 'बारकोड को फ़्रेम के भीतर संरेखित करें';
+
+  @override
+  String get scanNoBarcode => 'बारकोड नहीं है?';
+
+  @override
+  String get scanSwitchToPhoto => 'फ़ोटो मोड में बदलें';
+
+  @override
+  String get scanPhotoHint1 => 'फ़ोटो 1 / 2 — पोषण पैनल';
+
+  @override
+  String get scanPhotoHint2 => 'फ़ोटो 2 / 2 — सामग्री';
+
+  @override
+  String get scanFlashLabel => 'फ़्लैश चालू या बंद करें';
+
+  @override
+  String get scanGalleryUnavailable =>
+      'गैलरी से फ़ोटो चुनना इस बिल्ड में अभी उपलब्ध नहीं है।';
+
+  @override
+  String get scanCameraUnavailableTitle => 'कैमरा उपलब्ध नहीं है';
+
+  @override
+  String get scanCameraUnavailableBody =>
+      'असली स्कैन के लिए सेटिंग्स में कैमरा एक्सेस सक्षम करें — या अभी डेमो स्कैन के साथ जारी रखें।';
+
+  @override
+  String get scanCaptureFallback =>
+      'फ़ोटो सेव नहीं हो सका — डेमो स्कैन के साथ जारी रखा जा रहा है।';
+
+  @override
+  String get scanProcessingTitle => 'लेबल पढ़ा जा रहा है…';
+
+  @override
+  String get scanStepBarcodeMatched => 'बारकोड FSSAI डेटाबेस से मिलाया गया';
+
+  @override
+  String get scanStepPhotosReceived => 'लेबल की फ़ोटो प्राप्त हुईं';
+
+  @override
+  String get scanStepNutrition => 'पोषण पैनल निकाला गया';
+
+  @override
+  String get scanStepAdditives => 'ऐडिटिव और एलर्जेन जाँचे जा रहे हैं';
+
+  @override
+  String get scanStepScoring => 'WHO / ICMR-NIN सीमाओं के विरुद्ध स्कोरिंग';
+
+  @override
+  String get scanError => 'यह लेबल नहीं पढ़ा जा सका। कृपया दोबारा कोशिश करें।';
+
+  @override
+  String get scanStatSodiumLabel => '80 g पैक पर सोडियम';
+
+  @override
+  String get scanStatConditionLabel => 'फ़्लैग हुई स्थिति';
+
+  @override
+  String get scanStatAdditivesLabel => 'ऐडिटिव';
+
+  @override
+  String get scanStatAllergensLabel => 'एलर्जेन';
+
+  @override
+  String get scanStatScoreLabel => 'लेबल रीड स्कोर';
+
+  @override
+  String scanBannerTitle(int count) {
+    return 'इस लेबल पर $count चीज़ें फ़्लैग हैं';
+  }
+
+  @override
+  String get scanDepthLabel => 'गहराई से डिकोड';
+
+  @override
+  String get scanLabelFlagsLabel => 'इस लेबल पर फ़्लैग';
+
+  @override
+  String get scanFullDecode => 'पूरा लेबल डिकोड देखें';
+
+  @override
+  String get fullDecodeUnavailable =>
+      'पूरा लेबल डिकोड इस बिल्ड में अभी उपलब्ध नहीं है।';
+
+  @override
+  String get shareUnavailable => 'शेयर करना इस बिल्ड में अभी उपलब्ध नहीं है।';
 
   @override
   String get historyTitle => 'इतिहास';

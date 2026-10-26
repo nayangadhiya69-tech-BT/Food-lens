@@ -334,6 +334,18 @@ abstract class AppLocalizations {
   /// **'Pregnancy'**
   String get flagPregnancy;
 
+  /// No description provided for @flagJain.
+  ///
+  /// In en, this message translates to:
+  /// **'Jain'**
+  String get flagJain;
+
+  /// No description provided for @flagSwaminarayan.
+  ///
+  /// In en, this message translates to:
+  /// **'Swaminarayan'**
+  String get flagSwaminarayan;
+
   /// No description provided for @flagNoneOfThese.
   ///
   /// In en, this message translates to:
@@ -847,7 +859,7 @@ abstract class AppLocalizations {
   /// No description provided for @scanCtaSemantics.
   ///
   /// In en, this message translates to:
-  /// **'Scan a product, not available in this build'**
+  /// **'Scan a product'**
   String get scanCtaSemantics;
 
   /// No description provided for @statScansWeekLabel.
@@ -915,6 +927,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t load the home screen.'**
   String get homeError;
+
+  /// No description provided for @scanModeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you want to scan?'**
+  String get scanModeTitle;
+
+  /// No description provided for @scanModeBarcodeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan barcode'**
+  String get scanModeBarcodeTitle;
+
+  /// No description provided for @scanModeBarcodeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest option — works for any packaged product already in our database.'**
+  String get scanModeBarcodeBody;
+
+  /// No description provided for @scanModePhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get scanModePhotoTitle;
+
+  /// No description provided for @scanModePhotoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'For products without a barcode, or not yet in our database. Two photos: nutrition panel and ingredients.'**
+  String get scanModePhotoBody;
+
+  /// No description provided for @scanModeSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how to scan a product'**
+  String get scanModeSemantics;
+
+  /// No description provided for @scanBarcodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Align the barcode within the frame'**
+  String get scanBarcodeHint;
+
+  /// No description provided for @scanNoBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'No barcode?'**
+  String get scanNoBarcode;
+
+  /// No description provided for @scanSwitchToPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to photo mode'**
+  String get scanSwitchToPhoto;
+
+  /// No description provided for @scanPhotoHint1.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo 1 of 2 — nutrition panel'**
+  String get scanPhotoHint1;
+
+  /// No description provided for @scanPhotoHint2.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo 2 of 2 — ingredients'**
+  String get scanPhotoHint2;
+
+  /// No description provided for @scanFlashLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle flash'**
+  String get scanFlashLabel;
+
+  /// No description provided for @scanGalleryUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Picking a photo from the gallery isn\'t available in this build yet.'**
+  String get scanGalleryUnavailable;
+
+  /// No description provided for @scanCameraUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera unavailable'**
+  String get scanCameraUnavailableTitle;
+
+  /// No description provided for @scanCameraUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable camera access in Settings to scan for real — or keep going with a demo scan for now.'**
+  String get scanCameraUnavailableBody;
+
+  /// No description provided for @scanCaptureFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save the photo — continuing with a demo scan.'**
+  String get scanCaptureFallback;
+
+  /// No description provided for @scanProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading the label…'**
+  String get scanProcessingTitle;
+
+  /// No description provided for @scanStepBarcodeMatched.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode matched to FSSAI database'**
+  String get scanStepBarcodeMatched;
+
+  /// No description provided for @scanStepPhotosReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Label photos received'**
+  String get scanStepPhotosReceived;
+
+  /// No description provided for @scanStepNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition panel extracted'**
+  String get scanStepNutrition;
+
+  /// No description provided for @scanStepAdditives.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking additives and allergens'**
+  String get scanStepAdditives;
+
+  /// No description provided for @scanStepScoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Scoring against WHO / ICMR-NIN limits'**
+  String get scanStepScoring;
+
+  /// No description provided for @scanError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read this label. Please try again.'**
+  String get scanError;
+
+  /// No description provided for @scanStatSodiumLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sodium per 80 g pack'**
+  String get scanStatSodiumLabel;
+
+  /// No description provided for @scanStatConditionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Condition flagged'**
+  String get scanStatConditionLabel;
+
+  /// No description provided for @scanStatAdditivesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Additives'**
+  String get scanStatAdditivesLabel;
+
+  /// No description provided for @scanStatAllergensLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergens'**
+  String get scanStatAllergensLabel;
+
+  /// No description provided for @scanStatScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Label read score'**
+  String get scanStatScoreLabel;
+
+  /// No description provided for @scanBannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} things flagged on this label'**
+  String scanBannerTitle(int count);
+
+  /// No description provided for @scanDepthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Decoded in depth'**
+  String get scanDepthLabel;
+
+  /// No description provided for @scanLabelFlagsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Flags on this label'**
+  String get scanLabelFlagsLabel;
+
+  /// No description provided for @scanFullDecode.
+  ///
+  /// In en, this message translates to:
+  /// **'See full label decode'**
+  String get scanFullDecode;
+
+  /// No description provided for @fullDecodeUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The full label decode isn\'t available in this build yet.'**
+  String get fullDecodeUnavailable;
+
+  /// No description provided for @shareUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing isn\'t available in this build yet.'**
+  String get shareUnavailable;
 
   /// No description provided for @historyTitle.
   ///

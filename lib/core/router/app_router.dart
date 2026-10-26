@@ -11,6 +11,12 @@ import '../../features/onboarding/view/name_screen.dart';
 import '../../features/onboarding/view/profile_setup_screen.dart';
 import '../../features/onboarding/view/terms_screen.dart';
 import '../../features/profile/view/profile_screen.dart';
+import '../../features/scan/view/scan_barcode_screen.dart';
+import '../../features/scan/view/scan_flags_screen.dart';
+import '../../features/scan/view/scan_mode_screen.dart';
+import '../../features/scan/view/scan_photo_screen.dart';
+import '../../features/scan/view/scan_processing_screen.dart';
+import '../../features/scan/view/scan_result_screen.dart';
 import '../../features/shell/view/main_shell.dart';
 import '../../features/splash/view/splash_screen.dart';
 import '../../l10n/generated/app_localizations.dart';
@@ -35,6 +41,15 @@ class AppRoutes {
   static const String myDay = '/my-day';
   static const String history = '/history';
   static const String profile = '/profile';
+
+  // Scan flow, pushed on top of the shell: mode picker → capture →
+  // flags → processing → result.
+  static const String scan = '/scan';
+  static const String scanBarcode = '/scan/barcode';
+  static const String scanPhoto = '/scan/photo';
+  static const String scanFlags = '/scan/flags';
+  static const String scanProcessing = '/scan/processing';
+  static const String scanResult = '/scan/result';
 
   /// Query parameter carrying the phone number to the OTP screen.
   static const String phoneParam = 'phone';
@@ -77,7 +92,9 @@ class AppRouter {
         location == AppRoutes.myDay ||
         location == AppRoutes.history ||
         location == AppRoutes.profile;
-    if (isShell && !isAuthenticated) return AppRoutes.login;
+    // The scan flow lives outside the shell but needs the same session.
+    final isScan = location.startsWith(AppRoutes.scan);
+    if ((isShell || isScan) && !isAuthenticated) return AppRoutes.login;
 
     final isAuthScreen =
         location == AppRoutes.login || location == AppRoutes.otp;
@@ -172,6 +189,62 @@ class AppRouter {
             context: context,
             child: const LanguageScreen(),
           ),
+        ),
+        GoRoute(
+          path: AppRoutes.scan,
+          name: 'scan',
+          pageBuilder: (context, state) => AppTransitions.slide(
+            key: state.pageKey,
+            context: context,
+            child: const ScanModeScreen(),
+          ),
+          routes: [
+            GoRoute(
+              path: 'barcode',
+              name: 'scanBarcode',
+              pageBuilder: (context, state) => AppTransitions.slide(
+                key: state.pageKey,
+                context: context,
+                child: const ScanBarcodeScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'photo',
+              name: 'scanPhoto',
+              pageBuilder: (context, state) => AppTransitions.slide(
+                key: state.pageKey,
+                context: context,
+                child: const ScanPhotoScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'flags',
+              name: 'scanFlags',
+              pageBuilder: (context, state) => AppTransitions.slide(
+                key: state.pageKey,
+                context: context,
+                child: const ScanFlagsScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'processing',
+              name: 'scanProcessing',
+              pageBuilder: (context, state) => AppTransitions.slide(
+                key: state.pageKey,
+                context: context,
+                child: const ScanProcessingScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'result',
+              name: 'scanResult',
+              pageBuilder: (context, state) => AppTransitions.slide(
+                key: state.pageKey,
+                context: context,
+                child: const ScanResultScreen(),
+              ),
+            ),
+          ],
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>

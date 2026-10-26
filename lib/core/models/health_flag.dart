@@ -1,13 +1,16 @@
 import '../../l10n/generated/app_localizations.dart';
 
-/// Locally stored health-flag preference from the HTML design
-/// (profile-setup screen). These are user selections stored on-device only —
-/// they are not medical data sent anywhere.
+/// Locally stored flag preference from the HTML design (profile-setup
+/// screen and the scan flow): health conditions plus dietary flags such
+/// as Jain / Swaminarayan. These are user selections stored on-device
+/// only — they are not medical data sent anywhere.
 enum HealthFlag {
   diabetes('diabetes'),
   bloodPressure('blood_pressure'),
   cholesterol('cholesterol'),
   pregnancy('pregnancy'),
+  jain('jain'),
+  swaminarayan('swaminarayan'),
   none('none');
 
   const HealthFlag(this.storageKey);
@@ -57,6 +60,8 @@ enum HealthFlag {
         HealthFlag.bloodPressure => l10n.flagBloodPressure,
         HealthFlag.cholesterol => l10n.flagCholesterol,
         HealthFlag.pregnancy => l10n.flagPregnancy,
+        HealthFlag.jain => l10n.flagJain,
+        HealthFlag.swaminarayan => l10n.flagSwaminarayan,
         HealthFlag.none => l10n.flagNoneOfThese,
       };
 }

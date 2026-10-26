@@ -15,6 +15,9 @@ import '../../features/my_day/repository/prefs_my_day_repository.dart';
 import '../../features/my_day/view_model/my_day_view_model.dart';
 import '../../features/profile/repository/mock_profile_repository.dart';
 import '../../features/profile/repository/profile_repository.dart';
+import '../../features/scan/repository/mock_scan_repository.dart';
+import '../../features/scan/repository/scan_repository.dart';
+import '../../features/scan/view_model/scan_view_model.dart';
 
 /// Single place where every repository and application-scope view model is
 /// wired. To move from demo data to a real API later:
@@ -32,6 +35,7 @@ List<SingleChildWidget> appProviders() => [
   Provider<HomeRepository>(create: (_) => MockHomeRepository()),
   Provider<HistoryRepository>(create: (_) => MockHistoryRepository()),
   Provider<ProfileRepository>(create: (_) => MockProfileRepository()),
+  Provider<ScanRepository>(create: (_) => MockScanRepository()),
   // My Day persists per-date entries locally; swap for an API-backed
   // implementation when a backend exists (same interface).
   Provider<MyDayRepository>(create: (_) => const PrefsMyDayRepository()),
@@ -48,5 +52,11 @@ List<SingleChildWidget> appProviders() => [
   ChangeNotifierProvider<MyDayViewModel>(
     create: (context) =>
         MyDayViewModel(context.read<MyDayRepository>())..load(),
+  ),
+  // The scan flow's session lives across its separate routes
+  // (capture → flags → processing → result), so it is app-scope too;
+  // opening the scan-mode screen resets it via startSession.
+  ChangeNotifierProvider<ScanViewModel>(
+    create: (context) => ScanViewModel(context.read<ScanRepository>()),
   ),
 ];
