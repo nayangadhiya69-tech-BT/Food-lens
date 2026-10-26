@@ -13,7 +13,8 @@ void main() async {
   // Fail-soft by design: if the platform channel is unavailable (stale hot
   // restart, unsupported platform, plugin not yet registered), the app runs
   // with in-memory defaults instead of crashing. Every AppPrefs getter
-  // tolerates an uninitialized store.
+  // tolerates an uninitialized store: writes stay visible through the
+  // session overlay and AppPrefs retries the store in the background.
   try {
     await AppPrefs.init();
   } on MissingPluginException catch (e) {
