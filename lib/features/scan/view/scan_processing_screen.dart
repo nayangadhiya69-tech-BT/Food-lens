@@ -23,6 +23,32 @@ class ScanProcessingScreen extends StatefulWidget {
   State<ScanProcessingScreen> createState() => _ScanProcessingScreenState();
 }
 
+/// Indeterminate-looking ring that fills across the whole checklist —
+/// same partial fill as the design's SVG ring.
+class _ProgressRing extends StatelessWidget {
+  final Animation<double> animation;
+
+  const _ProgressRing({required this.animation});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: dynamicWidth(84),
+      height: dynamicWidth(84),
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (context, _) => CircularProgressIndicator(
+          // The design's ring sits at ~73% when the last step runs.
+          value: animation.value * 0.73,
+          strokeWidth: 7,
+          backgroundColor: AppColors.lineLight,
+          valueColor: const AlwaysStoppedAnimation(AppColors.brand),
+        ),
+      ),
+    );
+  }
+}
+
 class _ScanProcessingScreenState extends State<ScanProcessingScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ring = AnimationController(
@@ -35,35 +61,6 @@ class _ScanProcessingScreenState extends State<ScanProcessingScreen>
   late final ScanViewModel _viewModel;
 
   bool _navigated = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _viewModel = context.read<ScanViewModel>();
-    _viewModel.addListener(_onProgress);
-    _ring.forward(from: 0);
-    // The steps must start *after* the first build: notifying providers
-    // while the tree is building throws. Post-frame also means a retry
-    // or a fresh entry always begins a clean run.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      _viewModel.startProcessing();
-    });
-  }
-
-  void _onProgress() {
-    if (!mounted || _navigated) return;
-    if (_viewModel.phase != ScanPhase.resultReady) return;
-    _navigated = true;
-    context.pushReplacement(AppRoutes.scanResult);
-  }
-
-  @override
-  void dispose() {
-    _viewModel.removeListener(_onProgress);
-    _ring.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +127,35 @@ class _ScanProcessingScreenState extends State<ScanProcessingScreen>
     );
   }
 
+  @override
+  void dispose() {
+    _viewModel.removeListener(_onProgress);
+    _ring.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = context.read<ScanViewModel>();
+    _viewModel.addListener(_onProgress);
+    _ring.forward(from: 0);
+    // The steps must start *after* the first build: notifying providers
+    // while the tree is building throws. Post-frame also means a retry
+    // or a fresh entry always begins a clean run.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _viewModel.startProcessing();
+    });
+  }
+
+  void _onProgress() {
+    if (!mounted || _navigated) return;
+    if (_viewModel.phase != ScanPhase.resultReady) return;
+    _navigated = true;
+    context.pushReplacement(AppRoutes.scanResult);
+  }
+
   String _stepLabel(AppLocalizations l10n, ScanMode mode, int index) =>
       switch (index) {
         0 =>
@@ -142,78 +168,10 @@ class _ScanProcessingScreenState extends State<ScanProcessingScreen>
       };
 }
 
-/// Indeterminate-looking ring that fills across the whole checklist —
-/// same partial fill as the design's SVG ring.
-class _ProgressRing extends StatelessWidget {
-  const _ProgressRing({required this.animation});
-
-  final Animation<double> animation;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: dynamicWidth(84),
-      height: dynamicWidth(84),
-      child: AnimatedBuilder(
-        animation: animation,
-        builder: (context, _) => CircularProgressIndicator(
-          // The design's ring sits at ~73% when the last step runs.
-          value: animation.value * 0.73,
-          strokeWidth: 7,
-          backgroundColor: AppColors.lineLight,
-          valueColor: const AlwaysStoppedAnimation(AppColors.brand),
-        ),
-      ),
-    );
-  }
-}
-
-enum _StepStatus { done, active, pending }
-
-class _StepRow extends StatelessWidget {
-  const _StepRow({required this.label, required this.status});
-
-  final String label;
-  final _StepStatus status;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = switch (status) {
-      _StepStatus.done => AppColors.ink,
-      _StepStatus.active => AppColors.ink,
-      _StepStatus.pending => AppColors.inkTertiary,
-    };
-
-    return Padding(
-      padding: EdgeInsets.only(bottom: dynamicHeight(12)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _StepDot(status: status),
-          SizedBox(width: dynamicWidth(12)),
-          Expanded(
-            child: Text(
-              label,
-              style: AppTextStyle.create(
-                fontSize: 13,
-                weight: status == _StepStatus.active
-                    ? FontWeights.bold
-                    : FontWeights.reg,
-                color: color,
-                height: 1.35,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _StepDot extends StatelessWidget {
-  const _StepDot({required this.status});
-
   final _StepStatus status;
+
+  const _StepDot({required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -253,3 +211,45 @@ class _StepDot extends StatelessWidget {
     );
   }
 }
+
+class _StepRow extends StatelessWidget {
+  final String label;
+
+  final _StepStatus status;
+  const _StepRow({required this.label, required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = switch (status) {
+      _StepStatus.done => AppColors.ink,
+      _StepStatus.active => AppColors.ink,
+      _StepStatus.pending => AppColors.inkTertiary,
+    };
+
+    return Padding(
+      padding: EdgeInsets.only(bottom: dynamicHeight(12)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _StepDot(status: status),
+          SizedBox(width: dynamicWidth(12)),
+          Expanded(
+            child: Text(
+              label,
+              style: AppTextStyle.create(
+                fontSize: 13,
+                weight: status == _StepStatus.active
+                    ? FontWeights.bold
+                    : FontWeights.reg,
+                color: color,
+                height: 1.35,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+enum _StepStatus { done, active, pending }

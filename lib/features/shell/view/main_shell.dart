@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/app_size.dart';
 import '../../../core/utils/app_text_style.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../my_day/view_model/my_day_view_model.dart';
+
+/// Shell branch index of the My Day tab (second item in [_BottomNav]).
+const int _myDayBranchIndex = 1;
 
 /// Body of the [StatefulShellRoute]: keeps the four tab branches alive
 /// and shows the custom bottom nav from the HTML design
@@ -20,12 +25,20 @@ class MainShell extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: _BottomNav(
         currentIndex: navigationShell.currentIndex,
-        onTap: _goBranch,
+        onTap: (index) => _goBranch(context, index),
       ),
     );
   }
 
-  void _goBranch(int index) {
+  void _goBranch(BuildContext context, int index) {
+    // Opening the My Day tab always lands on its default step, "Add to
+    // today". The shell keeps the branch alive, so without this the tab
+    // would reopen on whatever step the user last left it (How much? /
+    // My Day). Only the step resets — selections, draft amounts and the
+    // saved entries (shared with Home) stay exactly as they were.
+    if (index == _myDayBranchIndex) {
+      context.read<MyDayViewModel>().goToPick();
+    }
     navigationShell.goBranch(
       index,
       // When re-selecting the already-active tab, jump to its root
@@ -66,8 +79,8 @@ class _BottomNav extends StatelessWidget {
                 label: l10n.navMyDay,
                 icon: Icons.wb_sunny_outlined,
                 activeIcon: Icons.wb_sunny_rounded,
-                selected: currentIndex == 1,
-                onTap: () => onTap(1),
+                selected: currentIndex == _myDayBranchIndex,
+                onTap: () => onTap(_myDayBranchIndex),
               ),
               _NavItem(
                 label: l10n.navHistory,
