@@ -270,6 +270,7 @@ class _ProfileView extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: dynamicHeight(16)),
           children: [
             _UserCard(name: user.name, phone: user.phoneDigits),
+
             CommonCard(
               child: Column(
                 children: [

@@ -358,6 +358,7 @@ class _ScanCta extends StatelessWidget {
                 child: const Icon(
                   Icons.qr_code_scanner,
                   size: 26,
+
                   color: Colors.white,
                 ),
               ),

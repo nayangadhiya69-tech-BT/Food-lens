@@ -85,7 +85,6 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen>
     with WidgetsBindingObserver {
   MobileScannerController? _scanner;
   bool _unavailable = false;
-  bool _starting = false;
   bool _handledDetect = false;
 
   @override
@@ -165,6 +164,7 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen>
     final scanner = _scanner;
     _scanner = null;
     if (scanner != null) {
+      scanner.removeListener(_onScannerChanged);
       unawaited(_disposeScanner(scanner));
     }
     super.dispose();
@@ -177,7 +177,17 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen>
     if (scanCameraDisabled) {
       _unavailable = true;
     } else {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _startScanner());
+      // The controller must exist before the first build so the
+      // MobileScanner widget can attach to it. Starting it here (rather
+      // than after the frame) previously made start() time out waiting
+      // for the widget, which always showed the "camera unavailable"
+      // fallback on real devices.
+      final scanner = MobileScannerController(
+        facing: CameraFacing.back,
+        detectionSpeed: DetectionSpeed.noDuplicates,
+      );
+      scanner.addListener(_onScannerChanged);
+      _scanner = scanner;
     }
   }
 
@@ -187,6 +197,23 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen>
     } catch (_) {
       // Best effort — the platform session may already be gone.
     }
+  }
+
+  /// Replaces the live lens with the fallback notice when the plugin
+  /// reports a camera failure (permission denied, no hardware, ...).
+  void _onScannerChanged() {
+    final scanner = _scanner;
+    if (!mounted || _unavailable || scanner == null) return;
+    if (scanner.value.error == null) return;
+
+    setState(() => _unavailable = true);
+    _scanner = null;
+    scanner.removeListener(_onScannerChanged);
+    // Drop the preview widget first, then release the controller, so the
+    // preview never touches a disposed notifier.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(_disposeScanner(scanner));
+    });
   }
 
   void _onDetect(BarcodeCapture capture) {
@@ -202,47 +229,6 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen>
     if (viewModel.capture(barcode: raw)) {
       context.push(AppRoutes.scanFlags);
     }
-  }
-
-  /// Boots the live scanner once the [MobileScanner] widget is mounted
-  /// (it must attach first). Falls back to the demo shutter when the
-  /// platform has no camera, no permission, or no implementation.
-  Future<void> _startScanner() async {
-    if (!mounted || _starting || _scanner != null) return;
-    _starting = true;
-
-    final scanner = MobileScannerController(
-      autoStart: false,
-      facing: CameraFacing.back,
-      detectionSpeed: DetectionSpeed.noDuplicates,
-    );
-    _scanner = scanner;
-
-    var failed = false;
-    try {
-      await scanner.start();
-      if (!scanner.value.isRunning || scanner.value.error != null) {
-        failed = true;
-      }
-    } catch (_) {
-      failed = true;
-    }
-
-    if (!mounted) {
-      _scanner = null;
-      await _disposeScanner(scanner);
-      return;
-    }
-
-    if (failed) {
-      _scanner = null;
-      // Drop the widget first, then release the controller, so the
-      // preview never touches a disposed notifier.
-      setState(() => _unavailable = true);
-      await WidgetsBinding.instance.endOfFrame;
-      await _disposeScanner(scanner);
-    }
-    _starting = false;
   }
 
   void _switchToPhoto() {
@@ -275,37 +261,80 @@ class _ScanLineState extends State<_ScanLine>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1600),
+    duration: const Duration(milliseconds: 1900),
   )..repeat(reverse: true);
 
   late final Animation<double> _progress = CurvedAnimation(
     parent: _controller,
-    curve: Curves.easeInOut,
+    curve: Curves.easeInOutCubic,
   );
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _progress,
-      builder: (context, _) {
-        return Align(
-          alignment: Alignment(0, -1 + 2 * _progress.value),
-          child: Container(
-            height: dynamicHeight(2),
-            margin: EdgeInsets.symmetric(horizontal: dynamicWidth(10)),
-            decoration: BoxDecoration(
-              color: AppColors.brandBright,
-              borderRadius: BorderRadius.circular(2),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.brandBright.withValues(alpha: 0.55),
-                  blurRadius: 8,
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _progress,
+        builder: (context, _) {
+          final alignment = Alignment(0, -1 + 2 * _progress.value);
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              // Soft halo trailing the line so the sweep reads clearly
+              // over bright parts of the camera feed.
+              Align(
+                alignment: alignment,
+                child: IgnorePointer(
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 0.24,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            AppColors.brandBright.withValues(alpha: 0),
+                            AppColors.brandBright.withValues(alpha: 0.13),
+                            AppColors.brandBright.withValues(alpha: 0),
+                          ],
+                          stops: const [0, 0.5, 1],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ],
-            ),
-          ),
-        );
-      },
+              ),
+              Align(
+                alignment: alignment,
+                child: IgnorePointer(
+                  child: Container(
+                    height: dynamicHeight(2),
+                    margin: EdgeInsets.symmetric(horizontal: dynamicWidth(10)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.brandBright.withValues(alpha: 0),
+                          AppColors.brandBright,
+                          AppColors.brandBright.withValues(alpha: 0),
+                        ],
+                        stops: const [0, 0.5, 1],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.brandBright.withValues(alpha: 0.6),
+                          blurRadius: 10,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 

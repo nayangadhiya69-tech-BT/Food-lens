@@ -12,6 +12,23 @@ import '../../../core/utils/app_text_style.dart';
 /// Used by the login phone field and the onboarding name field — the
 /// rendered UI matches the original screens pixel-for-pixel.
 class CommonTextField extends StatefulWidget {
+  final TextEditingController controller;
+
+  /// Optional externally-owned node (lets callers request focus on error).
+  final FocusNode? focusNode;
+
+  final String? prefix;
+  final String? hint;
+  final String? errorText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final Iterable<String>? autofillHints;
+  final List<TextInputFormatter>? inputFormatters;
+  final int? maxLength;
+  final TextCapitalization textCapitalization;
+  final double? letterSpacing;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
   const CommonTextField({
     super.key,
     required this.controller,
@@ -29,23 +46,6 @@ class CommonTextField extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
   });
-
-  final TextEditingController controller;
-
-  /// Optional externally-owned node (lets callers request focus on error).
-  final FocusNode? focusNode;
-  final String? prefix;
-  final String? hint;
-  final String? errorText;
-  final TextInputType? keyboardType;
-  final TextInputAction? textInputAction;
-  final Iterable<String>? autofillHints;
-  final List<TextInputFormatter>? inputFormatters;
-  final int? maxLength;
-  final TextCapitalization textCapitalization;
-  final double? letterSpacing;
-  final ValueChanged<String>? onChanged;
-  final ValueChanged<String>? onSubmitted;
 
   @override
   State<CommonTextField> createState() => _CommonTextFieldState();
