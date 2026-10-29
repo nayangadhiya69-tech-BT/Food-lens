@@ -50,6 +50,11 @@ class ScanViewModel extends ChangeNotifier {
   ScanPhase phase = ScanPhase.idle;
   ScanResult? result;
 
+  /// Result of the session being left behind while the user runs a fresh
+  /// scan from the result screen; restored when the scanner pops back so
+  /// the previous result screen keeps its content instead of a loader.
+  ScanResult? previousResult;
+
   /// Checklist progress: how many steps have completed.
   int completedSteps = 0;
 
@@ -86,6 +91,7 @@ class ScanViewModel extends ChangeNotifier {
     mode = initialMode;
     selectedFlags = HealthFlag.fromKeys(AppPrefs.healthFlags);
     phase = ScanPhase.idle;
+    previousResult = result;
     result = null;
     completedSteps = 0;
     torchOn = false;
@@ -181,6 +187,17 @@ class ScanViewModel extends ChangeNotifier {
       phase = ScanPhase.error;
     }
     notifyListeners();
+  }
+
+  /// Puts the stashed result back before the scanner pops away, so going
+  /// back from a re-scan lands on the previous result screen.
+  void restoreResult() {
+    final restored = previousResult;
+    previousResult = null;
+    if (restored != null) {
+      result = restored;
+      notifyListeners();
+    }
   }
 
   /// Clears the session once the result is done with (result back → home).

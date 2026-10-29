@@ -27,8 +27,14 @@ class ScanFlagsScreen extends StatelessWidget {
 
     return CommonScaffold(
       title: l10n.healthFlagsSheetTitle,
-      onBack: () =>
-          context.canPop() ? context.pop() : context.go(AppRoutes.scan),
+      onBack: () {
+        if (context.canPop()) {
+          context.read<ScanViewModel>().restoreResult();
+          context.pop();
+        } else {
+          context.go(AppRoutes.scan);
+        }
+      },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

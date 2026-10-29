@@ -100,8 +100,14 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen>
       hint: l10n.scanBarcodeHint,
       torchOn: viewModel.torchOn,
       onToggleTorch: _toggleTorch,
-      onClose: () =>
-          context.canPop() ? context.pop() : context.go(AppRoutes.scan),
+      onClose: () {
+        if (context.canPop()) {
+          context.read<ScanViewModel>().restoreResult();
+          context.pop();
+        } else {
+          context.go(AppRoutes.scan);
+        }
+      },
       onShutter: () {
         if (viewModel.capture()) {
           context.push(AppRoutes.scanFlags);

@@ -33,6 +33,7 @@ class ScanModeScreen extends StatelessWidget {
       title: l10n.scanModeTitle,
       onBack: () {
         if (context.canPop()) {
+          context.read<ScanViewModel>().restoreResult();
           context.pop();
         } else {
           context.go(AppRoutes.home);

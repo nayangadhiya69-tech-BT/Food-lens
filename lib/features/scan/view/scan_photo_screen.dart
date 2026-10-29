@@ -113,8 +113,14 @@ class _ScanPhotoScreenState extends State<ScanPhotoScreen> {
           : l10n.scanPhotoHint2,
       torchOn: viewModel.torchOn,
       onToggleTorch: _toggleTorch,
-      onClose: () =>
-          context.canPop() ? context.pop() : context.go(AppRoutes.scan),
+      onClose: () {
+        if (context.canPop()) {
+          context.read<ScanViewModel>().restoreResult();
+          context.pop();
+        } else {
+          context.go(AppRoutes.scan);
+        }
+      },
       onShutter: _onShutter,
       preview: !_unavailable && camera != null && camera.value.isInitialized
           // Loose constraints keep CameraPreview's AspectRatio honest

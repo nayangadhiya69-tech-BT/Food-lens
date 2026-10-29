@@ -701,6 +701,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
                 subtitle: result.subtitle,
                 voiceCode: voiceCode,
                 onBack: _close,
+                onScan: _openScanner,
                 onVoiceLanguage: _showVoiceLanguageSheet,
               ),
               Expanded(
@@ -1187,6 +1188,11 @@ class _ScanResultScreenState extends State<ScanResultScreen>
   void _close() {
     context.read<ScanViewModel>().endSession();
     context.go(AppRoutes.home);
+  }
+
+  void _openScanner() {
+    context.read<ScanViewModel>().startSession(ScanMode.barcode);
+    context.push(AppRoutes.scan);
   }
 
   void _goTo(int next) {
@@ -1795,12 +1801,14 @@ class _StoryHeader extends StatelessWidget {
   final String subtitle;
   final String voiceCode;
   final VoidCallback onBack;
+  final VoidCallback onScan;
   final VoidCallback onVoiceLanguage;
   const _StoryHeader({
     required this.title,
     required this.subtitle,
     required this.voiceCode,
     required this.onBack,
+    required this.onScan,
     required this.onVoiceLanguage,
   });
 
@@ -1822,20 +1830,24 @@ class _StoryHeader extends StatelessWidget {
             onTap: onBack,
           ),
           SizedBox(width: dynamicWidth(8)),
-          Container(
-            width: dynamicWidth(38),
-            height: dynamicWidth(38),
-            decoration: BoxDecoration(
-              color: AppColors.brandBackground,
-              borderRadius: BorderRadius.circular(11),
-              border: Border.all(
-                color: AppColors.brand.withValues(alpha: 0.18),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onScan,
+            child: Container(
+              width: dynamicWidth(38),
+              height: dynamicWidth(38),
+              decoration: BoxDecoration(
+                color: AppColors.brandBackground,
+                borderRadius: BorderRadius.circular(11),
+                border: Border.all(
+                  color: AppColors.brand.withValues(alpha: 0.18),
+                ),
               ),
-            ),
-            child: const Icon(
-              Icons.qr_code_2_rounded,
-              size: 21,
-              color: AppColors.brand,
+              child: const Icon(
+                Icons.qr_code_2_rounded,
+                size: 21,
+                color: AppColors.brand,
+              ),
             ),
           ),
           SizedBox(width: dynamicWidth(10)),
