@@ -797,6 +797,8 @@ class _ScanResultScreenState extends State<ScanResultScreen>
                 flaggedCards: _flaggedCards,
                 titles: titles,
                 onJump: _goTo,
+                onBack: _index > 0 ? _previous : null,
+                onNext: _index < _cardCount - 1 ? _next : null,
               ),
             ],
           ),
@@ -1588,12 +1590,16 @@ class _StoryBottomBar extends StatelessWidget {
   final Set<int> flaggedCards;
   final List<String> titles;
   final ValueChanged<int> onJump;
+  final VoidCallback? onBack;
+  final VoidCallback? onNext;
   const _StoryBottomBar({
     required this.index,
     required this.count,
     required this.flaggedCards,
     required this.titles,
     required this.onJump,
+    this.onBack,
+    this.onNext,
   });
 
   @override
@@ -1640,55 +1646,63 @@ class _StoryBottomBar extends StatelessWidget {
             children: [
               Expanded(
                 child: index > 0
-                    ? Row(
-                        children: [
-                          const Icon(
-                            Icons.west_rounded,
-                            size: 13,
-                            color: AppColors.inkTertiary,
-                          ),
-                          SizedBox(width: dynamicWidth(4)),
-                          Flexible(
-                            child: Text(
-                              ScanStoryCopy.tapBack,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTextStyle.create(
-                                fontSize: 10.5,
-                                color: AppColors.inkTertiary,
+                    ? GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: onBack,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.west_rounded,
+                              size: 13,
+                              color: AppColors.inkTertiary,
+                            ),
+                            SizedBox(width: dynamicWidth(4)),
+                            Flexible(
+                              child: Text(
+                                ScanStoryCopy.tapBack,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyle.create(
+                                  fontSize: 10.5,
+                                  color: AppColors.inkTertiary,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     : const SizedBox.shrink(),
               ),
               SizedBox(width: dynamicWidth(8)),
               Expanded(
                 child: nextTitle != null
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'Next: $nextTitle',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.right,
-                              style: AppTextStyle.create(
-                                fontSize: 10.5,
-                                weight: FontWeights.bold,
-                                color: AppColors.brandDark,
+                    ? GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: onNext,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'Next: $nextTitle',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.right,
+                                style: AppTextStyle.create(
+                                  fontSize: 10.5,
+                                  weight: FontWeights.bold,
+                                  color: AppColors.brandDark,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: dynamicWidth(4)),
-                          const Icon(
-                            Icons.east_rounded,
-                            size: 13,
-                            color: AppColors.brand,
-                          ),
-                        ],
+                            SizedBox(width: dynamicWidth(4)),
+                            const Icon(
+                              Icons.east_rounded,
+                              size: 13,
+                              color: AppColors.brand,
+                            ),
+                          ],
+                        ),
                       )
                     : Text(
                         ScanStoryCopy.endOfStory,
