@@ -269,7 +269,7 @@ class _HomeView extends StatelessWidget {
         );
       case LoadState.success:
         final overview = viewModel.overview!;
-        return CommonRefreshIndicator(
+        final content = CommonRefreshIndicator(
           onRefresh: viewModel.load,
           padding: EdgeInsets.only(bottom: dynamicHeight(20)),
           children: [
@@ -316,6 +316,7 @@ class _HomeView extends StatelessWidget {
                 ),
           ],
         );
+        return CommonShimmerReveal(child: content);
     }
   }
 }

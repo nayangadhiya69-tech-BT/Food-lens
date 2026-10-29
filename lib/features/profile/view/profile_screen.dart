@@ -266,7 +266,7 @@ class _ProfileView extends StatelessWidget {
         );
       case LoadState.success:
         final user = viewModel.user!;
-        return ListView(
+        final content = ListView(
           padding: EdgeInsets.symmetric(vertical: dynamicHeight(16)),
           children: [
             _UserCard(name: user.name, phone: user.phoneDigits),
@@ -332,6 +332,7 @@ class _ProfileView extends StatelessWidget {
             ),
           ],
         );
+        return CommonShimmerReveal(child: content);
     }
   }
 

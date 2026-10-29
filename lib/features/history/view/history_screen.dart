@@ -83,7 +83,7 @@ class _HistoryView extends StatelessWidget {
           );
         }
         final records = viewModel.records;
-        return CommonRefreshIndicator(
+        final content = CommonRefreshIndicator(
           onRefresh: viewModel.load,
           padding: EdgeInsets.only(bottom: dynamicHeight(12)),
 
@@ -98,6 +98,7 @@ class _HistoryView extends StatelessWidget {
             ),
           ),
         );
+        return CommonShimmerReveal(child: content);
     }
   }
 }

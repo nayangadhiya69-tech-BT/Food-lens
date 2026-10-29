@@ -247,13 +247,15 @@ class _MyDayView extends StatelessWidget {
       case LoadState.success:
         switch (viewModel.step) {
           case MyDayStep.pick:
-            return const _PickStep();
+            return const CommonShimmerReveal(child: _PickStep());
           case MyDayStep.amounts:
-            return const _AmountsStep();
+            return const CommonShimmerReveal(child: _AmountsStep());
           case MyDayStep.summary:
-            return viewModel.hasEntries
-                ? const _SummaryStep()
-                : const _EmptyDayStep();
+            return CommonShimmerReveal(
+              child: viewModel.hasEntries
+                  ? const _SummaryStep()
+                  : const _EmptyDayStep(),
+            );
         }
     }
   }

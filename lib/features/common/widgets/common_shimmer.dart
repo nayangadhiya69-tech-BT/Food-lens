@@ -40,6 +40,55 @@ class CommonShimmer extends StatelessWidget {
   }
 }
 
+/// Content that replaces a [CommonShimmer] skeleton and plays a smooth
+/// entrance (slides down from the top and fades in) when mounted.
+///
+/// Used on every screen that swaps its first-load shimmer for real data,
+/// so the shimmer → data hand-off feels continuous instead of snapping.
+class CommonShimmerReveal extends StatefulWidget {
+  const CommonShimmerReveal({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  State<CommonShimmerReveal> createState() => _CommonShimmerRevealState();
+}
+
+class _CommonShimmerRevealState extends State<CommonShimmerReveal>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 450),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    );
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0, -0.04),
+        end: Offset.zero,
+      ).animate(animation),
+      child: FadeTransition(opacity: animation, child: widget.child),
+    );
+  }
+}
+
 /// Dynamic skeleton primitive — a rounded (or circular) placeholder box.
 ///
 /// Width/height are design values on the 393pt grid and scale with the
