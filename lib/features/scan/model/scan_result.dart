@@ -1,3 +1,5 @@
+import '../../../core/models/health_flag.dart';
+
 /// One number in the result's stat strip (HTML screen 10).
 ///
 /// [value] is fixture content; the label is localized by the screen from
@@ -65,6 +67,7 @@ class ScanResult {
     required this.bannerBody,
     required this.labelFlags,
     required this.depth,
+    required this.friendlyFlags,
   });
 
   /// Product name and pack subtitle shown in the result header and on
@@ -84,4 +87,9 @@ class ScanResult {
 
   final List<LabelFlag> labelFlags;
   final DepthDecode depth;
+
+  /// Personal flags from the user's selection that this product is
+  /// friendly for (e.g. a Jain-friendly biscuit). The overview status
+  /// compares the selection against this.
+  final Set<HealthFlag> friendlyFlags;
 }

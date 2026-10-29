@@ -29,9 +29,14 @@ class MockScanRepository implements ScanRepository {
       throw StateError('Mock scan failure');
     }
     // "Condition flagged" counts the user's own selections, so the flag
-    // step visibly feeds the result.
+    // step visibly feeds the result. The friendliness verdicts are the
+    // selected flags this product is friendly for.
+    final selected = flags.where((flag) => !flag.isNone).toSet();
     return ScanFixtures.result(
-      conditionFlagged: flags.where((flag) => !flag.isNone).length,
+      conditionFlagged: selected.length,
+      friendlyFlags: selected
+          .where(ScanFixtures.friendlyForProduct.contains)
+          .toSet(),
     );
   }
 }

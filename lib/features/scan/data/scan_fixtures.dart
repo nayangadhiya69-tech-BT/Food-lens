@@ -1,3 +1,4 @@
+import '../../../core/models/health_flag.dart';
 import '../model/scan_result.dart';
 
 /// Demo scan result matching the HTML design's result screen (screen 10)
@@ -14,9 +15,21 @@ class ScanFixtures {
 
   static const String productSubtitle = '800 g box · 10 mini packs inside';
 
+  /// Demo verdicts: which personal flags this sample product is friendly
+  /// for (e.g. Jain-friendly biscuits). The mock analysis intersects this
+  /// with the flags the user selected during the scan.
+  static const Set<HealthFlag> friendlyForProduct = <HealthFlag>{
+    HealthFlag.jain,
+    HealthFlag.swaminarayan,
+  };
+
   /// [conditionFlagged] is how many of the user's own flags apply here —
   /// the link between the flag step and the result's stat strip.
-  static ScanResult result({required int conditionFlagged}) => ScanResult(
+  /// [friendlyFlags] are the selected flags this product is friendly for.
+  static ScanResult result({
+    required int conditionFlagged,
+    Set<HealthFlag> friendlyFlags = const <HealthFlag>{},
+  }) => ScanResult(
     name: productName,
     subtitle: productSubtitle,
     flaggedCount: 3,
@@ -46,5 +59,6 @@ class ScanFixtures {
           'Palm oil is a naturally occurring vegetable fat that carries more '
           'saturated fat than most other cooking oils.',
     ),
+    friendlyFlags: friendlyFlags,
   );
 }

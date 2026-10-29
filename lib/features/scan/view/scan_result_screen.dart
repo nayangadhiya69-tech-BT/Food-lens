@@ -451,11 +451,13 @@ class _PersonalFlagsCard extends StatelessWidget {
     required this.flags,
     required this.l10n,
     required this.applied,
+    required this.friendlyFlags,
   });
 
   final List<HealthFlag> flags;
   final AppLocalizations l10n;
   final int applied;
+  final Set<HealthFlag> friendlyFlags;
 
   @override
   Widget build(BuildContext context) {
@@ -533,7 +535,7 @@ class _PersonalFlagsCard extends StatelessWidget {
               ],
             ),
           if (flags.isNotEmpty) ...[
-            SizedBox(height: dynamicHeight(8)),
+            ..._statusRows(),
             Text(
               ScanStoryCopy.flagsApplied(applied),
               style: AppTextStyle.create(
@@ -545,6 +547,58 @@ class _PersonalFlagsCard extends StatelessWidget {
           ],
         ],
       ),
+    );
+  }
+
+  List<Widget> _statusRows() {
+    final rows = <Widget>[];
+    for (final flag in flags) {
+      rows.add(
+        _FlagStatusRow(
+          flag: flag,
+          friendly: friendlyFlags.contains(flag),
+        ),
+      );
+      rows.add(SizedBox(height: dynamicHeight(8)));
+    }
+    return rows;
+  }
+}
+
+/// One personal flag with its status against the scanned product: is the
+/// product friendly for it, or not?
+class _FlagStatusRow extends StatelessWidget {
+  final HealthFlag flag;
+  final bool friendly;
+
+  const _FlagStatusRow({required this.flag, required this.friendly});
+
+  @override
+  Widget build(BuildContext context) {
+    final label = flag.localizedLabel(AppLocalizations.of(context));
+    final color = friendly ? AppColors.brandDark : AppColors.inkSecondary;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          friendly ? Icons.check_circle_rounded : Icons.warning_amber_rounded,
+          size: 14,
+          color: friendly ? AppColors.brand : AppColors.warning,
+        ),
+        SizedBox(width: dynamicWidth(6)),
+        Expanded(
+          child: Text(
+            friendly
+                ? ScanStoryCopy.friendlyStatus(label)
+                : ScanStoryCopy.notFriendlyStatus(label),
+            style: AppTextStyle.create(
+              fontSize: 11,
+              color: color,
+              height: 1.45,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -818,7 +872,12 @@ class _ScanResultScreenState extends State<ScanResultScreen>
               onTap: onListen,
             ),
             SizedBox(height: dynamicHeight(12)),
-            _PersonalFlagsCard(flags: selected, l10n: l10n, applied: applied),
+            _PersonalFlagsCard(
+              flags: selected,
+              l10n: l10n,
+              applied: applied,
+              friendlyFlags: result.friendlyFlags,
+            ),
             SizedBox(height: dynamicHeight(14)),
             _SurfaceCard(
               child: Column(

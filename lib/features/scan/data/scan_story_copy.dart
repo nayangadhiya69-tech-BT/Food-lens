@@ -69,4 +69,12 @@ class ScanStoryCopy {
   static String flagsApplied(int count) => count == 1
       ? '1 personal flag is counted in this result.'
       : '$count personal flags are counted in this result.';
+
+  /// Status line for one selected personal flag: is the scanned product
+  /// friendly for it (e.g. totally friendly for Jain)?
+  static String friendlyStatus(String flagLabel) =>
+      'This product is totally friendly for $flagLabel.';
+
+  static String notFriendlyStatus(String flagLabel) =>
+      'This product is not friendly for $flagLabel.';
 }
