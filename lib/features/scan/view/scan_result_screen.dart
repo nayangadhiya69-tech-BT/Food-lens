@@ -645,6 +645,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
   int _index = 0;
   bool _paused = false;
   bool _speaking = false;
+  bool _autoSpeak = true;
   int _speechToken = 0;
 
   @override
@@ -822,6 +823,9 @@ class _ScanResultScreenState extends State<ScanResultScreen>
     _progress = AnimationController(vsync: this, duration: _cardDuration)
       ..addStatusListener(_onProgressStatus)
       ..forward();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(_toggleVoice(0));
+    });
   }
 
   Widget _buildCard(
@@ -1250,7 +1254,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
   void _resume() {
     if (!_paused) return;
     setState(() => _paused = false);
-    if (!_speaking && _index < _cardCount - 1) {
+    if (_autoSpeak && _index < _cardCount - 1) {
       _progress.forward();
     }
   }
@@ -1445,6 +1449,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
   Future<void> _toggleVoice(int cardIndex) async {
     if (_speaking) {
       _cancelSpeech();
+      if (mounted) setState(() => _autoSpeak = false);
       return;
     }
 
@@ -1468,7 +1473,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
     if (!mounted || token != _speechToken) return;
 
     setState(() => _speaking = false);
-    if (!_paused && _index < _cardCount - 1) {
+    if (!_paused && _autoSpeak && _index < _cardCount - 1) {
       _progress.forward();
     }
     if (!ok) {
