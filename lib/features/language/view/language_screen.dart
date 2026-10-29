@@ -40,7 +40,16 @@ class LanguageScreen extends StatelessWidget {
               letterSpacing: 0.5,
             ),
           ),
-          SizedBox(height: dynamicHeight(10)),
+          SizedBox(height: dynamicHeight(6)),
+          Text(
+            l10n.languageVoiceNote,
+            style: AppTextStyle.create(
+              fontSize: 12.5,
+              color: AppColors.inkSecondary,
+              height: 1.5,
+            ),
+          ),
+          SizedBox(height: dynamicHeight(14)),
           LanguageCards(
             selectedCode: localeProvider.effectiveCode,
             onSelected: (code) => localeProvider.setLocale(code),

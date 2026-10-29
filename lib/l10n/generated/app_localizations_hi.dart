@@ -119,7 +119,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get setupTitle => 'कुछ छोटी बातें';
 
   @override
-  String get preferredLanguageLabel => 'पसंदीदा भाषा';
+  String get preferredLanguageLabel => 'सुनने की भाषा';
 
   @override
   String get flagQuestionLabel =>
@@ -202,7 +202,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get nameRequiredError => 'कृपया अपना नाम दर्ज करें';
 
   @override
-  String get languageScreenTitle => 'भाषा';
+  String get languageScreenTitle => 'आवाज़ की भाषा';
+
+  @override
+  String get languageVoiceNote =>
+      'स्क्रीन का टेक्स्ट हमेशा अंग्रेज़ी में रहेगा। जिस भाषा में Listen सुनना चाहते हैं, वह चुनें।';
 
   @override
   String get languageEnglish => 'English';
@@ -638,7 +642,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get preferencesSection => 'प्राथमिकताएँ';
 
   @override
-  String get languageRowLabel => 'भाषा';
+  String get languageRowLabel => 'आवाज़ की भाषा';
 
   @override
   String get healthFlagsRowLabel => 'हेल्थ फ़्लैग';

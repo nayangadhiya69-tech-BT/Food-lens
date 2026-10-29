@@ -120,7 +120,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupTitle => 'A couple of quick things';
 
   @override
-  String get preferredLanguageLabel => 'Preferred language';
+  String get preferredLanguageLabel => 'Listen language';
 
   @override
   String get flagQuestionLabel => 'Anything we should flag for, if present?';
@@ -201,7 +201,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nameRequiredError => 'Please enter your name';
 
   @override
-  String get languageScreenTitle => 'Language';
+  String get languageScreenTitle => 'Voice language';
+
+  @override
+  String get languageVoiceNote =>
+      'Screen text always stays in English. Choose the language you want the Listen voiceover to speak in.';
 
   @override
   String get languageEnglish => 'English';
@@ -637,7 +641,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get preferencesSection => 'Preferences';
 
   @override
-  String get languageRowLabel => 'Language';
+  String get languageRowLabel => 'Voice language';
 
   @override
   String get healthFlagsRowLabel => 'Health flags';

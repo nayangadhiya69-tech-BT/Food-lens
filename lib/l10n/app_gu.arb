@@ -36,7 +36,7 @@
   "otpTooManyAttemptsError": "ઘણા પ્રયાસો થયા. ડેમો સાઇન-ઇન ફરી શરૂ કરો.",
 
   "setupTitle": "બે-ચાર નાની વાતો",
-  "preferredLanguageLabel": "પસંદગીની ભાષા",
+  "preferredLanguageLabel": "સાંભળવાની ભાષા",
   "flagQuestionLabel": "હાજર હોય તો શું ધ્યાન રાખવું?",
   "flagNote": "માત્ર એ નક્કી કરે છે કે કયા ફ્લેગ પહેલા દેખાશે — લેબલ પર શું છપાયું છે તે બદલાતું નથી.",
   "flagDiabetes": "મધુપ્રમેહ",
@@ -64,7 +64,8 @@
   "nameHint": "તમારું નામ દાખલ કરો",
   "nameRequiredError": "કૃપા કરીને તમારું નામ દાખલ કરો",
 
-  "languageScreenTitle": "ભાષા",
+  "languageScreenTitle": "અવાજની ભાષા",
+  "languageVoiceNote": "સ્ક્રીનનું ટેક્સ્ટ હંમેશા અંગ્રેજીમાં જ રહેશે. Listen માટે જે ભાષા સાંભળવી હોય તે પસંદ કરો.",
   "languageEnglish": "English",
   "languageHindi": "हिन्दी",
   "languageGujarati": "ગુજરાતી",
@@ -210,7 +211,7 @@
   "profileError": "તમારું પ્રોફાઇલ લોડ થઈ શક્યું નથી.",
   "profileDemoBadge": "ડેમો પ્રોફાઇલ",
   "preferencesSection": "પસંદગીઓ",
-  "languageRowLabel": "ભાષા",
+  "languageRowLabel": "અવાજની ભાષા",
   "healthFlagsRowLabel": "હેલ્થ ફ્લેગ",
   "onThisDevice": "આ ડિવાઇસ પર",
   "noFlagsSet": "કંઈ સેટ નથી",

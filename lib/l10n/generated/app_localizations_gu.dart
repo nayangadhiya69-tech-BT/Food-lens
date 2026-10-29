@@ -119,7 +119,7 @@ class AppLocalizationsGu extends AppLocalizations {
   String get setupTitle => 'બે-ચાર નાની વાતો';
 
   @override
-  String get preferredLanguageLabel => 'પસંદગીની ભાષા';
+  String get preferredLanguageLabel => 'સાંભળવાની ભાષા';
 
   @override
   String get flagQuestionLabel => 'હાજર હોય તો શું ધ્યાન રાખવું?';
@@ -201,7 +201,11 @@ class AppLocalizationsGu extends AppLocalizations {
   String get nameRequiredError => 'કૃપા કરીને તમારું નામ દાખલ કરો';
 
   @override
-  String get languageScreenTitle => 'ભાષા';
+  String get languageScreenTitle => 'અવાજની ભાષા';
+
+  @override
+  String get languageVoiceNote =>
+      'સ્ક્રીનનું ટેક્સ્ટ હંમેશા અંગ્રેજીમાં જ રહેશે. Listen માટે જે ભાષા સાંભળવી હોય તે પસંદ કરો.';
 
   @override
   String get languageEnglish => 'English';
@@ -638,7 +642,7 @@ class AppLocalizationsGu extends AppLocalizations {
   String get preferencesSection => 'પસંદગીઓ';
 
   @override
-  String get languageRowLabel => 'ભાષા';
+  String get languageRowLabel => 'અવાજની ભાષા';
 
   @override
   String get healthFlagsRowLabel => 'હેલ્થ ફ્લેગ';

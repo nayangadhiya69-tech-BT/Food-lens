@@ -7,7 +7,6 @@ import 'core/di/app_providers.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_size.dart';
-import 'features/language/view_model/locale_provider.dart';
 import 'l10n/generated/app_localizations.dart';
 
 class FoodLensApp extends StatelessWidget {
@@ -21,25 +20,23 @@ class FoodLensApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: appProviders(),
-      child: Consumer<LocaleProvider>(
-        builder: (context, localeProvider, _) {
-          return MaterialApp.router(
-            title: 'FoodLens',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.light,
-            darkTheme: AppTheme.dark,
-            themeMode: ThemeMode.light,
-            locale: localeProvider.locale,
-            supportedLocales: AppLocales.supported,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            routerConfig: router ?? AppRouter.router,
-            // Captures the screen width once per size change so every
-            // dynamicWidth/dynamicHeight call in the tree is in sync.
-            builder: (context, child) {
-              AppSize.init(context);
-              return child ?? const SizedBox.shrink();
-            },
-          );
+      child: MaterialApp.router(
+        title: 'FoodLens',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: ThemeMode.light,
+        // The interface is always English. The language preference is
+        // used only to pick the voice for the Listen voiceover.
+        locale: const Locale('en'),
+        supportedLocales: AppLocales.supported,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        routerConfig: router ?? AppRouter.router,
+        // Captures the screen width once per size change so every
+        // dynamicWidth/dynamicHeight call in the tree is in sync.
+        builder: (context, child) {
+          AppSize.init(context);
+          return child ?? const SizedBox.shrink();
         },
       ),
     );

@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @preferredLanguageLabel.
   ///
   /// In en, this message translates to:
-  /// **'Preferred language'**
+  /// **'Listen language'**
   String get preferredLanguageLabel;
 
   /// No description provided for @flagQuestionLabel.
@@ -445,8 +445,14 @@ abstract class AppLocalizations {
   /// No description provided for @languageScreenTitle.
   ///
   /// In en, this message translates to:
-  /// **'Language'**
+  /// **'Voice language'**
   String get languageScreenTitle;
+
+  /// No description provided for @languageVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen text always stays in English. Choose the language you want the Listen voiceover to speak in.'**
+  String get languageVoiceNote;
 
   /// No description provided for @languageEnglish.
   ///
@@ -1207,7 +1213,7 @@ abstract class AppLocalizations {
   /// No description provided for @languageRowLabel.
   ///
   /// In en, this message translates to:
-  /// **'Language'**
+  /// **'Voice language'**
   String get languageRowLabel;
 
   /// No description provided for @healthFlagsRowLabel.

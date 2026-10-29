@@ -64,7 +64,7 @@
   "otpTooManyAttemptsError": "Too many attempts. Restart the demo sign-in.",
 
   "setupTitle": "A couple of quick things",
-  "preferredLanguageLabel": "Preferred language",
+  "preferredLanguageLabel": "Listen language",
   "flagQuestionLabel": "Anything we should flag for, if present?",
   "flagNote": "Only changes which flags we surface first — never what's printed on the label.",
   "flagDiabetes": "Diabetes",
@@ -92,7 +92,8 @@
   "nameHint": "Enter your name",
   "nameRequiredError": "Please enter your name",
 
-  "languageScreenTitle": "Language",
+  "languageScreenTitle": "Voice language",
+  "languageVoiceNote": "Screen text always stays in English. Choose the language you want the Listen voiceover to speak in.",
   "languageEnglish": "English",
   "languageHindi": "हिन्दी",
   "languageGujarati": "ગુજરાતી",
@@ -374,7 +375,7 @@
   "profileError": "Couldn't load your profile.",
   "profileDemoBadge": "Demo profile",
   "preferencesSection": "Preferences",
-  "languageRowLabel": "Language",
+  "languageRowLabel": "Voice language",
   "healthFlagsRowLabel": "Health flags",
   "onThisDevice": "On this device",
   "noFlagsSet": "None set",

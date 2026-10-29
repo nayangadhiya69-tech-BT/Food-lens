@@ -36,7 +36,7 @@
   "otpTooManyAttemptsError": "बहुत अधिक प्रयास हो गए। डेमो साइन-इन फिर से शुरू करें।",
 
   "setupTitle": "कुछ छोटी बातें",
-  "preferredLanguageLabel": "पसंदीदा भाषा",
+  "preferredLanguageLabel": "सुनने की भाषा",
   "flagQuestionLabel": "मौजूद होने पर, किन चीज़ों के लिए ध्यान रखें?",
   "flagNote": "यह केवल तय करता है कि कौन-से फ़्लैग पहले दिखेंगे — लेबल पर क्या छपा है, इसमें कोई बदलाव नहीं।",
   "flagDiabetes": "मधुमेह",
@@ -64,7 +64,8 @@
   "nameHint": "अपना नाम दर्ज करें",
   "nameRequiredError": "कृपया अपना नाम दर्ज करें",
 
-  "languageScreenTitle": "भाषा",
+  "languageScreenTitle": "आवाज़ की भाषा",
+  "languageVoiceNote": "स्क्रीन का टेक्स्ट हमेशा अंग्रेज़ी में रहेगा। जिस भाषा में Listen सुनना चाहते हैं, वह चुनें।",
   "languageEnglish": "English",
   "languageHindi": "हिन्दी",
   "languageGujarati": "ગુજરાતી",
@@ -210,7 +211,7 @@
   "profileError": "आपका प्रोफ़ाइल लोड नहीं हो सका।",
   "profileDemoBadge": "डेमो प्रोफ़ाइल",
   "preferencesSection": "प्राथमिकताएँ",
-  "languageRowLabel": "भाषा",
+  "languageRowLabel": "आवाज़ की भाषा",
   "healthFlagsRowLabel": "हेल्थ फ़्लैग",
   "onThisDevice": "इस डिवाइस पर",
   "noFlagsSet": "कोई सेट नहीं",
